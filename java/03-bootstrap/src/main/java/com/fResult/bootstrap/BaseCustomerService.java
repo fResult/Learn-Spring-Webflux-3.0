@@ -35,7 +35,7 @@ public class BaseCustomerService implements CustomerService {
             ps.setString(1, name);
 
             return ps;
-          });
+          }, keyHolder);
 
       final var keyHolderKey = Objects.requireNonNull(keyHolder.getKey()).longValue();
       final var customer = findById(keyHolderKey);
@@ -54,6 +54,6 @@ public class BaseCustomerService implements CustomerService {
 
   @Override
   public Collection<Customer> findAll() {
-    return jdbcTemplate.query("SELECT * FROM customerA", rowMapper);
+    return jdbcTemplate.query("SELECT * FROM customers", rowMapper);
   }
 }

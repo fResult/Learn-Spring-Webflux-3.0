@@ -7,8 +7,8 @@ import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 
 public class DataSourceUtils {
   public static DataSource initializeDdl(final DataSource dataSource) {
-    final var population = new ResourceDatabasePopulator(new ClassPathResource("/schema.sql"));
-    DatabasePopulatorUtils.execute(population, dataSource);
+    final var populator = new ResourceDatabasePopulator(new ClassPathResource("/schema.sql"));
+    DatabasePopulatorUtils.execute(populator, dataSource);
 
     return dataSource;
   }
