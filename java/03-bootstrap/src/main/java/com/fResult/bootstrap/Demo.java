@@ -1,5 +1,6 @@
 package com.fResult.bootstrap;
 
+import com.fResult.bootstrap.customers.services.CustomerService;
 import com.fResult.bootstrap.customers.services.DevelopmentOnlyCustomerService;
 import java.util.stream.Stream;
 import lombok.extern.log4j.Log4j2;
@@ -12,7 +13,7 @@ public final class Demo {
   }
 
   public static void workWithCustomerService(
-      Class<BootstrapApplication> label, DevelopmentOnlyCustomerService customerService) {
+      Class<BootstrapApplication> label, CustomerService customerService) {
 
     log.info("====================================");
     log.info(label.getName());
