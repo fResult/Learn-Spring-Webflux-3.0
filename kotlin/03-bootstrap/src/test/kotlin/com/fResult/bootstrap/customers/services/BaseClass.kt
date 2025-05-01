@@ -14,7 +14,7 @@ abstract class BaseClass {
   }
 
   @Test
-  fun `should insert customer`() {
+  open fun `should insert customer`() {
     val actualResult = customerService.save("Wick")
 
     Assertions.assertNotNull(actualResult)
