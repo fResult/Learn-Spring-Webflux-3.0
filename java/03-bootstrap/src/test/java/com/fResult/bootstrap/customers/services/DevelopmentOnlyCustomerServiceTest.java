@@ -9,6 +9,6 @@ class DevelopmentOnlyCustomerServiceTest extends BaseClass {
 
   @Override
   public CustomerService getCustomerService() {
-    return this.customerService;
+    return customerService;
   }
 }
