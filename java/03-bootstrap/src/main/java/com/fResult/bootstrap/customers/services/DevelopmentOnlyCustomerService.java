@@ -1,10 +1,9 @@
-package com.fResult.bootstrap;
+package com.fResult.bootstrap.customers.services;
 
-import org.springframework.jdbc.core.JdbcTemplate;
+import com.fResult.bootstrap.common.DataSourceUtils;
+import javax.sql.DataSource;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
-
-import javax.sql.DataSource;
 
 public class DevelopmentOnlyCustomerService extends BaseCustomerService {
   public DevelopmentOnlyCustomerService() {

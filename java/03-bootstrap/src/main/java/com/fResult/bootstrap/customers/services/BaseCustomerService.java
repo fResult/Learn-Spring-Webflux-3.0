@@ -1,16 +1,15 @@
-package com.fResult.bootstrap;
+package com.fResult.bootstrap.customers.services;
 
+import com.fResult.bootstrap.customers.Customer;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Objects;
+import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.util.Assert;
-
-import javax.sql.DataSource;
 
 public class BaseCustomerService implements CustomerService {
   private final RowMapper<Customer> rowMapper =
@@ -35,7 +34,8 @@ public class BaseCustomerService implements CustomerService {
             ps.setString(1, name);
 
             return ps;
-          }, keyHolder);
+          },
+          keyHolder);
 
       final var keyHolderKey = Objects.requireNonNull(keyHolder.getKey()).longValue();
       final var customer = findById(keyHolderKey);

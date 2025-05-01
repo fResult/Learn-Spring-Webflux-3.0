@@ -1,12 +1,12 @@
 package com.fResult.bootstrap;
 
-import org.springframework.boot.SpringApplication;
+import com.fResult.bootstrap.customers.services.DevelopmentOnlyCustomerService;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class BootstrapApplication {
-	public static void main(String[] args) {
-		final var customerService = new DevelopmentOnlyCustomerService();
-		Demo.workWithCustomerService(BootstrapApplication.class, customerService);
-	}
+  public static void main(String[] args) {
+    final var customerService = new DevelopmentOnlyCustomerService();
+    Demo.workWithCustomerService(BootstrapApplication.class, customerService);
+  }
 }

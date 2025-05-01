@@ -1,5 +1,6 @@
-package com.fResult.bootstrap;
+package com.fResult.bootstrap.customers.services;
 
+import com.fResult.bootstrap.customers.Customer;
 import java.util.Collection;
 
 public interface CustomerService {
