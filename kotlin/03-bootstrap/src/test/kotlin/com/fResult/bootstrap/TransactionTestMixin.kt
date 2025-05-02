@@ -11,12 +11,13 @@ interface TransactionTestMixin {
     val count = customerService.findAll().size
 
     try {
-      customerService.save("Bob")
+      customerService.save("Bob", "null")
     } catch (ex: Exception) {
       assertEquals(
         count, customerService.findAll().size,
-        "there should be no new records in the database"
+        "there should be no new records in the database",
       )
+      return
     }
 
     // fail<Exception>("Expected exception was not thrown")
