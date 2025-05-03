@@ -1,4 +1,4 @@
-package com.fResult.java_bootstrap.common;
+package com.fResult.bootstrap.common;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
