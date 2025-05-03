@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
 @Configuration
 public class DataSourceConfiguration {
@@ -39,13 +40,25 @@ public class DataSourceConfiguration {
     }
   }
 
+  @Configuration
+  @Profile("default")
+  @PropertySource("application-default.yml")
+  public static class DevelopmentConfiguration {
+    @Bean
+    DataSource dataSource() {
+      return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).build();
+    }
+  }
+
   private static class DataSourcePostProcessor implements BeanPostProcessor {
     @Override
     public Object postProcessBeforeInitialization(Object bean, @Nonnull String beanName)
         throws BeansException {
 
       return switch (bean) {
-        case EmbeddedDatabaseBuilder dsBuilder -> DataSourceUtils.initializeDdl(dsBuilder.build());
+        case EmbeddedDatabaseBuilder dsBuilder ->
+            DataSourceUtils.initializeDdl(dsBuilder.setType(EmbeddedDatabaseType.H2).build());
+
         case DataSource dataSource -> DataSourceUtils.initializeDdl(dataSource);
         default -> bean;
       };
