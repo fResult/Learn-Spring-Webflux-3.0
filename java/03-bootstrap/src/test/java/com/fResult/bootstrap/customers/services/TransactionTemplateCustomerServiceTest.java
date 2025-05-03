@@ -13,17 +13,17 @@ import org.springframework.transaction.support.TransactionTemplate;
 class TransactionTemplateCustomerServiceTest extends BaseClass implements TransactionTestMixin {
   private CustomerService customerService;
 
+  public TransactionTemplateCustomerServiceTest() {
+    final var dataSource = new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).build();
+
+    Optional.of(dataSource).map(this::buildCustomerService).ifPresent(it -> customerService = it);
+  }
+
   @Override
   @Test
   public void insert() {
     super.insert();
     this.testTransactionalityOfSave(getCustomerService());
-  }
-
-  public TransactionTemplateCustomerServiceTest() {
-    final var dataSource = new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).build();
-
-    Optional.of(dataSource).map(this::buildCustomerService).ifPresent(it -> customerService = it);
   }
 
   @Override

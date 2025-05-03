@@ -25,6 +25,11 @@ import org.springframework.lang.Nullable;
 
 @Configuration
 public class DataSourceConfiguration {
+  @Bean
+  DataSourcePostProcessor dataSourcePostProcessor() {
+    return new DataSourcePostProcessor();
+  }
+
   @Configuration
   @Profile("prod")
   @PropertySource(value = "application-prod.yml", factory = YamlPropertySourceFactory.class)
@@ -41,11 +46,6 @@ public class DataSourceConfiguration {
 
       return dataSource;
     }
-  }
-
-  @Bean
-  DataSourcePostProcessor dataSourcePostProcessor() {
-    return new DataSourcePostProcessor();
   }
 
   private static class DataSourcePostProcessor implements BeanPostProcessor {
