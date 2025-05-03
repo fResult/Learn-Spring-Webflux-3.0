@@ -1,6 +1,6 @@
 package com.fResult.bootstrap.common.configs;
 
-import com.fResult.bootstrap.common.DataSourceUtils;
+import com.fResult.bootstrap.common.utils.DataSourceUtils;
 import com.fResult.bootstrap.common.factories.YmlPropertySourceFactory;
 import jakarta.annotation.Nonnull;
 import javax.sql.DataSource;

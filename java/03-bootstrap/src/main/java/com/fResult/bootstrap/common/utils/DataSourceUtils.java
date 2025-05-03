@@ -1,4 +1,4 @@
-package com.fResult.bootstrap.common;
+package com.fResult.bootstrap.common.utils;
 
 import javax.sql.DataSource;
 import org.springframework.core.io.ClassPathResource;

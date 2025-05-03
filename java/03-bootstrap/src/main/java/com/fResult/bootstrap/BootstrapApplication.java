@@ -1,6 +1,6 @@
 package com.fResult.bootstrap;
 
-import com.fResult.bootstrap.common.SpringUtils;
+import com.fResult.bootstrap.common.utils.SpringUtils;
 import com.fResult.bootstrap.common.configs.DataSourceConfiguration;
 import com.fResult.bootstrap.customers.services.CustomerService;
 import com.fResult.bootstrap.customers.services.TransactionTemplateCustomerService;

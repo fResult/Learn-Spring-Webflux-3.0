@@ -1,7 +1,7 @@
 package com.fResult.bootstrap.customers.services;
 
 import com.fResult.bootstrap.TransactionTestMixin;
-import com.fResult.bootstrap.common.DataSourceUtils;
+import com.fResult.bootstrap.common.utils.DataSourceUtils;
 import java.util.Optional;
 import javax.sql.DataSource;
 import org.junit.jupiter.api.Test;
