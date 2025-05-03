@@ -1,7 +1,7 @@
 plugins {
   java
-  id("org.springframework.boot") version "3.4.5" // libs.versions.springboot.get()
-  id("io.spring.dependency-management") version "1.1.7"
+  id("org.springframework.boot") version libs.versions.springboot.get()
+  id("io.spring.dependency-management") version libs.versions.springDependencyManagement.get()
 }
 
 group = "com.fResult"
