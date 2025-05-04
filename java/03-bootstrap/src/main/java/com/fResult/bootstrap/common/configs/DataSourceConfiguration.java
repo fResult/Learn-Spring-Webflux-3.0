@@ -1,7 +1,7 @@
 package com.fResult.bootstrap.common.configs;
 
-import com.fResult.bootstrap.common.utils.DataSourceUtils;
 import com.fResult.bootstrap.common.factories.YmlPropertySourceFactory;
+import com.fResult.bootstrap.common.utils.DataSourceUtils;
 import jakarta.annotation.Nonnull;
 import javax.sql.DataSource;
 import org.springframework.beans.BeansException;
@@ -31,10 +31,10 @@ public class DataSourceConfiguration {
         @Value("${spring.datasource.url}") String url,
         @Value("${spring.datasource.username}") String username,
         @Value("${spring.datasource.password}") String password,
-        @Value("${spring.datasource.driver-class-name}") String driverClass) {
+        @Value("${spring.datasource.driver-class-name}") Class<?> driverClass) {
 
       final var dataSource = new DriverManagerDataSource(url, username, password);
-      dataSource.setDriverClassName(driverClass);
+      dataSource.setDriverClassName(driverClass.getName());
 
       return dataSource;
     }
@@ -42,7 +42,7 @@ public class DataSourceConfiguration {
 
   @Configuration
   @Profile("default")
-  @PropertySource("application-default.yml")
+  @PropertySource(value = "application-default.yml", factory = YmlPropertySourceFactory.class)
   public static class DevelopmentConfiguration {
     @Bean
     DataSource dataSource() {
@@ -57,7 +57,8 @@ public class DataSourceConfiguration {
 
       return switch (bean) {
         case EmbeddedDatabaseBuilder embeddedDbBuilder ->
-            DataSourceUtils.initializeDdl(embeddedDbBuilder.setType(EmbeddedDatabaseType.H2).build());
+            DataSourceUtils.initializeDdl(
+                embeddedDbBuilder.setType(EmbeddedDatabaseType.H2).build());
 
         case DataSource dataSource -> DataSourceUtils.initializeDdl(dataSource);
         default -> bean;
