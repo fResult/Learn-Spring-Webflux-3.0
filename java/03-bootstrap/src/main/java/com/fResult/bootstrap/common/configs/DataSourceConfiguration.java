@@ -56,8 +56,8 @@ public class DataSourceConfiguration {
         throws BeansException {
 
       return switch (bean) {
-        case EmbeddedDatabaseBuilder dsBuilder ->
-            DataSourceUtils.initializeDdl(dsBuilder.setType(EmbeddedDatabaseType.H2).build());
+        case EmbeddedDatabaseBuilder embeddedDbBuilder ->
+            DataSourceUtils.initializeDdl(embeddedDbBuilder.setType(EmbeddedDatabaseType.H2).build());
 
         case DataSource dataSource -> DataSourceUtils.initializeDdl(dataSource);
         default -> bean;
