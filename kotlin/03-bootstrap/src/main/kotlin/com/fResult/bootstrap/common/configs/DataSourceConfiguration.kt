@@ -22,7 +22,7 @@ class DataSourceConfiguration {
   @Profile("prod")
   @PropertySource(
     value = ["application-prod.yml"],
-    factory = YmlPropertySourceFactory::class
+    factory = YmlPropertySourceFactory::class,
   )
   class ProductionConfiguration {
     @Bean
@@ -31,11 +31,8 @@ class DataSourceConfiguration {
       @Value("\${spring.datasource.username}") username: String,
       @Value("\${spring.datasource.password}") password: String,
       @Value("\${spring.datasource.driver-class-name}") driverClass: String,
-    ): DataSource {
-      val dataSource = DriverManagerDataSource(url, username, password)
-      dataSource.setDriverClassName(driverClass)
-
-      return dataSource
+    ): DataSource = DriverManagerDataSource(url, username, password).apply {
+      setDriverClassName(driverClass)
     }
   }
 
@@ -43,7 +40,7 @@ class DataSourceConfiguration {
   @Profile("default")
   @PropertySource(
     value = ["application-default.yml"],
-    factory = YmlPropertySourceFactory::class
+    factory = YmlPropertySourceFactory::class,
   )
   class DevelopmentConfiguration {
     @Bean
@@ -51,14 +48,13 @@ class DataSourceConfiguration {
   }
 
   class DataSourcePostProcessor : BeanPostProcessor {
-    override fun postProcessAfterInitialization(bean: Any, beanName: String): Any {
-      return when (bean) {
+    override fun postProcessAfterInitialization(bean: Any, beanName: String) =
+      when (bean) {
         is EmbeddedDatabaseBuilder ->
           DataSourceUtils.initializeDdl(bean.setType(EmbeddedDatabaseType.H2).build())
 
         is DataSource -> DataSourceUtils.initializeDdl(bean)
         else -> bean
       }
-    }
   }
 }

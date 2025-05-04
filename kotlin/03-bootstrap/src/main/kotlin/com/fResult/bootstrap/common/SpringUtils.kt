@@ -8,7 +8,7 @@ class SpringUtils {
   companion object {
     fun run(componentClass: KClass<*>, profile: String): ConfigurableApplicationContext {
       return AnnotationConfigApplicationContext().apply {
-        profile.also { environment.setActiveProfiles(profile) }
+        profile.takeIf(String::isNotBlank)?.also { environment.setActiveProfiles(it) }
 
         register(componentClass.java)
         refresh()
