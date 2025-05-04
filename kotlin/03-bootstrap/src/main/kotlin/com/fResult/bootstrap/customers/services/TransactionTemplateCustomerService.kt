@@ -4,7 +4,7 @@ import com.fResult.bootstrap.customers.Customer
 import org.springframework.transaction.support.TransactionTemplate
 import javax.sql.DataSource
 
-class TransactionTemplateCustomerService(
+open class TransactionTemplateCustomerService(
   dataSource: DataSource,
   private val transactionTemplate: TransactionTemplate,
 ) : BaseCustomerService(dataSource) {
