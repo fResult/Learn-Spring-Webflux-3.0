@@ -4,6 +4,7 @@ import com.fResult.bootstrap.customers.Customer
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.jdbc.core.RowMapper
 import org.springframework.jdbc.support.GeneratedKeyHolder
+import org.springframework.util.Assert
 import java.sql.Statement
 import javax.sql.DataSource
 
@@ -23,9 +24,8 @@ open class BaseCustomerService(ds: DataSource) : CustomerService {
 
       keyHolder.key?.also { key ->
         val keyHolderKey = key.toLong()
-        val customer = findById(keyHolderKey)
-
-        customer?.also(customers::add)
+        findById(keyHolderKey)?.also(customers::add)
+        Assert.notNull(name, "The name given must not be null")
       }
     }
 
