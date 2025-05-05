@@ -4,7 +4,9 @@ import com.fResult.bootstrap.BootstrapApplication;
 import com.fResult.bootstrap.TransactionTestMixin;
 import org.junit.jupiter.api.Test;
 
-class TransactionalCustomerServiceTest extends ApplicationContextAwareBaseClass implements TransactionTestMixin {
+class TransactionalCustomerServiceTest extends ApplicationContextAwareBaseClass
+    implements TransactionTestMixin {
+
   @Test
   @Override
   public void insert() {
@@ -12,6 +14,7 @@ class TransactionalCustomerServiceTest extends ApplicationContextAwareBaseClass 
 
     testTransactionalityOfSave(getCustomerService());
   }
+
   @Override
   protected Class<BootstrapApplication> getConfigurationClass() {
     return BootstrapApplication.class;

@@ -1,7 +1,7 @@
 package com.fResult.bootstrap;
 
-import com.fResult.bootstrap.common.utils.SpringUtils;
 import com.fResult.bootstrap.common.configs.DataSourceConfiguration;
+import com.fResult.bootstrap.common.utils.SpringUtils;
 import com.fResult.bootstrap.customers.services.CustomerService;
 import javax.sql.DataSource;
 import org.springframework.context.annotation.Bean;
@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.support.TransactionTemplate;
 
 @Configuration
 @ComponentScan
+@EnableTransactionManagement
 @Import(DataSourceConfiguration.class)
 public class BootstrapApplication {
   public static void main(String[] args) {
@@ -24,12 +26,12 @@ public class BootstrapApplication {
   }
 
   @Bean
-  PlatformTransactionManager transactionManager(DataSource dataSource) {
+  public PlatformTransactionManager transactionManager(DataSource dataSource) {
     return new DataSourceTransactionManager(dataSource);
   }
 
   @Bean
-  TransactionTemplate transactionTemplate(PlatformTransactionManager transactionManager) {
+  public TransactionTemplate transactionTemplate(PlatformTransactionManager transactionManager) {
     return new TransactionTemplate(transactionManager);
   }
 }

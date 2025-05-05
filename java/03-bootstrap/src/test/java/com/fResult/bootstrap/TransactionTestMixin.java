@@ -11,14 +11,16 @@ public interface TransactionTestMixin {
     final var log = LoggerFactory.getLogger(getClass());
     log.info("using customer {}", customerService.getClass().getSimpleName());
 
-    int count = customerService.findAll().size();
+    final var expectedResult = customerService.findAll();
+    final var expectedCount = expectedResult.size();
 
     try {
-      customerService.save("Wick", null);
+      customerService.save("Anderson", null);
     } catch (Exception ex) {
+      final var actualResult = customerService.findAll();
       assertEquals(
-          count,
-          customerService.findAll().size(),
+          expectedCount,
+          actualResult.size(),
           "there should be no new records in the database: " + ex.getMessage());
       return;
     }
