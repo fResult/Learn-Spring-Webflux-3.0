@@ -1,3 +1,12 @@
 spring:
   application:
-    name: 03 BootStrap Java
+    name: 03 BootStrap (Java)
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS

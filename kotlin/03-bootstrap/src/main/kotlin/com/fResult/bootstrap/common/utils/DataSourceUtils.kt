@@ -1,4 +1,4 @@
-package com.fResult.bootstrap.common
+package com.fResult.bootstrap.common.utils
 
 import org.springframework.core.io.ClassPathResource
 import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils

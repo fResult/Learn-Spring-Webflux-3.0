@@ -1,4 +1,4 @@
-package com.fResult.bootstrap.common
+package com.fResult.bootstrap.common.utils
 
 import org.springframework.context.ConfigurableApplicationContext
 import org.springframework.context.annotation.AnnotationConfigApplicationContext

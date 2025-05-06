@@ -11,7 +11,7 @@ interface TransactionTestMixin {
     val count = customerService.findAll().size
 
     try {
-      customerService.save("Bob", "null")
+      customerService.save("Anderson", "null")
     } catch (ex: Exception) {
       assertEquals(
         count, customerService.findAll().size,

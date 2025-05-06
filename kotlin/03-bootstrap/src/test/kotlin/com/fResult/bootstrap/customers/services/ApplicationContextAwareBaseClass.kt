@@ -18,7 +18,7 @@ abstract class ApplicationContextAwareBaseClass : BaseClass() {
 
   protected abstract fun getConfigurationClass(): KClass<*>
 
-  private fun buildApplicationContext(
+  protected open fun buildApplicationContext(
     componentClass: KClass<*>,
     vararg profiles: String,
   ): ConfigurableApplicationContext = AnnotationConfigApplicationContext().apply {

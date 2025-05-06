@@ -1,7 +1,7 @@
 package com.fResult.bootstrap.customers.services
 
 import com.fResult.bootstrap.TransactionTestMixin
-import com.fResult.bootstrap.common.DataSourceUtils
+import com.fResult.bootstrap.common.utils.DataSourceUtils
 import org.junit.jupiter.api.Test
 import org.springframework.jdbc.datasource.DataSourceTransactionManager
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder

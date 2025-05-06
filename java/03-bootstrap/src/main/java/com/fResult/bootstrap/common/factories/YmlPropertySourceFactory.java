@@ -15,27 +15,22 @@ public class YmlPropertySourceFactory implements PropertySourceFactory {
   @Nonnull
   @Override
   public org.springframework.core.env.PropertySource<?> createPropertySource(
-      @Nullable String name, @NonNull EncodedResource resource) {
+      @Nullable String name, @NonNull EncodedResource encodedResource) {
 
-    final var fileName = Optional.ofNullable(name).orElse(resource.getResource().getFilename());
+    final var fileName =
+        Optional.ofNullable(name)
+            .orElseGet(
+                () ->
+                    Optional.ofNullable(encodedResource.getResource().getFilename())
+                        .orElse("yamlPropertySource"));
     final var factoryBean = new YamlPropertiesFactoryBean();
-    factoryBean.setResources(resource.getResource());
-    final var properties = factoryBean.getObject();
+    factoryBean.setResources(encodedResource.getResource());
 
-    return Optional.ofNullable(fileName)
-        .flatMap(buildPropertiesPropertySourceOpt(properties))
-        .orElseThrow();
-  }
+    final var properties =
+        encodedResource.getResource().exists()
+            ? Optional.ofNullable(factoryBean.getObject()).orElseGet(Properties::new)
+            : new Properties();
 
-  private Function<String, Optional<PropertiesPropertySource>> buildPropertiesPropertySourceOpt(
-      @Nullable Properties props) {
-
-    return fileName -> Optional.ofNullable(props).map(buildPropertiesPropertySource(fileName));
-  }
-
-  private Function<Properties, PropertiesPropertySource> buildPropertiesPropertySource(
-      @Nonnull String fileName) {
-
-    return props -> new PropertiesPropertySource(fileName, props);
+    return new PropertiesPropertySource(fileName, properties);
   }
 }
