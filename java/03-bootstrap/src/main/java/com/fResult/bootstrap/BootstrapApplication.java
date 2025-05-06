@@ -1,37 +1,35 @@
 package com.fResult.bootstrap;
 
-import com.fResult.bootstrap.common.configs.DataSourceConfiguration;
-import com.fResult.bootstrap.common.utils.SpringUtils;
-import com.fResult.bootstrap.customers.services.CustomerService;
-import javax.sql.DataSource;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.transaction.support.TransactionTemplate;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@Configuration
-@ComponentScan
-@EnableTransactionManagement
-@Import(DataSourceConfiguration.class)
+// @Configuration
+// @ComponentScan
+// @EnableTransactionManagement
+// @Import(DataSourceConfiguration.class)
+@SpringBootApplication
 public class BootstrapApplication {
-  public static void main(String[] args) {
-    final var context = SpringUtils.run(BootstrapApplication.class, "prod");
-
-    final var customerService = context.getBean(CustomerService.class);
-    Demo.workWithCustomerService(BootstrapApplication.class, customerService);
+  public static void main(String... args) {
+    System.setProperty("spring.profiles.active", "prod");
+    SpringApplication.run(BootstrapApplication.class, args);
   }
 
-  @Bean
-  public PlatformTransactionManager transactionManager(DataSource dataSource) {
-    return new DataSourceTransactionManager(dataSource);
-  }
-
-  @Bean
-  public TransactionTemplate transactionTemplate(PlatformTransactionManager transactionManager) {
-    return new TransactionTemplate(transactionManager);
-  }
+  /* NO-SONAR java:S125
+   * public static void main(String[] args) {
+   *   final var context = SpringUtils.run(BootstrapApplication.class, "prod");
+   *
+   *   final var customerService = context.getBean(CustomerService.class);
+   *   Demo.workWithCustomerService(BootstrapApplication.class, customerService);
+   * }
+   *
+   * @Bean
+   * public PlatformTransactionManager transactionManager(DataSource dataSource) {
+   *   return new DataSourceTransactionManager(dataSource);
+   * }
+   *
+   * @Bean
+   * public TransactionTemplate transactionTemplate(PlatformTransactionManager transactionManager) {
+   *   return new TransactionTemplate(transactionManager);
+   * }
+   */
 }
