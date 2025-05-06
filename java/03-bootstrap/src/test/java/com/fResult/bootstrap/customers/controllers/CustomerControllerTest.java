@@ -65,8 +65,8 @@ class CustomerControllerTest {
     resultActions
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-        .andExpect(jsonPath("@.id").value(expectedCustomer.id()))
-        .andExpect(jsonPath("@.name").value(expectedCustomer.name()));
+        .andExpect(jsonPath("$.id").value(expectedCustomer.id()))
+        .andExpect(jsonPath("$.name").value(expectedCustomer.name()));
   }
 
   @Test
