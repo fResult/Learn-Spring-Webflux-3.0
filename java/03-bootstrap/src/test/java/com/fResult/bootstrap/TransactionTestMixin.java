@@ -15,6 +15,7 @@ public interface TransactionTestMixin {
     final var expectedCount = expectedResult.size();
 
     try {
+      /* Passing null as the second argument to intentionally trigger an exception and verify that the transaction is rolled back correctly. */
       customerService.save("Anderson", null);
     } catch (Exception ex) {
       final var actualResult = customerService.findAll();
