@@ -17,6 +17,16 @@ This module demonstrates core Spring Boot concepts in Kotlin including:
 - Implements transaction management using Spring Boot's Kotlin support
 - Configures Actuator endpoints for different profiles
 
+## Running the Project
+
+```bash
+# Run app
+./gradlew :kotlin:03-bootstrap:bootRun
+
+# Run all tests
+./gradlew :kotlin:03-bootstrap:test
+```
+
 ## See Also
 
 For the Java implementation of this module, see the [Java version](../../java/03-bootstrap).

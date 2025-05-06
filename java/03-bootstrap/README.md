@@ -18,6 +18,16 @@ This module demonstrates core Spring Boot concepts including:
 - Uses component scanning with `@Service` annotations
 - Implements custom test infrastructure for profile-specific testing
 
+## Running the Project
+
+```bash
+# Run app
+./gradlew :java:03-bootstrap:bootRun
+
+# Run all tests
+./gradlew :java:03-bootstrap:test
+```
+
 ## See Also
 
 For the Kotlin implementation of this module, see the [Kotlin version](../../kotlin/03-bootstrap).
