@@ -19,7 +19,7 @@ public abstract class ApplicationContextAwareBaseClass extends BaseClass {
             Optional.ofNullable(context).orElse(buildApplicationContext(getConfigurationClass())));
   }
 
-  private ConfigurableApplicationContext buildApplicationContext(
+  protected ConfigurableApplicationContext buildApplicationContext(
       Class<?> componentClass, String... profiles) {
 
     final var context = new AnnotationConfigApplicationContext();
