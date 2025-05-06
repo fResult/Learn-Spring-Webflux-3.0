@@ -33,16 +33,4 @@ public class YmlPropertySourceFactory implements PropertySourceFactory {
 
     return new PropertiesPropertySource(fileName, properties);
   }
-
-  private Function<String, Optional<PropertiesPropertySource>> buildPropertiesPropertySourceOpt(
-      @Nullable Properties props) {
-
-    return fileName -> Optional.ofNullable(props).map(buildPropertiesPropertySource(fileName));
-  }
-
-  private Function<Properties, PropertiesPropertySource> buildPropertiesPropertySource(
-      @Nonnull String fileName) {
-
-    return props -> new PropertiesPropertySource(fileName, props);
-  }
 }
