@@ -15,6 +15,6 @@ class SpringBootCustomerServiceTest : BaseClass(), TransactionTestMixin {
   @Test
   override fun `should insert customer`() {
     super.`should insert customer`()
-    this.testTransactionalityOfSave(getCustomerService())
+    testTransactionalityOfSave(getCustomerService())
   }
 }

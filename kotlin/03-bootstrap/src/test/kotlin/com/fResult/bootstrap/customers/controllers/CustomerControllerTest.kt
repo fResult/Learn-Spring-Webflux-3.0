@@ -80,13 +80,13 @@ class CustomerControllerTest {
     given(customerService.save(expectedCustomer.name)).willReturn(listOf(expectedCustomer))
 
     // When
-    val resultAction = mockMvc.perform(
+    val resultActions = mockMvc.perform(
       post(path)
         .contentType(MediaType.APPLICATION_JSON)
         .content(body)
     )
 
-    resultAction.run {
+    resultActions.run {
       andExpectAll(
         status().isOk(),
         content().contentType(MediaType.APPLICATION_JSON),
