@@ -16,8 +16,8 @@ class CustomerController(val customerService: CustomerService) {
   fun all() = customerService.findAll()
 
   @GetMapping("/{id}")
-  fun byId(@PathVariable id: Long) = customerService.findById(id)
+  fun byId(@PathVariable id: Long): Customer? = customerService.findById(id)
 
   @PostMapping
-  fun create(@RequestBody body: Customer) = customerService.save(body.name)
+  fun create(@RequestBody body: Customer): Collection<Customer> = customerService.save(body.name)
 }

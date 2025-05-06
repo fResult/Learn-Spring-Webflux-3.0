@@ -1,6 +1,6 @@
 package com.fResult.bootstrap.customers.services
 
-import com.fResult.bootstrap.common.DataSourceUtils
+import com.fResult.bootstrap.common.utils.DataSourceUtils
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType
 import javax.sql.DataSource

@@ -5,6 +5,7 @@ import org.springframework.boot.runApplication
 
 // @Configuration
 // @ComponentScan
+// @EnableTransactionManagement
 // @Import(DataSourceConfiguration::class)
 @SpringBootApplication
 class BootstrapApplication {
