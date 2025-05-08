@@ -24,14 +24,14 @@ repositories {
 }
 
 dependencies {
-  implementation("org.springframework.boot:spring-boot-starter-actuator")
-  implementation("org.springframework.boot:spring-boot-starter-jdbc")
-  implementation("org.springframework.boot:spring-boot-starter-web")
+  implementation(libs.spring.boot.starter.actuator)
+  implementation(libs.spring.boot.starter.jdbc)
+  implementation(libs.spring.boot.starter.web)
   compileOnly("org.projectlombok:lombok")
-  developmentOnly("org.springframework.boot:spring-boot-devtools")
+  developmentOnly(libs.spring.boot.devtools)
   runtimeOnly("com.h2database:h2")
   annotationProcessor("org.projectlombok:lombok")
-  testImplementation("org.springframework.boot:spring-boot-starter-test")
+  testImplementation(libs.spring.boot.starter.test)
   testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
