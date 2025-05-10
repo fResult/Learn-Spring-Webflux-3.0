@@ -10,13 +10,12 @@ class BootstrapApplicationTest extends ApplicationContextAwareBaseClass {
   private static final Logger LOG = LoggerFactory.getLogger(BootstrapApplicationTest.class);
 
   @Override
-  protected ConfigurableApplicationContext buildApplicationContext(Class<?> componentClass, String... profiles) {
+  protected ConfigurableApplicationContext buildApplicationContext(
+      Class<?> componentClass, String... profiles) {
+
     LOG.info("Test for profiles: {}", (Object) profiles);
 
-    return new SpringApplicationBuilder()
-        .profiles(profiles)
-        .sources(componentClass)
-        .run();
+    return new SpringApplicationBuilder().profiles(profiles).sources(componentClass).run();
   }
 
   @Override

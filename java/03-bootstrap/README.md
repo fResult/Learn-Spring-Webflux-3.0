@@ -5,6 +5,7 @@
 This module is based on concepts from the [bootstrap repository](https://github.com/reactive-spring-book/bootstrap) with my adaptations.
 
 This module demonstrates core Spring Boot concepts including:
+
 - Starter dependencies
 - Auto-configuration
 - Transaction management

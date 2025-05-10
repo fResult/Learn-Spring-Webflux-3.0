@@ -1,7 +1,7 @@
 package com.fResult.bootstrap.common.configs
 
-import com.fResult.bootstrap.common.utils.DataSourceUtils
 import com.fResult.bootstrap.common.factories.YmlPropertySourceFactory
+import com.fResult.bootstrap.common.utils.DataSourceUtils
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.beans.factory.config.BeanPostProcessor
 import org.springframework.context.annotation.Bean
