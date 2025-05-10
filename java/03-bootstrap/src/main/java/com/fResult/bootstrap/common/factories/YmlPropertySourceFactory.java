@@ -3,7 +3,6 @@ package com.fResult.bootstrap.common.factories;
 import jakarta.annotation.Nonnull;
 import java.util.Optional;
 import java.util.Properties;
-import java.util.function.Function;
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.io.support.EncodedResource;
