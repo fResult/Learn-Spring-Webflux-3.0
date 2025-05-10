@@ -19,12 +19,18 @@ This module demonstrates core Spring Boot concepts in Kotlin including:
 
 ## Running the Project
 
-```bash
-# Run app
-./gradlew :kotlin:03-bootstrap:bootRun
+**Run App:**
 
-# Run all tests
-./gradlew :kotlin:03-bootstrap:test
+```bash
+cd $(git rev-parse --show-toplevel) && \
+  ./gradlew kotlin:03-bootstrap:bootRun
+```
+
+**Run Test:**
+
+```bash
+cd $(git rev-parse --show-toplevel) && \
+   ./gradlew kotlin:03-bootstrap:test
 ```
 
 ## See Also
