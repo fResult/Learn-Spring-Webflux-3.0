@@ -1,8 +1,8 @@
 plugins {
   kotlin("jvm") version "1.9.25"
   kotlin("plugin.spring") version "1.9.25"
-  id("org.springframework.boot") version libs.versions.springboot.get()
-  id("io.spring.dependency-management") version libs.versions.springDependencyManagement.get()
+  alias(libs.plugins.spring.boot)
+  alias(libs.plugins.spring.dependency.management)
 }
 
 group = "com.fResult"

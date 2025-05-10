@@ -21,11 +21,19 @@ This module demonstrates core Spring Boot concepts including:
 
 ## Running the Project
 
+**Build:**
+
 ```bash
-# Run app (When click run on IntelliJ, I need this command to run as absolute
+cd $(git rev-parse --show-toplevel) && \
+   ./gradlew :java:03-bootstrap:clean \
+             :java:03-bootstrap:build
+```
+
+**Run App:**
+
+```bash
 cd $(git rev-parse --show-toplevel) && \
    ./gradlew :java:03-bootstrap:bootRun
-
 ```
 
 **Run Test:**

@@ -20,6 +20,14 @@ This module demonstrates core Spring Boot concepts in Kotlin including:
 
 ## Running the Project
 
+**Build:**
+
+```bash
+cd $(git rev-parse --show-toplevel) && \
+   ./gradlew :kotlin:03-bootstrap:clean \
+             :kotlin:03-bootstrap:build
+```
+
 **Run App:**
 
 ```bash
