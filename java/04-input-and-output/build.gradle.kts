@@ -33,6 +33,13 @@ dependencies {
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
+tasks.register<JavaExec>("runSync") {
+	group = "application"
+	description = "Run the Synchronous file I/O example"
+	mainClass.set("com.fResult.io.files.io.Synchronous")
+	classpath = sourceSets["main"].runtimeClasspath
+}
+
 tasks.withType<Test> {
 	useJUnitPlatform()
 }

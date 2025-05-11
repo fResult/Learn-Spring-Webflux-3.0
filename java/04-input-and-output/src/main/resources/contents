@@ -1,0 +1,5 @@
+This is sample content for synchronous file I/O testing.
+The Synchronous class will read this data and process it.
+Feel free to add more lines to test larger file operations.
+You can add special characters like: !@#$%^&*()
+Numbers: 1234567890
