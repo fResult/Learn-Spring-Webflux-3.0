@@ -2,6 +2,7 @@ package com.fResult.io.files.io.files;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.file.Files;
 import lombok.SneakyThrows;
 import org.springframework.core.io.ClassPathResource;
@@ -12,7 +13,7 @@ public class FileUtils {
     throw new IllegalStateException("This cannot be instantiated");
   }
 
-  @SneakyThrows
+  @SneakyThrows(IOException.class)
   public static File setup() {
     final var file = Files.createTempFile("io-content-data", ".txt").toFile();
     file.deleteOnExit();
