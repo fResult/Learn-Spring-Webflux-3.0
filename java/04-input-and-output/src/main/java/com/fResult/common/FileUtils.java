@@ -1,4 +1,4 @@
-package com.fResult.io.files.io.files;
+package com.fResult.common;
 
 import java.io.File;
 import java.io.FileOutputStream;
