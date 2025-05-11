@@ -18,7 +18,7 @@ public class FileUtils {
     final var file = Files.createTempFile("io-content-data", ".txt").toFile();
     file.deleteOnExit();
 
-    try (var in = new ClassPathResource("/contents").getInputStream();
+    try (var in = new ClassPathResource("/content").getInputStream();
         final var out = new FileOutputStream(file)) {
 
       FileCopyUtils.copy(in, out);

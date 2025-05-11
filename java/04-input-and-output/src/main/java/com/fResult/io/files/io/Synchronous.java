@@ -8,7 +8,7 @@ import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 public class Synchronous {
-  @SneakyThrows
+  @SneakyThrows(IOException.class)
   static void read(File file, Consumer<byte[]> bytesConsumer) {
     try (final var in = new BufferedInputStream(new FileInputStream(file));
         var out = new ByteArrayOutputStream()) {
