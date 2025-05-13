@@ -2,7 +2,7 @@
 
 [← Back to Main README](../../README.md)
 
-This module is based on concepts from the [bootstrap repository](https://github.com/reactive-spring-book/bootstrap) with my adaptations.
+This module is based on concepts from the [reactive-spring-book/bootstrap repository](https://github.com/reactive-spring-book/bootstrap) with my adaptations.
 
 This module demonstrates core Spring Boot concepts including:
 
