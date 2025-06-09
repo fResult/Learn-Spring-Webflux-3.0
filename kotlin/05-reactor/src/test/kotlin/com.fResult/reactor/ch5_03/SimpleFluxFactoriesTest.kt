@@ -22,5 +22,8 @@ class SimpleFluxFactoriesTest {
 
     val empty: Mono<Any> = Mono.empty()
     StepVerifier.create(empty).verifyComplete()
+
+    val fromIterable = Flux.fromIterable(listOf(1, 2, 3))
+    StepVerifier.create(fromIterable).expectNext(1, 2, 3).verifyComplete()
   }
 }
