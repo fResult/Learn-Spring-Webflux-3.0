@@ -3,6 +3,7 @@ package com.fResult.reactor.ch5_03
 import org.junit.jupiter.api.Test
 import org.reactivestreams.FlowAdapters
 import org.reactivestreams.Publisher
+import reactor.adapter.JdkFlowAdapter
 import reactor.core.publisher.Flux
 import reactor.test.StepVerifier
 import java.util.concurrent.Flow
@@ -16,5 +17,8 @@ class FlowAndReactiveStreamsTest {
 
     StepVerifier.create(original).expectNextCount(10).verifyComplete()
     StepVerifier.create(rangeOfIntegersAsReactiveStream).expectNextCount(10).verifyComplete()
+
+    val rangeOfIntegersAsReactorFluxAgain = JdkFlowAdapter.flowPublisherToFlux(rangeOfIntegersAsJdk9Flow)
+    StepVerifier.create(rangeOfIntegersAsReactorFluxAgain).expectNextCount(10).verifyComplete()
   }
 }
