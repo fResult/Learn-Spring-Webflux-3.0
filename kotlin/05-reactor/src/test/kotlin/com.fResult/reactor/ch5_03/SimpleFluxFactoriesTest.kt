@@ -19,5 +19,8 @@ class SimpleFluxFactoriesTest {
     val now = System.currentTimeMillis()
     val greetingMono = Mono.just(Date(now))
     StepVerifier.create(greetingMono).expectNext(Date(now)).verifyComplete()
+
+    val empty: Mono<Any> = Mono.empty()
+    StepVerifier.create(empty).verifyComplete()
   }
 }
