@@ -33,6 +33,7 @@ dependencies {
   implementation("org.jetbrains.kotlin:kotlin-reflect")
   implementation("org.apache.logging.log4j:log4j-bom:$log4jVersion")
   testImplementation(libs.spring.boot.starter.test)
+  testImplementation("io.projectreactor:reactor-test")
   testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
   testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
