@@ -5,3 +5,4 @@ include("java:04-input-and-output")
 
 include("kotlin:03-bootstrap")
 // include("kotlin:04-input-and-output")
+include("kotlin:05-reactor")
