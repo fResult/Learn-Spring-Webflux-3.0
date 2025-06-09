@@ -6,6 +6,8 @@ import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import reactor.test.StepVerifier
 import java.util.*
+import java.util.concurrent.atomic.AtomicInteger
+import java.util.stream.Stream
 
 class SimpleFluxFactoriesTest {
   @Test
@@ -28,5 +30,14 @@ class SimpleFluxFactoriesTest {
 
     val fromArray = Flux.fromArray(arrayOf("A", "B", "C"))
     StepVerifier.create(fromArray).expectNext("A", "B", "C").verifyComplete()
+
+    val integer = AtomicInteger()
+    val incrementAndGet = integer::incrementAndGet
+    val integers = Flux.fromStream(Stream.generate(incrementAndGet))
+    StepVerifier.create(integers.take(3))
+      .expectNext(1)
+      .expectNext(2)
+      .expectNext(3)
+      .verifyComplete()
   }
 }
