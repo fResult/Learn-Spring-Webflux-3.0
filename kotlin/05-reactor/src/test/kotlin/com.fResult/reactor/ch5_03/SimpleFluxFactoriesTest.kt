@@ -25,5 +25,8 @@ class SimpleFluxFactoriesTest {
 
     val fromIterable = Flux.fromIterable(listOf(1, 2, 3))
     StepVerifier.create(fromIterable).expectNext(1, 2, 3).verifyComplete()
+
+    val fromArray = Flux.fromArray(arrayOf("A", "B", "C"))
+    StepVerifier.create(fromArray).expectNext("A", "B", "C").verifyComplete()
   }
 }
