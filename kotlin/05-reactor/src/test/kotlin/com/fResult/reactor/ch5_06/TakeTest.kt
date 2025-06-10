@@ -11,6 +11,14 @@ class TakeTest {
     val takenNumbers = range().take(count)
     StepVerifier.create(takenNumbers).expectNextCount(count).verifyComplete()
   }
+
+  @Test
+  fun takeUntil() {
+    val count = 50L
+    val takenNumbers = range().takeUntil { it.toLong() == count - 1 }
+    StepVerifier.create(takenNumbers)
+      .expectNextCount(count)
+      .verifyComplete()
   }
 
   private fun range() = Flux.range(0, 1000)
