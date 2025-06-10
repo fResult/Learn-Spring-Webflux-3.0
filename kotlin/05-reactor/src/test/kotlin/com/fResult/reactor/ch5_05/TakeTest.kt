@@ -1,4 +1,4 @@
-package com.fResult.reactor.ch5_06
+package com.fResult.reactor.ch5_05
 
 import reactor.core.publisher.Flux
 import reactor.test.StepVerifier
