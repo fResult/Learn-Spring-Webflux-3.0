@@ -37,4 +37,21 @@ class DoOnTest {
     StepVerifier.create(on).expectNext(1, 2, 3)
       .expectError(IllegalArgumentException::class.java)
       .verify()
+
+    signals.forEach(log::info)
+    assertEquals(4, signals.size)
+
+    finallySignals.forEach(log::info)
+    assertEquals(finallySignals.size, 1)
+
+    subscriptions.forEach(log::info)
+    assertEquals(subscriptions.size, 1)
+
+    exceptions.forEach(log::error)
+    assertEquals(exceptions.size, 1)
+    assertTrue(exceptions.firstOrNull() is IllegalArgumentException)
+
+    nextValues.forEach(log::info)
+    assertEquals(listOf(1, 2, 3), nextValues)
+  }
 }
