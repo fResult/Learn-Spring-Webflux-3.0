@@ -28,7 +28,7 @@ class SchedulersExecutorServiceDecoratorsTest {
   fun before() {
     log.info("Before test: SchedulersExecutorServiceDecoratorsTest")
     Schedulers.resetFactory()
-    Schedulers.addExecutorServiceDecorator(RSB, ::decorator)
+    Schedulers.addExecutorServiceDecorator(RSB, ::scheduleCountingDecorator)
   }
 
   @Test
@@ -46,15 +46,16 @@ class SchedulersExecutorServiceDecoratorsTest {
     Schedulers.removeExecutorServiceDecorator(RSB)
   }
 
-  private fun decorator(scheduler: Scheduler, executorService: ScheduledExecutorService): ScheduledExecutorService? {
+  private fun scheduleCountingDecorator(scheduler: Scheduler, executorService: ScheduledExecutorService): ScheduledExecutorService? {
     try {
-      val pfb = ProxyFactoryBean()
-      pfb.setProxyInterfaces(arrayOf(ScheduledExecutorService::class.java))
-      pfb.addAdvice(interceptAndCountScheduleMethods)
-      pfb.isSingleton = true
-      pfb.setTarget(executorService)
-
-      return pfb.`object` as ScheduledExecutorService?
+      return ProxyFactoryBean()
+        .apply {
+          setProxyInterfaces(arrayOf(ScheduledExecutorService::class.java))
+          addAdvice(interceptAndCountScheduleMethods)
+          isSingleton = true
+          setTarget(executorService)
+        }
+        .let { it.`object` as ScheduledExecutorService }
     } catch (ex: Exception) {
       log.error(ex)
     }
