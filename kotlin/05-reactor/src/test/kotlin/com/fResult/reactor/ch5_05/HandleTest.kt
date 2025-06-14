@@ -11,23 +11,23 @@ class HandleTest {
 
   @Test
   fun handle() {
-    StepVerifier.create(handle(5, 4))
+    StepVerifier.create(emitUntilErrorValue(5, 4))
       .expectNext(0, 1, 2, 3)
       .expectError(IllegalArgumentException::class.java)
       .verify()
 
-    StepVerifier.create(handle(3, 3)).expectNext(0, 1, 2).verifyComplete()
+    StepVerifier.create(emitUntilErrorValue(3, 3)).expectNext(0, 1, 2).verifyComplete()
   }
 
-  private fun handle(max: Int, numberToError: Int): Flux<Int> = Flux.range(0, max)
+  private fun emitUntilErrorValue(max: Int, errorAt: Int): Flux<Int> = Flux.range(0, max)
     .handle { value, sink ->
-      val upTo = Stream.iterate(0, { it < numberToError }) { it + 1 }.toList()
+      val upTo = Stream.iterate(0, { it < errorAt }) { it + 1 }.toList()
 
       if (upTo.contains(value)) {
         sink.next(value)
         return@handle
       }
-      if (value == numberToError) {
+      if (value == errorAt) {
         sink.error(IllegalArgumentException("No 4 for you!"))
         return@handle
       }
