@@ -22,19 +22,17 @@ class AsyncApiIntegrationTest {
       .verifyComplete()
   }
 
-  private fun launch(count: Int): (FluxSink<Int>) -> Unit {
-    return { integerFluxSink ->
-      executorService.submit {
-        val integer = AtomicInteger()
-        Assertions.assertNotNull(integerFluxSink)
-        while (integer.get() < count) {
-          val random = (0L..1000L).random()
-          integerFluxSink.next(integer.incrementAndGet())
-          sleep(random)
-        }
-        log.info("Completed sending integers up to {}", count)
-        integerFluxSink.complete()
+  private fun launch(count: Int): (FluxSink<Int>) -> Unit = { integerFluxSink ->
+    executorService.submit {
+      val integer = AtomicInteger()
+      Assertions.assertNotNull(integerFluxSink)
+      while (integer.get() < count) {
+        val random = (0L..1000L).random()
+        integerFluxSink.next(integer.incrementAndGet())
+        sleep(random)
       }
+      log.info("Completed sending integers up to {}", count)
+      integerFluxSink.complete()
     }
   }
 
