@@ -67,7 +67,7 @@ class SchedulersExecutorServiceDecoratorsTest {
     methodName.takeIf(::startWithSchedule)
       ?.also {
         methodInvocationCounts.incrementAndGet()
-        log.info("methodName: [$it] incrementing...")
+        log.info("methodName: [{}] incrementing...", it)
       }
     methodInvocation.proceed()
   }
