@@ -20,6 +20,5 @@ class FlatMapTest {
   }
 }
 
-private fun delayReplyFor(n: Int, delay: Long): Flux<Int> {
-  return Flux.just(n).delayElements(delay.milliseconds.toJavaDuration())
-}
+private fun delayReplyFor(n: Int, delay: Long) =
+  Flux.just(n).delayElements(delay.milliseconds.toJavaDuration())
