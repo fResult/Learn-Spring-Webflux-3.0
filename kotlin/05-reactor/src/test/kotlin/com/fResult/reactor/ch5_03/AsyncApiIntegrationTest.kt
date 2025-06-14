@@ -37,7 +37,7 @@ class AsyncApiIntegrationTest {
   }
 
   private fun sleep(ms: Long) {
-    log.info("Sleeping for {} ms", ms)
+    log.info("Sleeping for $ms ms")
     try {
       Thread.sleep(ms)
     } catch (ex: Exception) {
