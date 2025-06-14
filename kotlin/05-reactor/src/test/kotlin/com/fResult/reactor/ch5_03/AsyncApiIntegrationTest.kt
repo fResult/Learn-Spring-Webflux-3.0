@@ -32,14 +32,14 @@ class AsyncApiIntegrationTest {
           integerFluxSink.next(integer.incrementAndGet())
           sleep(random)
         }
-        log.info("Completed sending integers up to $count")
+        log.info("Completed sending integers up to {}", count)
         integerFluxSink.complete()
       }
     }
   }
 
   private fun sleep(ms: Long) {
-    log.info("Sleeping for $ms ms")
+    log.info("Sleeping for {} ms", ms)
     try {
       Thread.sleep(ms)
     } catch (ex: Exception) {
