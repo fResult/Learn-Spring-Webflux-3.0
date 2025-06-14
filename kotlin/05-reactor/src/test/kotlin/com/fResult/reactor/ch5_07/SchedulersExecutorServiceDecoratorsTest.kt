@@ -63,6 +63,24 @@ class SchedulersExecutorServiceDecoratorsTest {
     return null
   }
 
+  /**
+   * A [MethodInterceptor] that intercepts method calls on [ScheduledExecutorService]
+   * and **increments [methodInvocationCounts]** when the invoked method's name starts with `"schedule"`.
+   *
+   * ## Side Effects
+   * - Mutates the shared [methodInvocationCounts] counter on every intercepted method
+   *   whose name starts with `"schedule"`.
+   * - Logs the method name when a match is found and the counter is incremented.
+   *
+   * ## Thread Safety
+   * - Assumes [methodInvocationCounts] is a thread-safe counter (e.g., [AtomicInteger]).
+   *
+   * ## Use Case
+   * - Intended to be used as advice for proxying [ScheduledExecutorService] instances
+   *   via Spring's [org.springframework.aop.framework.ProxyFactoryBean], to count scheduled task invocations.
+   *
+   * @see startWithSchedule for the matching logic
+   */
   private val interceptAndCountScheduleMethods = MethodInterceptor { methodInvocation ->
     val methodName = methodInvocation.method.name
     methodName.takeIf(::startWithSchedule)
