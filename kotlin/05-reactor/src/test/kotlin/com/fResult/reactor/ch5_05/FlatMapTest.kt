@@ -9,7 +9,7 @@ import kotlin.time.toJavaDuration
 
 
 class FlatMapTest {
-  private val log = LogManager.getLogger(FlatMapTest::class)
+  private val log = LogManager.getLogger(FlatMapTest::class.java)
 
   @Test
   fun flatMap() {

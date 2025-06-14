@@ -11,7 +11,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class DoOnTest {
-  private val log = LogManager.getLogger(DoOnTest::class)
+  private val log = LogManager.getLogger(DoOnTest::class.java)
 
   @Test
   fun doOn() {

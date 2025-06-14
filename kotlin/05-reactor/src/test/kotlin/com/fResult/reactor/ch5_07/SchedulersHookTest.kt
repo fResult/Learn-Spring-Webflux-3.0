@@ -11,7 +11,7 @@ import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.toJavaDuration
 
 class SchedulersHookTest {
-  private val log = LogManager.getLogger(SchedulersHookTest::class)
+  private val log = LogManager.getLogger(SchedulersHookTest::class.java)
 
   companion object {
     const val MY_HOOK = "my hook"
