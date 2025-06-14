@@ -17,11 +17,11 @@ Each module is implemented in both [Java](./java) and [Kotlin](./kotlin) to comp
    - [Java Implementation](./java/03-bootstrap)
    - [Kotlin Implementation](./kotlin/03-bootstrap)
 - `04-input-and-output`: xxxxxxxxxxxxxxxxx
-   - [Java Implementation](https://github.com/fResult/Learn-Spring-Webflux-3.0/tree/04_input-and-output/java/04-input-and-output)
+   - [Java Implementation](./java/04-input-and-output)
    - [Kotlin Implementation](https://github.com/fResult/Learn-Spring-Webflux-3.0/tree/04_input-and-output/kotlin/04-input-and-output)
 - `05-reactor`: Implementation of reactive programming concepts using Project Reactor
    - [Java Implementation]()
-   - [Kotlin Implementation](https://github.com/fResult/Learn-Spring-Webflux-3.0/tree/04_input-and-output/kotlin/05-input-and-output)
+   - [Kotlin Implementation](./kotlin/05-reactor)
 
 ## My Summary
 
