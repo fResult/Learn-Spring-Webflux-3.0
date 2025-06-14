@@ -22,11 +22,13 @@ class DoOnTest {
     val finallySignals = arrayListOf<SignalType>()
 
     val on = Flux.create { sink ->
-      sink.next(1)
-      sink.next(2)
-      sink.next(3)
-      sink.error(IllegalArgumentException("Oops!"))
-      sink.complete()
+      sink.apply {
+        next(1)
+        next(2)
+        next(3)
+        error(IllegalArgumentException("Oops!"))
+        complete()
+      }
     }
       .doOnNext(nextValues::add)
       .doOnEach(signals::add)
