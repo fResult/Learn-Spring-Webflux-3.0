@@ -17,7 +17,7 @@ import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.toJavaDuration
 
 class SchedulersExecutorServiceDecoratorsTest {
-  private val log = LogManager.getLogger(SchedulersExecutorServiceDecoratorsTest::class)
+  private val log = LogManager.getLogger(SchedulersExecutorServiceDecoratorsTest::class.java)
   private val methodInvocationCounts = AtomicInteger()
 
   companion object {

@@ -13,7 +13,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class SchedulersSubscribeOnTest {
-  private val log = LogManager.getLogger(SchedulersSubscribeOnTest::class)
+  private val log = LogManager.getLogger(SchedulersSubscribeOnTest::class.java)
 
   @Test
   fun subscribeOn() {
