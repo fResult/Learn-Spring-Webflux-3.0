@@ -7,7 +7,7 @@ import java.util.stream.Stream
 import kotlin.test.Test
 
 class HandleTest {
-  private val log = LogManager.getLogger(HandleTest::class)
+  private val log = LogManager.getLogger(HandleTest::class.java)
 
   @Test
   fun handle() {
