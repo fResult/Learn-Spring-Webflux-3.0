@@ -6,13 +6,18 @@ This module is based on concepts from the [reactor repository](https://github.co
 
 ## Implementation Details
 
-- xxxxxxxxxxxxx
-- yyyyyyyyyyyyy
+- Implemented reactive programming concepts using Kotlin and Project Reactor
+- Used thread-safe counters and decorators to monitor thread execution
+- Created custom schedulers and thread factories for better control over execution context
+- Applied reactive patterns like `subscribeOn` for controlling execution threads
+- Implemented proper error handling and backpressure management
+- Used `StepVerifier` for testing asynchronous reactive streams
+- Created proxies with method interception for monitoring scheduler execution
 
 ## Differences from Original
 
-- Use `Sinks.many().multicast().onBackpressureBuffer` instead of `EmitterProcessor` as a replacement for `FluxSink` in the original code because `EmitterProcessor` is deprecated.
-- Use `Sinks.many().replay().limit()` instead of `ReplayProcessor` as a replacement for `FluxSink` in the original code because `ReplayProcessor` (with buffer) is deprecated.
+- Replaced `EmitterProcessor` with `Sinks.many().multicast().onBackpressureBuffer()` to address deprecation
+- Replaced `ReplayProcessor` with `Sinks.many().replay().limit()` as a modern alternative
 
 ## Running the Project
 ### Build
