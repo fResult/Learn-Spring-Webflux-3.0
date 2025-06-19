@@ -22,5 +22,8 @@ public class SimpleFluxFactoriesTest {
 
     final var emptyFlux = Flux.empty();
     StepVerifier.create(emptyFlux).verifyComplete();
+
+    final var fromArray = Flux.fromArray(new Integer[] {1, 2, 3});
+    StepVerifier.create(fromArray).expectNext(1, 2, 3).verifyComplete();
   }
 }
