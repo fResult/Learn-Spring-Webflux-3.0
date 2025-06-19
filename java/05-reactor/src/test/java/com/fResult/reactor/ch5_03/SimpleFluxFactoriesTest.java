@@ -19,5 +19,8 @@ public class SimpleFluxFactoriesTest {
     final var now = System.currentTimeMillis();
     final var greetingMono = Mono.just(new Date(now));
     StepVerifier.create(greetingMono).expectNext(new Date(now)).verifyComplete();
+
+    final var emptyFlux = Flux.empty();
+    StepVerifier.create(emptyFlux).verifyComplete();
   }
 }
