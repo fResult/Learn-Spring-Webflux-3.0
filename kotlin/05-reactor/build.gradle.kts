@@ -25,6 +25,7 @@ repositories {
 }
 
 val log4jVersion = "2.24.3"
+val blockHoundVersion = "1.0.13.RELEASE"
 
 dependencies {
   implementation(libs.spring.boot.starter.webflux)
@@ -35,6 +36,7 @@ dependencies {
   testImplementation(libs.spring.boot.starter.test)
   testImplementation("io.projectreactor:reactor-test")
   testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
+  testImplementation("io.projectreactor.tools:blockhound:$blockHoundVersion")
   testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
@@ -44,6 +46,9 @@ kotlin {
   }
 }
 
-tasks.withType<Test> {
+tasks.withType<Test>().all {
   useJUnitPlatform()
+  if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_13)) {
+    jvmArgs = listOf("-XX:+AllowRedefinitionToAddDeleteMethods")
+  }
 }
