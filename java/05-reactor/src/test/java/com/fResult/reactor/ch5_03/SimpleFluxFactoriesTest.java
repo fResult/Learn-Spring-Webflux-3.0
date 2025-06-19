@@ -1,6 +1,10 @@
+package com.fResult.reactor.ch5_03;
+
+import java.util.Date;
 import org.junit.jupiter.api.Test;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 public class SimpleFluxFactoriesTest {
@@ -11,5 +15,9 @@ public class SimpleFluxFactoriesTest {
 
     final var letters = Flux.just("A", "B", "C");
     StepVerifier.create(letters).expectNext("A", "B", "C").verifyComplete();
+
+    final var now = System.currentTimeMillis();
+    final var greetingMono = Mono.just(new Date(now));
+    StepVerifier.create(greetingMono).expectNext(new Date(now)).verifyComplete();
   }
 }
