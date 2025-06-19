@@ -1,6 +1,10 @@
 package com.fResult.reactor.ch5_03;
 
 import java.util.Date;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Flux;
@@ -28,5 +32,14 @@ public class SimpleFluxFactoriesTest {
 
     final var fromIterable = Flux.fromIterable(List.of(1, 2, 3));
     StepVerifier.create(fromIterable).expectNext(1, 2, 3).verifyComplete();
+
+    final var integer = new AtomicInteger();
+    Supplier<Integer> incrementAndGet = integer::incrementAndGet;
+    final var integerFlux = Flux.fromStream(Stream.generate(incrementAndGet));
+    StepVerifier.create(integerFlux.take(3))
+        .expectNext(1)
+        .expectNext(2)
+        .expectNext(3)
+        .verifyComplete();
   }
 }
