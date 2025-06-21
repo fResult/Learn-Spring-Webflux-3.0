@@ -46,7 +46,10 @@ class SchedulersExecutorServiceDecoratorsTest {
     Schedulers.removeExecutorServiceDecorator(RSB)
   }
 
-  private fun scheduleCountingDecorator(scheduler: Scheduler, executorService: ScheduledExecutorService): ScheduledExecutorService? {
+  private fun scheduleCountingDecorator(
+    scheduler: Scheduler,
+    executorService: ScheduledExecutorService
+  ): ScheduledExecutorService? {
     try {
       return ProxyFactoryBean()
         .apply {
