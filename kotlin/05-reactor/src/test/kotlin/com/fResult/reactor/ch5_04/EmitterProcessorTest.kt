@@ -7,7 +7,7 @@ import reactor.test.StepVerifier
 
 class EmitterProcessorTest {
   @Test
-  fun emitterProcesser() {
+  fun emitterProcessor() {
     val sinkEmitter = Sinks.many().multicast().onBackpressureBuffer<String>()
     produce(sinkEmitter)
     consume(sinkEmitter.asFlux())
