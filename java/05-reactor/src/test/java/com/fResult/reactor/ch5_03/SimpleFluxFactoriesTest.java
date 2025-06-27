@@ -11,7 +11,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
-public class SimpleFluxFactoriesTest {
+class SimpleFluxFactoriesTest {
   @Test
   void simple() {
     Publisher<Integer> rangeOfIntegers = Flux.range(0, 10);
