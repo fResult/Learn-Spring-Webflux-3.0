@@ -30,9 +30,9 @@ dependencies {
   developmentOnly(libs.spring.boot.devtools)
   testImplementation(libs.spring.boot.starter.test)
   testImplementation("io.projectreactor:reactor-test")
-  testImplementation("io.projectreactor.tools:blockhound:$blockHoundVersion")
   testCompileOnly("org.projectlombok:lombok")
   testAnnotationProcessor("org.projectlombok:lombok")
+  testImplementation("io.projectreactor.tools:blockhound:$blockHoundVersion")
   testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
