@@ -12,9 +12,10 @@ class HotStreamTest3 {
 
   @Test
   fun hot() {
+    val minSubscribers = 3
     val pileOn = Flux.just(1, 2, 3)
       .publish()
-      .autoConnect(3)
+      .autoConnect(minSubscribers)
       .subscribeOn(Schedulers.immediate())
 
     pileOn.subscribe(first::add)
