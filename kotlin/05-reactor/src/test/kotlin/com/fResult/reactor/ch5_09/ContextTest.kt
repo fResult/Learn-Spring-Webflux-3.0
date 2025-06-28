@@ -27,7 +27,7 @@ class ContextTest {
 
     val contextAwareFlux = Flux.range(0, max)
       .delayElements(1L.milliseconds.toJavaDuration())
-      .doOnEach(assertAndCountContextOnNextSignal(observedContextValues))
+      .doOnEach(assertAndCountContextOnNextSignal(observedContextValues, contextKey))
       .contextWrite(expectedContext)
 
     contextAwareFlux.subscribe(
@@ -66,15 +66,16 @@ class ContextTest {
    */
   private fun assertAndCountContextOnNextSignal(
     contextObservationMap: ConcurrentHashMap<String, AtomicInteger>,
+    key: String,
   ): (Signal<Int>) -> Unit = { intSignal ->
     val currentContext = intSignal.contextView
 
     if (intSignal.type == SignalType.ON_NEXT) {
-      val key1 = currentContext.get<String>("key1")
+      val key1 = currentContext.get<String>(key)
       assertNotNull(key1)
       assertEquals(key1, "value1", "Context value should match")
       contextObservationMap
-        .computeIfAbsent("key1") { AtomicInteger() }
+        .computeIfAbsent(key) { AtomicInteger() }
         .incrementAndGet()
     }
   }
