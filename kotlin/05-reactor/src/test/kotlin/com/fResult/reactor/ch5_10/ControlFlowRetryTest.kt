@@ -24,11 +24,12 @@ class ControlFlowRetryTest {
     val isFirstTime = errored.compareAndSet(false, true)
 
     if (isFirstTime) {
-      log.info("Emitting error: ${RuntimeException::class.jvmName}")
+      log.warn("Emitting error: {}", RuntimeException::class.jvmName)
       stringSink.error(RuntimeException("Simulated error"))
     } else {
-      log.info("Emitting Hello, World!")
-      stringSink.next("Hello, World!")
+      val message = "Hello, World!"
+      log.info("Emitting {}", message)
+      stringSink.next(message)
       stringSink.complete()
     }
   }
