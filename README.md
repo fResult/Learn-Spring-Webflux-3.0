@@ -20,7 +20,7 @@ Each module is implemented in both [Java](./java) and [Kotlin](./kotlin) to comp
    - [Java Implementation](./java/04-input-and-output)
    - [Kotlin Implementation](https://github.com/fResult/Learn-Spring-Webflux-3.0/tree/04_input-and-output/kotlin/04-input-and-output)
 - `05-reactor`: Implementation of reactive programming concepts using Project Reactor
-   - [Java Implementation]()
+   - [Java Implementation](./java/05-reactor)
    - [Kotlin Implementation](./kotlin/05-reactor)
 
 ## My Summary
@@ -28,13 +28,13 @@ Each module is implemented in both [Java](./java) and [Kotlin](./kotlin) to comp
 ### What I Learned From Reading This Book
 
 - Appreciated how Spring Boot speeds up development through starter packages, auto-configuration, and easy transaction management
-
+- Practiced Project Reactor's core abstractions (Mono and Flux) and how they enable composition of asynchronous operations
 
 ### Things I Did Different and Learned Further
 
 - Used Gradle Kotlin DSL instead of Maven for build configuration
 - Implemented parallel Kotlin versions of all Java examples
-- Updated to Spring Boot 3.4.5 while the book uses an older Spring Boot version 2.5.0
+- Updated to Spring Boot 3.5.x while the book uses an older Spring Boot version 2.5.0
 - Adopted a monorepo approach with [Gradle multi-project builds][gradle-multiproject] to manage both Java and Kotlin implementations in a single repository
 
 <!-- References -->
