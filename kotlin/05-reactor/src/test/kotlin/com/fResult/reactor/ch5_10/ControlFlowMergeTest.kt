@@ -15,7 +15,6 @@ class ControlFlowMergeTest {
 
     val streamOfStreams = Flux.just(slowest, secondFastest, fastest)
     val merged = Flux.merge(streamOfStreams)
-    streamOfStreams.flatMap({ it }, 10)
 
     StepVerifier.create(merged)
       .expectNext(5, 6, 1, 2, 3, 4)
