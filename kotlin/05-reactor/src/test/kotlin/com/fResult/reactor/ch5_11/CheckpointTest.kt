@@ -20,14 +20,16 @@ class CheckpointTest {
       .delayElements(1.milliseconds.toJavaDuration())
 
     StepVerifier.create(checkpoint)
-      .expectErrorMatches { ex ->
-        stackTrace.set(stackTraceToString(ex))
-
-        ex is IllegalArgumentException
-      }
+      .expectErrorMatches(saveStackTraceAndMatchException(stackTrace))
       .verify()
 
     assertTrue(stackTrace.get().contains("Error has been observed at the following site(s):"))
+  }
+
+  private fun saveStackTraceAndMatchException(stackTrace: AtomicReference<String>): (Throwable) -> Boolean = { ex ->
+    stackTrace.set(stackTraceToString(ex))
+
+    ex is IllegalArgumentException && ex.message == "Oops!"
   }
 
   private fun stackTraceToString(ex: Throwable) = StringWriter().use(stackTraceWriteHandler(ex))
