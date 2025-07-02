@@ -32,7 +32,7 @@ cd $(git rev-parse --show-toplevel) && \
 
 ```bash
 cd $(git rev-parse --show-toplevel) && \
-   ./gradlew :kotlin:05-reactor:runApp
+   ./gradlew :kotlin:05-reactor:bootRun
 ```
 
 ### Test
@@ -41,4 +41,3 @@ cd $(git rev-parse --show-toplevel) && \
 cd $(git rev-parse --show-toplevel) && \
    ./gradlew :kotlin:05-reactor:test
 ```
-
