@@ -36,6 +36,9 @@ dependencies {
   testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
-tasks.test {
+tasks.withType<Test>().all {
   useJUnitPlatform()
+  if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_13)) {
+    jvmArgs = listOf("-XX:+AllowRedefinitionToAddDeleteMethods")
+  }
 }
