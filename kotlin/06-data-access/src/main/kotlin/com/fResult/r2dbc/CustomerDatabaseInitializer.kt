@@ -1,0 +1,34 @@
+package com.fResult.r2dbc
+
+import com.fResult.r2dbc.repositories.SimpleCustomerRepository
+import org.reactivestreams.Publisher
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.core.io.Resource
+import org.springframework.r2dbc.core.DatabaseClient
+import org.springframework.stereotype.Component
+import org.springframework.transaction.reactive.TransactionalOperator
+import org.springframework.util.FileCopyUtils
+import java.io.InputStreamReader
+
+@Component
+class CustomerDatabaseInitializer(
+  private val transactionalOperator: TransactionalOperator,
+  private val dbClient: DatabaseClient,
+  private val repository: SimpleCustomerRepository,
+  @Value("classpath:/schema.sql") private val resource: Resource,
+) {
+  private val sql: String
+
+  init {
+    InputStreamReader(resource.inputStream).use { reader ->
+      sql = FileCopyUtils.copyToString(reader)
+    }
+  }
+
+  fun resetCustomerTable(): Publisher<Void> {
+    val createSchema = dbClient.sql(sql).then()
+    val findAndDelete = repository.findAll().flatMap { repository.deleteById(it.id!!) }
+
+    return createSchema.thenMany(transactionalOperator.execute { _ -> findAndDelete })
+  }
+}
