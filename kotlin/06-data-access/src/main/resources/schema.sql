@@ -1,0 +1,10 @@
+-- CREATE ROLE orders WITH LOGIN PASSWORD '0rd3rz';
+-- ALTER ROLE orders CREATEDB;
+-- CREATE DATABASE orders;
+
+CREATE TABLE IF NOT EXISTS customer (
+    id    SERIAL  NOT NULL PRIMARY KEY,
+    email VARCHAR NOT NULL
+);
+
+TRUNCATE customer;
