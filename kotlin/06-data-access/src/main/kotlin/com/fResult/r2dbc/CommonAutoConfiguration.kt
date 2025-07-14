@@ -1,7 +1,6 @@
 package com.fResult.r2dbc
 
-import com.fResult.r2dbc.repositories.CustomerRepository
-import com.fResult.r2dbc.repositories.SimpleCustomerRepository
+import com.fResult.r2dbc.repositories.common.CustomerRepository
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import org.springframework.boot.context.event.ApplicationReadyEvent;

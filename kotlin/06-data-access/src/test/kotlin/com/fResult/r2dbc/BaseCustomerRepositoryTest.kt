@@ -1,13 +1,12 @@
 package com.fResult.r2dbc
 
-import com.fResult.r2dbc.repositories.SimpleCustomerRepository
+import com.fResult.r2dbc.repositories.common.SimpleCustomerRepository
 import org.junit.jupiter.api.Test
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
 import org.testcontainers.junit.jupiter.Testcontainers
 import reactor.core.publisher.Flux
 import reactor.test.StepVerifier
-import java.util.function.Supplier
 
 @Testcontainers
 abstract class BaseCustomerRepositoryTest {
