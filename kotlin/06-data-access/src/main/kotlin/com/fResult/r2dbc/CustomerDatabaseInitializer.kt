@@ -1,6 +1,6 @@
 package com.fResult.r2dbc
 
-import com.fResult.r2dbc.repositories.SimpleCustomerRepository
+import com.fResult.r2dbc.repositories.common.SimpleCustomerRepository
 import org.reactivestreams.Publisher
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.core.io.Resource
