@@ -1,10 +1,10 @@
 package com.fResult.r2dbc
 
-import com.fResult.r2dbc.repositories.common.CustomerRepository
+import com.fResult.r2dbc.repositories.common.SimpleCustomerRepository
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.ApplicationListener;
+import org.springframework.boot.context.event.ApplicationReadyEvent
+import org.springframework.context.ApplicationListener
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.transaction.reactive.TransactionalOperator
@@ -18,7 +18,7 @@ class CommonAutoConfiguration {
 
   @Bean
   fun defaultCustomerService(
-    customerRepository: CustomerRepository, // SimpleCustomerRepository,
+    customerRepository: SimpleCustomerRepository,
     transactionOperator: TransactionalOperator,
     dbInitializer: CustomerDatabaseInitializer,
   ): CustomerService {
@@ -28,7 +28,7 @@ class CommonAutoConfiguration {
 
 
   @Bean
-  fun demo(repository: CustomerRepository): ApplicationListener<ApplicationReadyEvent> =
+  fun demo(repository: SimpleCustomerRepository): ApplicationListener<ApplicationReadyEvent> =
     ApplicationListener { event ->
       repository.save(Customer("fResult@exampl.com"))
         .thenMany(repository.findAll())
