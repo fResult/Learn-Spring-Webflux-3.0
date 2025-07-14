@@ -1,0 +1,14 @@
+server:
+  port: ${SERVER_PORT:8080}
+
+spring:
+  application:
+    name: R2DBC Data Access Application (Spring Data)
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/orders
+    username: ${PG_USER}
+    password: ${PG_PASSWORD}
+  sql:
+    init:
+        schema-locations: classpath:schema.sql
+        mode: always
