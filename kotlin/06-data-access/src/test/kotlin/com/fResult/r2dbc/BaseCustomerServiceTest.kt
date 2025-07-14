@@ -1,9 +1,8 @@
 package com.fResult.r2dbc
 
-import com.fResult.r2dbc.repositories.SimpleCustomerRepository
+import com.fResult.r2dbc.repositories.common.SimpleCustomerRepository
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.context.DynamicPropertySource
 import org.springframework.test.context.bean.override.mockito.MockitoBean
 import org.testcontainers.junit.jupiter.Testcontainers

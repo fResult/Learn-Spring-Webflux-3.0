@@ -1,6 +1,6 @@
 package com.fResult.r2dbc
 
-import com.fResult.r2dbc.repositories.SimpleCustomerRepository
+import com.fResult.r2dbc.repositories.common.SimpleCustomerRepository
 import org.reactivestreams.Publisher
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional

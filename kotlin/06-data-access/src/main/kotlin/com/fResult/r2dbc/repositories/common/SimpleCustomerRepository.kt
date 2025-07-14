@@ -1,4 +1,4 @@
-package com.fResult.r2dbc.repositories
+package com.fResult.r2dbc.repositories.common
 
 import com.fResult.r2dbc.Customer
 import org.springframework.data.repository.NoRepositoryBean
@@ -13,7 +13,7 @@ interface SimpleCustomerRepository {
 
   fun update(customer: Customer): Mono<Customer>
 
-  fun findById(id: Int): Mono<Customer>
+  fun findById(id: String): Mono<Customer>
 
-  fun deleteById(id: Int): Mono<Void>
+  fun deleteById(id: String): Mono<Void>
 }
