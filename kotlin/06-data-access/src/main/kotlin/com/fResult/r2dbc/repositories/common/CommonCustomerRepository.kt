@@ -1,13 +1,15 @@
 package com.fResult.r2dbc.repositories.common
 
 import com.fResult.r2dbc.Customer
+import org.springframework.context.annotation.Profile
 import org.springframework.r2dbc.core.DatabaseClient
 import org.springframework.stereotype.Repository
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
 @Repository
-class CustomerRepository(private val dbClient: DatabaseClient) : SimpleCustomerRepository {
+@Profile("common")
+class CommonCustomerRepository(private val dbClient: DatabaseClient) : SimpleCustomerRepository {
   private fun map(row: Map<String, Any>) =
     Customer(
       id = (row["id"] as Int).toString(),
