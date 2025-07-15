@@ -1,5 +1,9 @@
 # 06 Data Access (Kotlin)
 
+> [!warning]
+> This module is not completed, because of some issues with the R2DBC driver.\
+> Please see the [POC R2DBC](https://github.com/fResult/poc-r2dbc) repository instead.
+
 [← Back to Main README](../../README.md)
 
 This module is based on concepts from the [data repository](https://github.com/reactive-spring-book/data) with my adaptations.
