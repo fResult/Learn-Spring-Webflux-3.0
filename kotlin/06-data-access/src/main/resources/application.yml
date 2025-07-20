@@ -1,0 +1,9 @@
+spring:
+  profiles:
+    default: common
+  main:
+    allow-bean-definition-overriding: true
+
+logging:
+  level:
+    io.r2dbc.postgresql: DEBUG
