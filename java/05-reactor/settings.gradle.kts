@@ -1,4 +1,4 @@
-rootProject.name = "java-05-reactor"
+rootProject.name = "05-reactor"
 
 dependencyResolutionManagement {
   versionCatalogs {
