@@ -13,4 +13,3 @@ spring-boot-devtools = { module = "org.springframework.boot:spring-boot-starter-
 [plugins]
 spring-boot = { id = "org.springframework.boot", version.ref = "springboot" }
 spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "springDependencyManagement" }
-
