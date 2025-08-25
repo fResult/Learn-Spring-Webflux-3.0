@@ -1,4 +1,4 @@
-rootProject.name = "java-04-input-and-output"
+rootProject.name = "04-input-and-output"
 
 dependencyResolutionManagement {
   versionCatalogs {
