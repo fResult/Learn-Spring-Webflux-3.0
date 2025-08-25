@@ -1,4 +1,4 @@
-rootProject.name = "05-reactor"
+rootProject.name = "04-input-and-output"
 
 dependencyResolutionManagement {
   versionCatalogs {
