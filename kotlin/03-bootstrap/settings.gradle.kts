@@ -1,4 +1,4 @@
-rootProject.name = "kotlin-03-bootstrap"
+rootProject.name = "03-bootstrap"
 
 dependencyResolutionManagement {
   versionCatalogs {
