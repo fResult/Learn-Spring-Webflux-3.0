@@ -1,4 +1,4 @@
-rootProject.name = "kotlin-06-data-access"
+rootProject.name = "06-data-access"
 
 dependencyResolutionManagement {
   versionCatalogs {
