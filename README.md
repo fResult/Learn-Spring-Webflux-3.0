@@ -1,5 +1,7 @@
 # Learn Spring Webflux 3.0
 
+<a href="https://leanpub.com/reactive-spring"><img src="https://d2sofvawe08yqg.cloudfront.net/reactive-spring/s_hero?1620596567" alt="" height="350px" align="right"></a>
+
 This repository contains my hands-on exercises while learning Spring WebFlux 3.0 following the [Reactive Spring](https://leanpub.com/reactive-spring) book and [these repositories](https://github.com/Reactive-Spring-Book).
 
 ## Prerequisites
