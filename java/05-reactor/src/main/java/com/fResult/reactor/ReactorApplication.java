@@ -12,7 +12,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ImportRuntimeHints;
 import org.springframework.core.DecoratingProxy;
-import reactor.core.publisher.Flux;
 
 @SpringBootApplication
 @ImportRuntimeHints(ReactorApplication.Hints.class)
@@ -24,7 +23,6 @@ public class ReactorApplication {
   static class Hints implements RuntimeHintsRegistrar {
     @Override
     public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
-      Flux.just(1);
       final var prefix = "reactor.core.publisher.Traces";
       final var classes =
           List.of(
