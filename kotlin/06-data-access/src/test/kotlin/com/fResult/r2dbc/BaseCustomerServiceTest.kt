@@ -17,10 +17,13 @@ abstract class BaseCustomerServiceTest {
   @MockitoBean
   private lateinit var customerService: CustomerService
 
-  @DynamicPropertySource
-  fun registerProperties(registry: org.springframework.test.context.DynamicPropertyRegistry) {
-    registry.add("spring.sql.init.mode") { "always" }
-    registry.add("spring.r2dbc.url") { "r2dbc:tc:postgresql://rsbhost/rsb?TC_IMAGE_TAG=9.6.8" }
+  companion object {
+    @JvmStatic
+    @DynamicPropertySource
+    fun registerProperties(registry: org.springframework.test.context.DynamicPropertyRegistry) {
+      registry.add("spring.sql.init.mode") { "always" }
+      registry.add("spring.r2dbc.url") { "r2dbc:tc:postgresql://rsbhost/rsb?TC_IMAGE_TAG=9.6.8" }
+    }
   }
 
   @BeforeEach
