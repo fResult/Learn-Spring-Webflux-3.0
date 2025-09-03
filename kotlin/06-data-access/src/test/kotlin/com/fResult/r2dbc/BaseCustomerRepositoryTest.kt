@@ -13,10 +13,13 @@ abstract class BaseCustomerRepositoryTest {
 //  @Autowired
 //  abstract var initializer: CustomerDatabaseInitializer
 
-  @DynamicPropertySource
-  fun registerProperties(registry: DynamicPropertyRegistry) {
-    registry.add("spring.sql.init.mode") { "always" }
-    registry.add("spring.r2dbc.url") { "r2dbc:tc:postgresql://rsbhost/rsb?TC_IMAGE_TAG=9.6.8" }
+  companion object {
+    @JvmStatic
+    @DynamicPropertySource
+    fun registerProperties(registry: DynamicPropertyRegistry) {
+      registry.add("spring.sql.init.mode") { "always" }
+      registry.add("spring.r2dbc.url") { "r2dbc:tc:postgresql://rsbhost/rsb?TC_IMAGE_TAG=9.6.8" }
+    }
   }
 
   abstract fun getRepository(): SimpleCustomerRepository
