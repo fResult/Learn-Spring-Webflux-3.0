@@ -19,6 +19,7 @@ class SpringDataCustomerRepository(
 
   companion object {
     val log: Logger = LogManager.getLogger(SpringDataCustomerRepository::class.java)
+    const val DEFAULT_PROFILE = "common"
   }
 
   private val rowMapper: (Map<String, Any>) -> Customer =
@@ -28,7 +29,7 @@ class SpringDataCustomerRepository(
     (environment.activeProfiles
       .takeIf(Array<out String>::isNotEmpty)
       ?.joinToString()
-      ?: "springdata")
+      ?: DEFAULT_PROFILE)
       .also { profile ->
         log.info(
           "[{}] initialized with profile: [{}]",
