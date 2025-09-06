@@ -25,11 +25,19 @@ repositories {
 }
 
 val log4jVersion = "2.24.3"
+val testcontainersVersion = "1.21.3"
+
+dependencyManagement {
+  imports {
+    mavenBom("org.testcontainers:testcontainers-bom:$testcontainersVersion")
+  }
+}
 
 dependencies {
   implementation(libs.spring.boot.starter.actuator)
   implementation(libs.spring.boot.starter.webflux)
   implementation(libs.spring.boot.starter.data.r2dbc)
+  implementation(libs.spring.boot.starter.data.mongodb.reactive)
   implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
   implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
   implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -54,10 +62,11 @@ dependencies {
 
 kotlin {
   compilerOptions {
-    freeCompilerArgs.addAll("-Xjsr305=strict")
+    freeCompilerArgs.addAll("-Xjsr305=strict", "-Xannotation-default-target=param-property")
   }
 }
 
 tasks.withType<Test> {
+  environment("TESTCONTAINERS_RYUK_DISABLED", "true") // Disable Ryuk container for tests
   useJUnitPlatform()
 }
