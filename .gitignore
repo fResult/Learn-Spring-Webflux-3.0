@@ -38,3 +38,10 @@ out/
 
 ### Others ###
 .DS_Store
+
+!/gradlew
+!/gradlew.bat
+!/gradle
+/**/gradlew
+/**/gradlew.bat
+/**/gradle
