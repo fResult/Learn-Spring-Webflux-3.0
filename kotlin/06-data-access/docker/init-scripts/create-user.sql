@@ -1,3 +1,0 @@
-CREATE USER postgres WITH PASSWORD 'postgres' SUPERUSER;
-CREATE DATABASE orders OWNER postgres;
-GRANT ALL PRIVILEGES ON DATABASE orders TO postgres;

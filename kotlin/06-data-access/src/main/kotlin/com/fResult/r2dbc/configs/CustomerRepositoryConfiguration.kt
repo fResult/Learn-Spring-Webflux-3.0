@@ -16,13 +16,13 @@ class CustomerRepositoryConfiguration {
   @Profile("common")
   fun commonCustomerRepository(
     dbClient: DatabaseClient,
-    environment: Environment
+    environment: Environment,
   ): SimpleCustomerRepository = CommonCustomerRepository(dbClient, environment)
 
   @Bean
   @Profile("springdata")
   fun springDataCustomerRepository(
     repository: R2dbcCustomerRepository,
-    environment: Environment
+    environment: Environment,
   ): SimpleCustomerRepository = SpringDataCustomerRepository(repository, environment)
 }

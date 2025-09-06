@@ -2,6 +2,7 @@ package com.fResult.r2dbc
 
 import com.fResult.r2dbc.repositories.common.SimpleCustomerRepository
 import org.reactivestreams.Publisher
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.core.io.Resource
 import org.springframework.r2dbc.core.DatabaseClient
@@ -12,10 +13,10 @@ import java.io.InputStreamReader
 
 @Component
 class CustomerDatabaseInitializer(
+  @Value("classpath:/schema.sql") private val resource: Resource,
   private val transactionalOperator: TransactionalOperator,
   private val dbClient: DatabaseClient,
   private val repository: SimpleCustomerRepository,
-  @Value("classpath:/schema.sql") private val resource: Resource,
 ) {
   private val sql: String
 
