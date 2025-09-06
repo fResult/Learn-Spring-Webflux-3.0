@@ -1,6 +1,7 @@
 package com.fResult.r2dbc.repositories.common
 
 import com.fResult.r2dbc.Customer
+import com.fResult.r2dbc.repositories.springdata.CustomerRepository
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import org.springframework.context.annotation.Profile
@@ -17,15 +18,12 @@ class CommonCustomerRepository(
   private val environment: Environment,
 ) : SimpleCustomerRepository {
 
-  companion object {
-    val log: Logger = LogManager.getLogger(CommonCustomerRepository::class.java)
-  }
+  private val rowMapper: (Map<String, Any>) -> Customer =
+    { row -> Customer((row["id"] as Int).toString(), row["email"] as String) }
 
-  private fun mapper(row: Map<String, Any>) =
-    Customer(
-      id = (row["id"] as Int).toString(),
-      email = row["email"] as String
-    )
+  companion object {
+    private val log: Logger = LogManager.getLogger(CustomerRepository::class.java)
+  }
 
   init {
     (environment.activeProfiles
@@ -36,21 +34,25 @@ class CommonCustomerRepository(
         log.info(
           "[{}] initialized with profile: [{}]",
           CommonCustomerRepository::class.simpleName,
-          profile,
+          profile
         )
       }
   }
 
-  override fun save(customer: Customer): Mono<Customer> =
-    dbClient.sql("INSERT INTO customer ( email ) values ( :email )")
+  override fun save(customer: Customer): Mono<Customer> {
+    return dbClient.sql("INSERT INTO customer ( email ) values ( :email )")
       .bind("email", customer.email)
       .filter { stmt, _ -> stmt.returnGeneratedValues("id").execute() }
       .fetch()
       .first()
       .flatMap { (it["id"] as Int).toString().let(::findById) }
+  }
 
   override fun findAll(): Flux<Customer> =
-    dbClient.sql("SELECT * FROM customer").fetch().all().`as` { it.map(::mapper) }
+    dbClient.sql("SELECT * FROM customer")
+      .fetch()
+      .all()
+      .`as` { it.map(rowMapper) }
 
   override fun update(customer: Customer): Mono<Customer> =
     dbClient.sql("UPDATE customer SET email = :email WHERE id = CAST(:id AS INTEGER)")
@@ -66,13 +68,12 @@ class CommonCustomerRepository(
       .bind("id", id)
       .fetch()
       .first()
-      .map(::mapper)
+      .map(rowMapper)
 
-  override fun deleteById(id: String): Mono<Void> {
-    return dbClient.sql("DELETE FROM customer WHERE id = CAST(:id AS INTEGER)")
+  override fun deleteById(id: String): Mono<Void> =
+    dbClient.sql("DELETE FROM customer WHERE id = CAST(:id AS INTEGER)")
       .bind("id", id)
       .fetch()
       .rowsUpdated()
       .then()
-  }
 }
