@@ -1,12 +1,10 @@
 package com.fResult.http.filters
 
+import com.fResult.common.ExceptionProblemResponseMapper
 import com.fResult.http.customers.Customer
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.http.HttpStatus
-import org.springframework.http.ProblemDetail
 import org.springframework.web.reactive.function.server.*
-import reactor.core.publisher.Mono
 
 @Configuration
 class ErrorHandlingRouteConfiguration {
@@ -17,34 +15,17 @@ class ErrorHandlingRouteConfiguration {
       GET("customers/{id}", ::findCustomerById)
     }
   }.filter { request, next ->
-    next.handle(request).onErrorResume(::exceptionToProblemDetailResponse)
+    next.handle(request).onErrorResume(ExceptionProblemResponseMapper::map)
   }
 
-  private fun exceptionToProblemDetailResponse(ex: Throwable): Mono<ServerResponse> {
-    return when (ex) {
-      is ElementNotFoundException -> buildStatusToProblemDetail(HttpStatus.NOT_FOUND, ex, "Not found")
-      is ProductOutOfStockException -> buildStatusToProblemDetail(HttpStatus.CONFLICT, ex, "Out of stock")
-      else -> buildStatusToProblemDetail(HttpStatus.INTERNAL_SERVER_ERROR, ex)
-    }.let { (status, problem) ->
-      return ServerResponse.status(status).bodyValue(problem)
-    }
-  }
-
-  private fun buildStatusToProblemDetail(
-    status: HttpStatus,
-    ex: Throwable,
-    defaultMessage: String = "Something went wrong",
-  ): Pair<HttpStatus, ProblemDetail> =
-    status to ProblemDetail.forStatusAndDetail(status, ex.message ?: defaultMessage)
-
-
+  // Simulated handler functions that may throw exceptions
   private suspend fun findProductById(request: ServerRequest): ServerResponse {
     val productId = request.pathVariable("id")
 
     // Simulate some error conditions for product
-    return if (setOf("1", "2").contains(productId)) {
+    return if (productId == "404") {
       throw ProductNotFoundException("Product with ID [$productId] not found")
-    } else if (productId == "9") {
+    } else if (productId == "0") {
       throw ProductOutOfStockException("Product with ID [$productId] is out of stock")
     } else {
       // Simulate a successful product retrieval
@@ -52,13 +33,14 @@ class ErrorHandlingRouteConfiguration {
     }
   }
 
+  // Simulated handler functions that may throw exceptions
   private suspend fun findCustomerById(request: ServerRequest): ServerResponse {
     val customerId = request.pathVariable("id")
 
     // Simulate some error conditions for customer
-    return if (setOf("1", "2").contains(customerId)) {
+    return if (customerId == "404") {
       throw CustomerNotFoundException("Customer with ID [$customerId] not found")
-    } else if (customerId == "9") {
+    } else if (customerId == "999") {
       throw RuntimeException("Unexpected error occurred while retrieving customer with ID [$customerId]")
     } else {
       // Simulate a successful customer retrieval
