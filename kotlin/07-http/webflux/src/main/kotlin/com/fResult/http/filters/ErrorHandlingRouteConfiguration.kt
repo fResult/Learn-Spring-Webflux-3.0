@@ -22,33 +22,32 @@ class ErrorHandlingRouteConfiguration {
 
   private fun exceptionToProblemDetailResponse(ex: Throwable): Mono<ServerResponse> {
     return when (ex) {
-      is ElementNotFoundException -> HttpStatus.NOT_FOUND to ProblemDetail.forStatusAndDetail(
-        HttpStatus.NOT_FOUND,
-        ex.message ?: "Not found"
-      )
-
-      is ProductOutOfStockException -> HttpStatus.CONFLICT to ProblemDetail.forStatusAndDetail(
-        HttpStatus.CONFLICT,
-        ex.message ?: "Out of stock"
-      )
-
-      else -> HttpStatus.INTERNAL_SERVER_ERROR to ProblemDetail.forStatusAndDetail(
-        HttpStatus.INTERNAL_SERVER_ERROR,
-        ex.message ?: "Something went wrong"
-      )
+      is ElementNotFoundException -> buildStatusToProblemDetail(HttpStatus.NOT_FOUND, ex, "Not found")
+      is ProductOutOfStockException -> buildStatusToProblemDetail(HttpStatus.CONFLICT, ex, "Out of stock")
+      else -> buildStatusToProblemDetail(HttpStatus.INTERNAL_SERVER_ERROR, ex)
     }.let { (status, problem) ->
       return ServerResponse.status(status).bodyValue(problem)
     }
   }
 
+  private fun buildStatusToProblemDetail(
+    status: HttpStatus,
+    ex: Throwable,
+    defaultMessage: String = "Something went wrong",
+  ): Pair<HttpStatus, ProblemDetail> =
+    status to ProblemDetail.forStatusAndDetail(status, ex.message ?: defaultMessage)
+
+
   private suspend fun findProductById(request: ServerRequest): ServerResponse {
     val productId = request.pathVariable("id")
 
+    // Simulate some error conditions for product
     return if (setOf("1", "2").contains(productId)) {
       throw ProductNotFoundException("Product with ID [$productId] not found")
     } else if (productId == "9") {
       throw ProductOutOfStockException("Product with ID [$productId] is out of stock")
     } else {
+      // Simulate a successful product retrieval
       ServerResponse.ok().bodyValueAndAwait(Product(productId))
     }
   }
@@ -56,9 +55,13 @@ class ErrorHandlingRouteConfiguration {
   private suspend fun findCustomerById(request: ServerRequest): ServerResponse {
     val customerId = request.pathVariable("id")
 
+    // Simulate some error conditions for customer
     return if (setOf("1", "2").contains(customerId)) {
       throw CustomerNotFoundException("Customer with ID [$customerId] not found")
+    } else if (customerId == "9") {
+      throw RuntimeException("Unexpected error occurred while retrieving customer with ID [$customerId]")
     } else {
+      // Simulate a successful customer retrieval
       ServerResponse.ok().bodyValueAndAwait(Customer(customerId, "Customer Name $customerId"))
     }
   }
