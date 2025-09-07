@@ -12,13 +12,13 @@
 
 ```shell
 cd $(git rev-parse --show-toplevel) && \
-  ./gradlew :webflux:clean \
-            :webflux:build
+  ./gradlew :kotlin:07-http:webflux:clean\
+            :kotlin:07-http:webflux:bootJar
 ```
 
 ### Running Application
 
 ```shell
 cd $(git rev-parse --show-toplevel) && \
-  ./gradlew webflux:bootRun
+  ./gradlew :kotlin:07-http:webflux:bootRun
 ```
