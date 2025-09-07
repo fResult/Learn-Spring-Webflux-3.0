@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpStatus
 import org.springframework.http.ProblemDetail
 import org.springframework.web.reactive.function.server.*
+import reactor.core.publisher.Mono
 
 @Configuration
 class ErrorHandlingRouteConfiguration {
@@ -16,21 +17,27 @@ class ErrorHandlingRouteConfiguration {
       GET("customers/{id}", ::findCustomerById)
     }
   }.filter { request, next ->
-    next.handle(request)
-      .onErrorResume(ElementNotFoundException::class.java) { ex ->
-        ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.message).let { detail ->
-          ServerResponse.status(detail.status).bodyValue(detail)
-        }
-      }.onErrorResume(ProductOutOfStockException::class.java) { ex ->
-        ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, ex.message).let { detail ->
-          ServerResponse.status(detail.status).bodyValue(detail)
-        }
-      }.onErrorResume { ex ->
-        ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, ex.message).let { detail ->
-          ServerResponse.status(detail.status).bodyValue(detail)
-        }
-      }
+    next.handle(request).onErrorResume(::exceptionToProblemDetailResponse)
   }
+
+  private fun exceptionToProblemDetailResponse(ex: Throwable): Mono<ServerResponse> {
+    return when (ex) {
+      is ElementNotFoundException -> HttpStatus.NOT_FOUND to ProblemDetail.forStatusAndDetail(
+        HttpStatus.NOT_FOUND,
+        ex.message ?: "Not found"
+      )
+
+      is ProductOutOfStockException -> HttpStatus.CONFLICT to ProblemDetail.forStatusAndDetail(
+        HttpStatus.CONFLICT,
+        ex.message ?: "Out of stock"
+      )
+
+      else -> HttpStatus.INTERNAL_SERVER_ERROR to ProblemDetail.forStatusAndDetail(
+        HttpStatus.INTERNAL_SERVER_ERROR,
+        ex.message ?: "Something went wrong"
+      )
+    }.let { (status, problem) ->
+      return ServerResponse.status(status).bodyValue(problem)
     }
   }
 
