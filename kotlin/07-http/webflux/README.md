@@ -15,6 +15,11 @@
     - URL normalization with [`LowerCaseWebFilter`](./src/main/kotlin/com/fResult/http/filters/LowerCaseWebFilter.kt)
     - Filter chain demonstration with before/after hooks in [`LowerCaseWebConfiguration`](./src/main/kotlin/com/fResult/http/filters/LowerCaseWebConfiguration.kt)
     - Global error handling with [`ErrorHandlingRouteConfiguration`](./src/main/kotlin/com/fResult/http/filters/ErrorHandlingRouteConfiguration.kt)
+- Server-Sent Events (SSE)
+    - Implementing SSE endpoints with [`SseRouteConfiguration`](./src/main/kotlin/com/fResult/sse/SseRouteConfiguration.kt)
+    - Client-side SSE consumption with JavaScript
+    - Data-driven UI updates with Thymeleaf fragments
+
 ## Available Scripts
 
 ### Building Application
