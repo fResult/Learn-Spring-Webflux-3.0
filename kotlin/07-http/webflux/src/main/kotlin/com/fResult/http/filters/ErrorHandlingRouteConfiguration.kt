@@ -3,6 +3,8 @@ package com.fResult.http.filters
 import com.fResult.http.customers.Customer
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpStatus
+import org.springframework.http.ProblemDetail
 import org.springframework.web.reactive.function.server.*
 
 @Configuration
@@ -14,8 +16,21 @@ class ErrorHandlingRouteConfiguration {
       GET("customers/{id}", ::findCustomerById)
     }
   }.filter { request, next ->
-    next.handle(request).onErrorResume(ElementNotFoundException::class.java) { ex ->
-      ServerResponse.notFound().build()
+    next.handle(request)
+      .onErrorResume(ElementNotFoundException::class.java) { ex ->
+        ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.message).let { detail ->
+          ServerResponse.status(detail.status).bodyValue(detail)
+        }
+      }.onErrorResume(ProductOutOfStockException::class.java) { ex ->
+        ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, ex.message).let { detail ->
+          ServerResponse.status(detail.status).bodyValue(detail)
+        }
+      }.onErrorResume { ex ->
+        ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, ex.message).let { detail ->
+          ServerResponse.status(detail.status).bodyValue(detail)
+        }
+      }
+  }
     }
   }
 
@@ -24,6 +39,8 @@ class ErrorHandlingRouteConfiguration {
 
     return if (setOf("1", "2").contains(productId)) {
       throw ProductNotFoundException("Product with ID [$productId] not found")
+    } else if (productId == "9") {
+      throw ProductOutOfStockException("Product with ID [$productId] is out of stock")
     } else {
       ServerResponse.ok().bodyValueAndAwait(Product(productId))
     }
@@ -41,6 +58,12 @@ class ErrorHandlingRouteConfiguration {
 }
 
 data class Product(val id: String)
+
+class ProductOutOfStockException : RuntimeException {
+  constructor(message: String) : super(message)
+  constructor(cause: Throwable) : super(cause)
+  constructor(message: String, cause: Throwable) : super(message, cause)
+}
 
 class ProductNotFoundException : ElementNotFoundException {
   constructor(message: String) : super(message)
