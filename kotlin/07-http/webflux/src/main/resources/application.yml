@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: HTTP
+
+#logging:
+#   level:
+#     org.springframework.context.annotation: DEBUG

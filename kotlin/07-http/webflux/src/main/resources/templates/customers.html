@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>
+    A Reactive Thymeleaf View
+  </title>
+</head>
+<body>
+<h1>
+  [[${type}]]
+  Customers
+</h1>
+
+<ol>
+  <li data-th-each="customer : ${customers}">
+    [[${customer.id}]]
+    [[${customer.name}]]
+  </li>
+</ol>
+</body>
+</html>
