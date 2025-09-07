@@ -11,6 +11,10 @@
     - Nested routing with path and media type predicates in [`NestedFunctionalEndpointConfiguration`](./src/main/kotlin/com/fResult/http/routes/NestedFunctionalEndpointConfiguration.kt)
     - Separating handler logic with dedicated handler classes like [`CustomerHandler`](./src/main/kotlin/com/fResult/http/customers/CustomerHandler.kt) and [`NestedHandler`](./src/main/kotlin/com/fResult/http/routes/NestedHandler.kt)
     - Custom route predicates with case-insensitive matching in [`CaseInsensitiveRequestPredicates`](./src/main/kotlin/com/fResult/http/routes/CaseInsensitiveRequestPredicates.kt) and usage in [`CustomRoutePredicatesConfiguration`](./src/main/kotlin/com/fResult/http/routes/CustomRoutePredicatesConfiguration.kt)
+- Web Filters
+    - URL normalization with [`LowerCaseWebFilter`](./src/main/kotlin/com/fResult/http/filters/LowerCaseWebFilter.kt)
+    - Filter chain demonstration with before/after hooks in [`LowerCaseWebConfiguration`](./src/main/kotlin/com/fResult/http/filters/LowerCaseWebConfiguration.kt)
+    - Global error handling with [`ErrorHandlingRouteConfiguration`](./src/main/kotlin/com/fResult/http/filters/ErrorHandlingRouteConfiguration.kt)
 ## Available Scripts
 
 ### Building Application
