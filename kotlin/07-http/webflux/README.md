@@ -27,6 +27,10 @@
 - Cross-Origin Configuration
     - Global CORS settings with [`CorsGlobalConfiguration`](./src/main/kotlin/com/fResult/common/CorsGlobalConfiguration.kt)
     - Configuring allowed origins, methods, headers, and credentials
+- Utility Functions
+    - Function composition with the `o` infix function in [`Functions`](./src/main/kotlin/com/fResult/utils/Functions.kt)
+    - Reactive response builder helpers
+    - Interval message producer for streaming demos
 
 ## Available Scripts
 
