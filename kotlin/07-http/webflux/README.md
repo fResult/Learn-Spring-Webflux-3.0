@@ -24,6 +24,9 @@
     - Demo chat application with [`ChatWebSocketConfiguration`](./src/main/kotlin/com/fResult/ws/chat/ChatWebSocketConfiguration.kt)
     - Managing WebSocket sessions and broadcasting messages
     - Bidirectional communication between server and clients
+- Cross-Origin Configuration
+    - Global CORS settings with [`CorsGlobalConfiguration`](./src/main/kotlin/com/fResult/common/CorsGlobalConfiguration.kt)
+    - Configuring allowed origins, methods, headers, and credentials
 
 ## Available Scripts
 
