@@ -19,6 +19,11 @@
     - Implementing SSE endpoints with [`SseRouteConfiguration`](./src/main/kotlin/com/fResult/sse/SseRouteConfiguration.kt)
     - Client-side SSE consumption with JavaScript
     - Data-driven UI updates with Thymeleaf fragments
+- WebSocket Implementation
+    - Basic echo service with [`EchoWebSocketConfiguration`](./src/main/kotlin/com/fResult/ws/echo/EchoWebSocketConfiguration.kt)
+    - Demo chat application with [`ChatWebSocketConfiguration`](./src/main/kotlin/com/fResult/ws/chat/ChatWebSocketConfiguration.kt)
+    - Managing WebSocket sessions and broadcasting messages
+    - Bidirectional communication between server and clients
 
 ## Available Scripts
 
