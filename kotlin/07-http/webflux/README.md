@@ -31,6 +31,10 @@
     - Function composition with the `o` infix function in [`Functions`](./src/main/kotlin/com/fResult/utils/Functions.kt)
     - Reactive response builder helpers
     - Interval message producer for streaming demos
+- Testing
+    - Unit tests for WebFilters with [`LowerCaseWebFilterTest`](./src/test/kotlin/com/fResult/http/filters/LowerCaseWebFilterTest.kt)
+    - Endpoint testing with [`SimpleFunctionalEndpointConfigurationTest`](./src/test/kotlin/com/fResult/http/routes/SimpleFunctionalEndpointConfigurationTest.kt)
+    - Custom route predicate testing with [`CustomRoutePredicatesConfigurationTest`](./src/test/kotlin/com/fResult/http/routes/CustomRoutePredicatesConfigurationTest.kt)
 
 ## Available Scripts
 
