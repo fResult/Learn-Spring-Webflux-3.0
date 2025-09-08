@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ProblemDetail
 import org.springframework.web.reactive.function.server.ServerResponse
 import reactor.core.publisher.Mono
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
 
 object ExceptionProblemResponseMapper {
   fun map(ex: Throwable): Mono<ServerResponse> {
@@ -18,10 +20,15 @@ object ExceptionProblemResponseMapper {
     }
   }
 
+  @OptIn(ExperimentalTime::class)
   private fun buildStatusToProblemDetail(
     status: HttpStatus,
     ex: Throwable,
     defaultMessage: String = "Something went wrong",
-  ): Pair<HttpStatus, ProblemDetail> =
-    status to ProblemDetail.forStatusAndDetail(status, ex.message ?: defaultMessage)
+  ): Pair<HttpStatus, ProblemDetail> {
+    val detail = ProblemDetail.forStatusAndDetail(status, ex.message ?: defaultMessage)
+    detail.setProperty("timestamp", Clock.System.now().toString())
+
+    return status to detail
+  }
 }
