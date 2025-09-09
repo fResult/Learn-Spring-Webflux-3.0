@@ -1,4 +1,4 @@
-package com.fresult.client
+package com.fresult.client.configs
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
