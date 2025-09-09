@@ -1,3 +1,5 @@
+import org.springframework.boot.gradle.tasks.bundling.BootJar
+
 plugins {
   kotlin("jvm")
   kotlin("plugin.spring")
@@ -7,7 +9,7 @@ plugins {
 
 dependencies {
 //  implementation("org.springframework.boot:spring-boot-starter-security")
-  implementation("org.springframework.boot:spring-boot-starter-webflux")
+  implementation(libs.spring.boot.starter.webflux)
   implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
   implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
   implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -27,4 +29,8 @@ kotlin {
 
 tasks.withType<Test> {
   useJUnitPlatform()
+}
+
+tasks.withType<BootJar> {
+  mainClass.set("com.example.HttpServiceApplication")
 }
