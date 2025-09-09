@@ -1,5 +1,7 @@
-package com.fresult.client
+package com.fresult.client.configs
 
+import com.fresult.client.ClientProperties
+import com.fresult.client.DefaultClient
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.reactive.function.client.WebClient
