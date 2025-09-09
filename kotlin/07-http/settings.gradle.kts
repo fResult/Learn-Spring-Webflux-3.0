@@ -1,6 +1,7 @@
 rootProject.name = "07-http"
 
 include("webflux")
+include("webclient")
 
 dependencyResolutionManagement {
   versionCatalogs {
