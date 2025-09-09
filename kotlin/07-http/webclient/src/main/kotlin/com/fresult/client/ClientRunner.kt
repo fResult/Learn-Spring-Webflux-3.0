@@ -7,22 +7,21 @@ import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Component
 
 @Component
-class ClientRunner(private val client: DefaultClient) {
+class ClientRunner(private val defaultClient: DefaultClient, private val authenticatedClient: AuthenticatedClient) {
   companion object {
     private val log: Logger = LogManager.getLogger(ClientRunner::class.java)
   }
 
   @EventListener(ApplicationReadyEvent::class)
   fun runAfterStartup() {
-
-    client.getSingle("KotlinSingle").map(::greetMessage).subscribe { message ->
-      log.info("[Single]: {}", message)
-    }
-
-    client.getMany("KotlinMany").map(::greetMessage).subscribe { message ->
-      log.info("[Many]: {}", message)
-    }
+    authenticatedClient.getAuthenticatedGreeting().map(::greetMessage).subscribe(loggingConsumer("Authenticated"))
+    defaultClient.getSingle("KotlinSingle").map(::greetMessage).subscribe(loggingConsumer("Single"))
+    defaultClient.getMany("KotlinMany").map(::greetMessage).subscribe(loggingConsumer("Many"))
   }
 
   private fun greetMessage(greeting: Greeting): String = greeting.message
+
+  private fun loggingConsumer(tag: String): (String) -> Unit {
+    return { message: String -> log.info("[$tag]: {}", message) }
+  }
 }
