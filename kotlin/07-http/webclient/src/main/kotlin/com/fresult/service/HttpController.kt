@@ -25,5 +25,8 @@ class HttpController {
     Flux.fromStream(Stream.generate { greeting(name) })
       .delayElements(1.seconds.toJavaDuration());
 
+  @GetMapping("/authenticated")
+  fun greetAuthenticated(): Publisher<Greeting> = Mono.just(Greeting("Hello, authenticated user! @ ${Instant.now()}"))
+
   private fun greeting(name: String) = Greeting("Hello, $name @ ${Instant.now()}")
 }
