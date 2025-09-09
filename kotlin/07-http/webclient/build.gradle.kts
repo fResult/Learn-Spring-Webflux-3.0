@@ -1,26 +1,12 @@
 plugins {
-  kotlin("jvm") version "2.2.0"
-  kotlin("plugin.spring") version "2.2.0"
-  id("org.springframework.boot") version "4.0.0-M1"
-  id("io.spring.dependency-management") version "1.1.7"
-}
-
-group = "com.fResult"
-version = "0.0.1"
-
-java {
-  toolchain {
-    languageVersion = JavaLanguageVersion.of(21)
-  }
-}
-
-repositories {
-  mavenCentral()
+  kotlin("jvm")
+  kotlin("plugin.spring")
+  id("org.springframework.boot")
+  id("io.spring.dependency-management")
 }
 
 dependencies {
 //  implementation("org.springframework.boot:spring-boot-starter-security")
-  implementation("org.springframework.boot:spring-boot-starter-webclient")
   implementation("org.springframework.boot:spring-boot-starter-webflux")
   implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
   implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
