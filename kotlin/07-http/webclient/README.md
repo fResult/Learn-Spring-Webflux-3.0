@@ -17,6 +17,11 @@
   - Timing exchange filter function for request/response metrics [`TimingExchangeFilterFunction`](./src/main/kotlin/com/fresult/client/timer/TimingExchangeFilterFunction.kt)
   - Response wrapper for timing information [`TimingClientResponseWrapper`](./src/main/kotlin/com/fresult/client/timer/TimingClientResponseWrapper.kt)
   - WebClient customizer with timing capabilities [`TimingWebClientCustomizer`](./src/main/kotlin/com/fresult/client/timer/TimingWebClientCustomizer.kt)
+- Server Implementation
+  - HTTP endpoints providing greeting services [`HttpController`](./src/main/kotlin/com/fresult/service/HttpController.kt)
+  - Security configuration with basic authentication [`HttpSecurityConfiguration`](./src/main/kotlin/com/fresult/service/HttpSecurityConfiguration.kt)
+  - Main application class for server side [`HttpServiceApplication`](./src/main/kotlin/com/fresult/service/HttpServiceApplication.kt)
+  - Main application class for client side [`HttpClientApplication`](./src/main/kotlin/com/fresult/client/HttpClientApplication.kt)
 
 ## Available Scripts
 
