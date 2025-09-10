@@ -13,7 +13,7 @@ class ClientRunner(private val defaultClient: DefaultClient, private val authent
   }
 
   @EventListener(ApplicationReadyEvent::class)
-  fun runAfterStartup() {
+  fun onApplicationReady() {
     authenticatedClient.getAuthenticatedGreeting().map(::greetMessage).subscribe(loggingConsumer("Authenticated"))
     defaultClient.getSingle("KotlinSingle").map(::greetMessage).subscribe(loggingConsumer("Single"))
     defaultClient.getMany("KotlinMany").map(::greetMessage).subscribe(loggingConsumer("Many"))
