@@ -13,6 +13,10 @@
   - Authenticated client with basic auth [`AuthenticatedClient`](./src/main/kotlin/com/fresult/client/AuthenticatedClient.kt)
   - Client runner for executing requests on application startup [`ClientRunner`](./src/main/kotlin/com/fresult/client/ClientRunner.kt)
   - Data model for responses [`Greeting`](./src/main/kotlin/com/fresult/client/Greeting.kt)
+- Request/Response Timing
+  - Timing exchange filter function for request/response metrics [`TimingExchangeFilterFunction`](./src/main/kotlin/com/fresult/client/timer/TimingExchangeFilterFunction.kt)
+  - Response wrapper for timing information [`TimingClientResponseWrapper`](./src/main/kotlin/com/fresult/client/timer/TimingClientResponseWrapper.kt)
+  - WebClient customizer with timing capabilities [`TimingWebClientCustomizer`](./src/main/kotlin/com/fresult/client/timer/TimingWebClientCustomizer.kt)
 
 ## Available Scripts
 
