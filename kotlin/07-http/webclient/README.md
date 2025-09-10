@@ -22,6 +22,8 @@
   - Security configuration with basic authentication [`HttpSecurityConfiguration`](./src/main/kotlin/com/fresult/service/HttpSecurityConfiguration.kt)
   - Main application class for server side [`HttpServiceApplication`](./src/main/kotlin/com/fresult/service/HttpServiceApplication.kt)
   - Main application class for client side [`HttpClientApplication`](./src/main/kotlin/com/fresult/client/HttpClientApplication.kt)
+- Testing
+  - HTTP client controller testing [`HttpControllerTest`](./src/test/kotlin/com/fresult/service/HttpControllerTest.kt)
 
 ## Available Scripts
 
