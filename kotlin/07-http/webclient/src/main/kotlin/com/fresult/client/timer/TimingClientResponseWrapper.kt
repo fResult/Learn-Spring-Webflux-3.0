@@ -51,8 +51,8 @@ class TimingClientResponseWrapper(delegate: ClientResponse) : ClientResponseWrap
     super.bodyToMono(elementTypeRef).let(::log)
 
   override fun <T : Any> bodyToFlux(elementClass: Class<out T>): Flux<T> =
-    super.bodyToFlux(elementClass)
+    super.bodyToFlux(elementClass).let(::log)
 
   override fun <T : Any> bodyToFlux(elementTypeRef: ParameterizedTypeReference<T>): Flux<T> =
-    super.bodyToFlux(elementTypeRef)
+    super.bodyToFlux(elementTypeRef).let(::log)
 }
