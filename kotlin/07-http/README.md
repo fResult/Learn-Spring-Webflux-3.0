@@ -6,7 +6,7 @@ This module is based on concepts from the [http repository](https://github.com/r
 
 This module demonstrates core Spring WebFlux concepts in Kotlin including:
 
-- Servlet Module (Not implemented yet)
+- [Servlet Module](./servlets/README.md)
 - [Webflux Module](./webflux/README.md)
 - [WebClient Module](./webclient/README.md)
 - Security Module (Not implemented yet)
