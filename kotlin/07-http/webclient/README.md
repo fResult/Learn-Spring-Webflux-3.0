@@ -8,6 +8,11 @@
   - Default configuration settings [`DefaultConfiguration`](./src/main/kotlin/com/fresult/client/configs/DefaultConfiguration.kt)
   - Authenticated configuration with basic auth filter [`AuthenticatedConfiguration`](./src/main/kotlin/com/fresult/client/configs/AuthenticatedConfiguration.kt)
   - Client properties configuration [`ClientProperties`](./src/main/kotlin/com/fresult/client/ClientProperties.kt)
+- Client Implementation
+  - Default HTTP client for unauthenticated requests [`DefaultClient`](./src/main/kotlin/com/fresult/client/DefaultClient.kt)
+  - Authenticated client with basic auth [`AuthenticatedClient`](./src/main/kotlin/com/fresult/client/AuthenticatedClient.kt)
+  - Client runner for executing requests on application startup [`ClientRunner`](./src/main/kotlin/com/fresult/client/ClientRunner.kt)
+  - Data model for responses [`Greeting`](./src/main/kotlin/com/fresult/client/Greeting.kt)
 
 ## Available Scripts
 
