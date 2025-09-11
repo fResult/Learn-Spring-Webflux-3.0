@@ -17,6 +17,10 @@
 - Multi-Profile Configuration
     - Service profile for server-side application [`ServiceApplication`](./src/main/kotlin/com/fresult/service/ServiceApplication.kt)
     - Client profile for client-side application [`ClientApplication`](./src/main/kotlin/com/fresult/client/ClientApplication.kt)
+- Testing
+    - Authenticated endpoint testing [`GreetingControllerTests`](./src/test/kotlin/com/fresult/service/GreetingControllerTests.kt)
+    - Role-based response verification
+
 ## Available Scripts
 
 ### Building Application
