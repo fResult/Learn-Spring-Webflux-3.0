@@ -1,3 +1,6 @@
+import org.springframework.boot.gradle.tasks.bundling.BootJar
+import org.springframework.boot.gradle.tasks.run.BootRun
+
 plugins {
   kotlin("jvm")
   kotlin("plugin.spring")
@@ -32,4 +35,18 @@ kotlin {
 
 tasks.withType<Test> {
   useJUnitPlatform()
+}
+
+tasks.register<BootRun>("bootService") {
+  group = "application"
+  description = "Run the ServiceApplication"
+  mainClass = "com.fresult.service.ServiceApplicationKt"
+  classpath = sourceSets["main"].runtimeClasspath
+}
+
+tasks.register<BootRun>("bootClient") {
+  group = "application"
+  description = "Run the ClientApplication"
+  mainClass = "com.fresult.client.ClientApplicationKt"
+  classpath = sourceSets["main"].runtimeClasspath
 }
