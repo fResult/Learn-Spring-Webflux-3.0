@@ -4,6 +4,10 @@
 
 ## Implementation Details
 
+- Authentication and Authorization
+    - User details service with in-memory users [`SecurityConfiguration`](./src/main/kotlin/com/fresult/service/SecurityConfiguration.kt)
+    - HTTP Basic authentication configuration
+    - URL-based authorization rules with path matchers
 ## Available Scripts
 
 ### Building Application
