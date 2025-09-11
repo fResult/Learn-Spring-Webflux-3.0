@@ -14,6 +14,9 @@
 - Client Authentication
     - WebClient with Basic Authentication filter [`WebClientConfiguration`](./src/main/kotlin/com/fresult/client/WebClientConfiguration.kt)
     - Application startup client runner [`RunnerConfiguration`](./src/main/kotlin/com/fresult/client/RunnerConfiguration.kt)
+- Multi-Profile Configuration
+    - Service profile for server-side application [`ServiceApplication`](./src/main/kotlin/com/fresult/service/ServiceApplication.kt)
+    - Client profile for client-side application [`ClientApplication`](./src/main/kotlin/com/fresult/client/ClientApplication.kt)
 ## Available Scripts
 
 ### Building Application
