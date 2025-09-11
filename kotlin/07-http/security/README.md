@@ -11,6 +11,9 @@
 - Secured Endpoints
     - Protected greeting endpoint with user information [`GreetingController`](./src/main/kotlin/com/fresult/service/GreetingController.kt)
     - Username and role display using `@AuthenticationPrincipal`
+- Client Authentication
+    - WebClient with Basic Authentication filter [`WebClientConfiguration`](./src/main/kotlin/com/fresult/client/WebClientConfiguration.kt)
+    - Application startup client runner [`RunnerConfiguration`](./src/main/kotlin/com/fresult/client/RunnerConfiguration.kt)
 ## Available Scripts
 
 ### Building Application
