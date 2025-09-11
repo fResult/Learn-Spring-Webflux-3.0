@@ -8,6 +8,9 @@
     - User details service with in-memory users [`SecurityConfiguration`](./src/main/kotlin/com/fresult/service/SecurityConfiguration.kt)
     - HTTP Basic authentication configuration
     - URL-based authorization rules with path matchers
+- Secured Endpoints
+    - Protected greeting endpoint with user information [`GreetingController`](./src/main/kotlin/com/fresult/service/GreetingController.kt)
+    - Username and role display using `@AuthenticationPrincipal`
 ## Available Scripts
 
 ### Building Application
