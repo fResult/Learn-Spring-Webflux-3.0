@@ -7,6 +7,9 @@
 - Tomcat Integration
   - Demo Spring WebFlux application running on Tomcat instead of default Reactor Netty [`build.gradle.kts#L10`](./build.gradle.kts)
   - Main application setup [`TomcatWebfluxApplication`](./src/main/kotlin/com/fresult/servlets/TomcatWebfluxApplication.kt)
+- Endpoint Implementations
+  - Annotation-based controller approach [`GreetingsController`](./src/main/kotlin/com/fresult/servlets/GreetingsController.kt)
+  - Functional router configuration with co-routines [`GreetingsRouteConfiguration`](./src/main/kotlin/com/fresult/servlets/GreetingsRouteConfiguration.kt)
 
 ## Available Scripts
 
