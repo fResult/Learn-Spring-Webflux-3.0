@@ -37,9 +37,18 @@ cd $(git rev-parse --show-toplevel) && \
 
 ### Running Application
 
+First, run the service application:
+
 ```shell
 cd $(git rev-parse --show-toplevel) && \
-  ./gradlew :kotlin:07-http:webclient:bootRun
+  ./gradlew :kotlin:07-http:webclient:bootService
+```
+
+Then, in another terminal, run the client application:
+
+```shell
+cd $(git rev-parse --show-toplevel) && \
+    ./gradlew :kotlin:07-http:webclient:bootClient
 ```
 
 [← Back to \[07 HTTP\]'s README](../README.md)
