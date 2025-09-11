@@ -14,9 +14,9 @@
   - Client runner for executing requests on application startup [`ClientRunner`](./src/main/kotlin/com/fresult/client/ClientRunner.kt)
   - Data model for responses [`Greeting`](./src/main/kotlin/com/fresult/client/Greeting.kt)
 - Request/Response Timing
-  - Timing exchange filter function for request/response metrics [`TimingExchangeFilterFunction`](./src/main/kotlin/com/fresult/client/timer/TimingExchangeFilterFunction.kt)
-  - Response wrapper for timing information [`TimingClientResponseWrapper`](./src/main/kotlin/com/fresult/client/timer/TimingClientResponseWrapper.kt)
-  - WebClient customizer with timing capabilities [`TimingWebClientCustomizer`](./src/main/kotlin/com/fresult/client/timer/TimingWebClientCustomizer.kt)
+  - Timing exchange filter function for request/response [`TimingExchangeFilterFunction`](./src/main/kotlin/com/fresult/client/timer/TimingExchangeFilterFunction.kt)
+  - Response wrapper with start/stop logging [`TimingClientResponseWrapper`](./src/main/kotlin/com/fresult/client/timer/TimingClientResponseWrapper.kt)
+  - WebClient customizer to enable timing logs [`TimingWebClientCustomizer`](./src/main/kotlin/com/fresult/client/timer/TimingWebClientCustomizer.kt)
 - Server Implementation
   - HTTP endpoints providing greeting services [`HttpController`](./src/main/kotlin/com/fresult/service/HttpController.kt)
   - Security configuration with basic authentication [`HttpSecurityConfiguration`](./src/main/kotlin/com/fresult/service/HttpSecurityConfiguration.kt)
