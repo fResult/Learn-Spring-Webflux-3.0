@@ -10,6 +10,9 @@
 - Endpoint Implementations
   - Annotation-based controller approach [`GreetingsController`](./src/main/kotlin/com/fresult/servlets/GreetingsController.kt)
   - Functional router configuration with co-routines [`GreetingsRouteConfiguration`](./src/main/kotlin/com/fresult/servlets/GreetingsRouteConfiguration.kt)
+- Testing
+  - WebFlux testing with parameterized test cases [`TomcatWebfluxApplicationTests`](./src/test/kotlin/com/fresult/servlets/TomcatWebfluxApplicationTests.kt)
+  - Testing both controller and functional endpoints
 
 ## Available Scripts
 
