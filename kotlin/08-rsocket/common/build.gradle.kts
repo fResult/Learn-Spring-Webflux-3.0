@@ -1,19 +1,19 @@
+import org.springframework.boot.gradle.plugin.SpringBootPlugin
+import org.springframework.boot.gradle.tasks.bundling.BootJar
+
 plugins {
   kotlin("jvm")
   kotlin("plugin.spring")
-  id("org.springframework.boot")
-  id("io.spring.dependency-management")
+  alias(libs.plugins.spring.dependency.management)
 }
 
 dependencies {
 }
 
-kotlin {
-  compilerOptions {
-    freeCompilerArgs.addAll("-Xjsr305=strict", "-Xannotation-default-target=param-property")
-  }
+tasks.getByName<Jar>(JavaPlugin.JAR_TASK_NAME) {
+  enabled = true
 }
 
-tasks.withType<Test> {
-  useJUnitPlatform()
+tasks.getByName<BootJar>(SpringBootPlugin.BOOT_JAR_TASK_NAME) {
+  enabled = false
 }
