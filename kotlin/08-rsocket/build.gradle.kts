@@ -1,12 +1,13 @@
 import io.spring.gradle.dependencymanagement.DependencyManagementPlugin
+import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinPluginWrapper
 import org.springframework.boot.gradle.plugin.SpringBootPlugin
 
 plugins {
   kotlin("jvm") version "2.2.0" apply false
   kotlin("plugin.spring") version "2.2.0" apply false
-  id("org.springframework.boot") version "3.5.5" apply false
-  id("io.spring.dependency-management") version "1.1.7" apply false
+  alias(libs.plugins.spring.boot) apply false
+  alias(libs.plugins.spring.dependency.management) apply false
 }
 
 group = "com.fResult"
@@ -54,5 +55,18 @@ subprojects {
         languageVersion = JavaLanguageVersion.of(21)
       }
     }
+  }
+
+  extensions.configure<KotlinJvmProjectExtension> {
+    compilerOptions {
+      freeCompilerArgs.addAll(
+        "-Xjsr305=strict",
+        "-Xannotation-default-target=param-property",
+      )
+    }
+  }
+
+  tasks.withType<Test> {
+    useJUnitPlatform()
   }
 }
