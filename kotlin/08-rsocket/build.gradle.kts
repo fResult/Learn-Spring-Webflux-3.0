@@ -1,34 +1,51 @@
+import io.spring.gradle.dependencymanagement.DependencyManagementPlugin
+import org.jetbrains.kotlin.gradle.plugin.KotlinPluginWrapper
+import org.springframework.boot.gradle.plugin.SpringBootPlugin
+
 plugins {
-  kotlin("jvm") version "2.2.0"
-  kotlin("plugin.spring") version "2.2.0"
-  id("org.springframework.boot") version "3.5.5"
-  id("io.spring.dependency-management") version "1.1.7"
+  kotlin("jvm") version "2.2.0" apply false
+  kotlin("plugin.spring") version "2.2.0" apply false
+  id("org.springframework.boot") version "3.5.5" apply false
+  id("io.spring.dependency-management") version "1.1.7" apply false
 }
 
 group = "com.fResult"
 version = "0.0.1"
 description = "Demo RSocket with Spring Boot and Kotlin"
 
-dependencies {
-  implementation("org.springframework.boot:spring-boot-starter-rsocket")
-  implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
-  implementation("org.jetbrains.kotlin:kotlin-reflect")
-  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
-  developmentOnly("org.springframework.boot:spring-boot-devtools")
-  testImplementation("org.springframework.boot:spring-boot-starter-test")
-  testImplementation("io.projectreactor:reactor-test")
-  testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-  testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test")
-  testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-}
+subprojects {
+  // Type-safe apply
+  apply<KotlinPluginWrapper>()        // kotlin("jvm")
+  apply<SpringBootPlugin>()           // id("org.springframework.boot")
+  apply<DependencyManagementPlugin>() // id("io.spring.dependency-management")
 
-allprojects {
-  group = "com.fResult"
-  version = "0.0.1"
-  description = "08-rsocket"
+  // Untyped apply for kotlin("plugin.spring")
+  apply(plugin = "org.jetbrains.kotlin.plugin.spring")
+
+  group = rootProject.group
+  version = rootProject.version
+  description = rootProject.description
 
   repositories {
     mavenCentral()
+  }
+
+  afterEvaluate {
+    dependencies {
+      "implementation"(libs.spring.boot.starter.rsocket)
+      "implementation"("io.projectreactor.kotlin:reactor-kotlin-extensions")
+      "implementation"("org.jetbrains.kotlin:kotlin-reflect")
+      "implementation"("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+
+      "developmentOnly"(libs.spring.boot.devtools)
+
+      "testImplementation"(libs.spring.boot.starter.test)
+      "testImplementation"("io.projectreactor:reactor-test")
+      "testImplementation"("org.jetbrains.kotlin:kotlin-test-junit5")
+      "testImplementation"("org.jetbrains.kotlinx:kotlinx-coroutines-test")
+
+      "testRuntimeOnly"("org.junit.platform:junit-platform-launcher")
+    }
   }
 
   plugins.withType<JavaPlugin> {
