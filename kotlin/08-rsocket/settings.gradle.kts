@@ -1,6 +1,7 @@
 rootProject.name = "08-rsocket"
 
 include("common")
+include("raw-rsocket")
 
 dependencyResolutionManagement {
   versionCatalogs {
