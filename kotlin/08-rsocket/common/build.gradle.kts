@@ -1,4 +1,3 @@
-import org.springframework.boot.gradle.plugin.SpringBootPlugin
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
@@ -10,10 +9,10 @@ plugins {
 dependencies {
 }
 
-tasks.getByName<Jar>(JavaPlugin.JAR_TASK_NAME) {
+tasks.withType<Jar> {
   enabled = true
 }
 
-tasks.getByName<BootJar>(SpringBootPlugin.BOOT_JAR_TASK_NAME) {
+tasks.withType<BootJar> {
   enabled = false
 }
