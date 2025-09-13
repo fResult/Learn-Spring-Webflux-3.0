@@ -25,7 +25,7 @@ Each module is implemented in both [Java](./java) and [Kotlin](./kotlin) to comp
 - `05-reactor`: Implementation of reactive programming concepts using Project Reactor with Mono/Flux operators, error handling, backpressure management and testing strategies
    - [Java Implementation](./java/05-reactor)
    - [Kotlin Implementation](./kotlin/05-reactor)
-- `06-data-access`: Implementation of data access patterns using Spring Data R2DBC and reactive repositories
+- `06-data-access`: Implementation of reactive database access using Spring Data R2DBC with schema definitions, repository patterns, and transaction management
    - Java Implementation (No implementation)
    - [Kotlin Implementation](./kotlin/06-data-access)
 
