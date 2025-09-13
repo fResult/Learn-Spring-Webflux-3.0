@@ -28,6 +28,9 @@ Each module is implemented in both [Java](./java) and [Kotlin](./kotlin) to comp
 - `06-data-access`: Implementation of reactive database access using Spring Data R2DBC with schema definitions, repository patterns, and transaction management
    - Java Implementation (No implementation)
    - [Kotlin Implementation](./kotlin/06-data-access)
+- `07-http`: Implementation of reactive HTTP applications featuring WebClient for clients, WebFlux for servers, security integration, and comparison with servlet-based approaches
+   - Java Implementation (No implementation)
+   - [Kotlin Implementation](./kotlin/07-http)
 
 ## My Summary
 
