@@ -15,7 +15,7 @@ The project is organized into modules demonstrating different aspects of Spring 
 
 Each module is implemented in both [Java](./java) and [Kotlin](./kotlin) to compare approaches.
 
-- `03-bootstrap`: Implementation of core Spring concepts including transaction management
+- `03-bootstrap`: Implementation of core Spring concepts including dependency injection, configuration, application context, and transaction management fundamental
    - [Java Implementation](./java/03-bootstrap)
    - [Kotlin Implementation](./kotlin/03-bootstrap)
 - `04-input-and-output`: xxxxxxxxxxxxxxxxx
