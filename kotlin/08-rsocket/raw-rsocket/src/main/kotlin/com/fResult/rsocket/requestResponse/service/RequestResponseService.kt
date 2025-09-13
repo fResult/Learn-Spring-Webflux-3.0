@@ -1,0 +1,40 @@
+package com.fResult.rsocket.requestResponse.service
+
+import com.fResult.rsocket.FResultProperties
+import io.rsocket.Payload
+import io.rsocket.SocketAcceptor
+import io.rsocket.core.RSocketServer
+import io.rsocket.transport.netty.server.CloseableChannel
+import io.rsocket.transport.netty.server.TcpServerTransport
+import io.rsocket.util.DefaultPayload
+import org.apache.logging.log4j.LogManager
+import org.apache.logging.log4j.Logger
+import org.springframework.boot.context.event.ApplicationReadyEvent
+import org.springframework.context.event.EventListener
+import org.springframework.stereotype.Component
+import reactor.core.publisher.Mono
+
+@Component
+class Service(private val props: FResultProperties) {
+  companion object {
+    val log: Logger = LogManager.getLogger(Service::class.java)
+  }
+
+  @EventListener(ApplicationReadyEvent::class)
+  fun onApplicationReady() {
+    val serverTransport = TcpServerTransport.create(props.rsocket.hostname, props.rsocket.port)
+
+    SocketAcceptor.forRequestResponse(::requestResponseHandler)
+      .let(RSocketServer::create)
+      .bind(serverTransport)
+      .doOnNext(::logStartup)
+      .block()
+  }
+
+  private fun requestResponseHandler(payload: Payload): Mono<Payload> =
+    Mono.just(DefaultPayload.create("Hello, ${payload.dataUtf8}"))
+
+  private fun logStartup(channel: CloseableChannel) {
+    log.info("Server started. Closeable: {}", channel.address())
+  }
+}
