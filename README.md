@@ -22,7 +22,7 @@ Each module is implemented in both [Java](./java) and [Kotlin](./kotlin) to comp
 - `04-input-and-output`: xxxxxxxxxxxxxxxxx
    - [Java Implementation](./java/04-input-and-output)
    - [Kotlin Implementation](https://github.com/fResult/Learn-Spring-Webflux-3.0/tree/04_input-and-output/kotlin/04-input-and-output)
-- `05-reactor`: Implementation of reactive programming concepts using Project Reactor
+- `05-reactor`: Implementation of reactive programming concepts using Project Reactor with Mono/Flux operators, error handling, backpressure management and testing strategies
    - [Java Implementation](./java/05-reactor)
    - [Kotlin Implementation](./kotlin/05-reactor)
 - `06-data-access`: Implementation of data access patterns using Spring Data R2DBC and reactive repositories
