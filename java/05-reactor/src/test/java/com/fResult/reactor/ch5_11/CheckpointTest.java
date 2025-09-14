@@ -1,20 +1,18 @@
 package com.fResult.reactor.ch5_11;
 
-import lombok.SneakyThrows;
-import lombok.extern.log4j.Log4j2;
-import lombok.val;
-import org.junit.jupiter.api.Test;
-import reactor.core.publisher.Flux;
-import reactor.test.StepVerifier;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.time.Duration;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.function.Function;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import lombok.SneakyThrows;
+import lombok.extern.log4j.Log4j2;
+import lombok.val;
+import org.junit.jupiter.api.Test;
+import reactor.core.publisher.Flux;
+import reactor.test.StepVerifier;
 
 @Log4j2
 class CheckpointTest {
