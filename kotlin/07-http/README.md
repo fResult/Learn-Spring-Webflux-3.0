@@ -9,6 +9,6 @@ This module demonstrates core Spring WebFlux concepts in Kotlin including:
 - [Servlet Module](./servlets/README.md)
 - [Webflux Module](./webflux/README.md)
 - [WebClient Module](./webclient/README.md)
-- Security Module (Not implemented yet)
+- [Security Module](./security/README.md)
 
 [← Back to Main README](../../README.md)
