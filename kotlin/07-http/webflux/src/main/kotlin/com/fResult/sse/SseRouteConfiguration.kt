@@ -27,7 +27,8 @@ class SseRouteConfiguration {
 
   private suspend fun handleSse(request: ServerRequest): ServerResponse {
     val count = request.pathVariable(COUNT_PATH_VARIABLE).toInt()
-    val publisher = IntervalMessageProducer.produce(count).doOnComplete {log.info("Completed SSE stream for count: $count")}
+    val publisher =
+      IntervalMessageProducer.produce(count).doOnComplete { log.info("Completed SSE stream for count: $count") }
 
     return ServerResponse.ok().contentType(MediaType.TEXT_EVENT_STREAM).bodyAndAwait(publisher.asFlow())
   }

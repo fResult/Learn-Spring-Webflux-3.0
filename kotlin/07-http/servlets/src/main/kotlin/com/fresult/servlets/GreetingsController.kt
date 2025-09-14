@@ -9,5 +9,6 @@ import reactor.core.publisher.Mono
 @RestController
 class GreetingsController {
   @GetMapping("/hello/controller/{name}")
-  fun greet(request: ServerHttpRequest, @PathVariable name: String): Mono<Greetings> = Greetings.greet("controller", name)
+  fun greet(request: ServerHttpRequest, @PathVariable name: String): Mono<Greetings> =
+    Greetings.greet("controller", name)
 }

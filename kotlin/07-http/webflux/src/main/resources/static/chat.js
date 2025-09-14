@@ -58,7 +58,7 @@ function send(webSocket, messageInput) {
 
   const msgValue = messageInput.value
   messageInput.value = ''
-  webSocket.send(JSON.stringify({ text: msgValue.trim() }))
+  webSocket.send(JSON.stringify({text: msgValue.trim()}))
   console.log('[send] message sent:', msgValue.trim())
 }
 

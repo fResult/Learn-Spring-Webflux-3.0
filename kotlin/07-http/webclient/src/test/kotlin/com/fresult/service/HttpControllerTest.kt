@@ -2,8 +2,8 @@ package com.fresult.service
 
 import com.fresult.client.ClientProperties
 import com.fresult.client.DefaultClient
-import com.fresult.client.configs.DefaultConfiguration
 import com.fresult.client.Greeting
+import com.fresult.client.configs.DefaultConfiguration
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
