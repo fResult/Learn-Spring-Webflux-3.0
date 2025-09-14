@@ -37,6 +37,7 @@ Each module is implemented in both [Java](./java) and [Kotlin](./kotlin) to comp
 - Understood the benefits of non-blocking I/O for scalable applications
 - Understood reactive programming principles and how they differ from imperative programming
 - Mastered Project Reactor's core (`Mono` and `Flux`) and how they enable composition of asynchronous operations
+- Learned reactive database access patterns with Spring Data R2DBC replacing traditional JDBC
 
 ### Things I Did Different and Learned Further
 
@@ -44,6 +45,7 @@ Each module is implemented in both [Java](./java) and [Kotlin](./kotlin) to comp
 - Implemented parallel Kotlin versions of Java examples
 - Updated to Spring Boot 3.5.x while the book uses an older Spring Boot version 2.5.0
 - Adopted a monorepo approach with [Gradle Multi-project Builds][gradle-multiproject] and [Gradle Composite Builds][gradle-composite-builds] to manage both Java and Kotlin implementations in a single repository
+- Implemented database profile switching between R2DBC, MongoDB, and other providers
 
 <!-- References -->
 [gradle-multiproject]: https://docs.gradle.org/current/userguide/intro_multi_project_builds.html
