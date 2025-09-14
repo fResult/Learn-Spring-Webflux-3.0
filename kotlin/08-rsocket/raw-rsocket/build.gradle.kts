@@ -4,6 +4,9 @@ dependencies {
   implementation(project(":common"))
 }
 
+/* ================================ *
+ * ======= Request Response ======= *
+ * ================================ */
 tasks.register<BootRun>("bootRequestResponseService") {
   group = "application"
   description = "Run the RSocket RequestResponse Server"
@@ -15,5 +18,22 @@ tasks.register<BootRun>("bootRequestResponseClient") {
   group = "application"
   description = "Run the RSocket RequestResponse Client"
   mainClass = "com.fResult.rsocket.requestResponse.client.RequestResponseApplicationKt"
+  classpath = sourceSets["main"].runtimeClasspath
+}
+
+/* ================================ *
+ * ======== Fire And Forget ======= *
+ * ================================ */
+tasks.register<BootRun>("bootFireAndForgetService") {
+  group = "application"
+  description = "Run the RSocket FireAndForget Server"
+  mainClass = "com.fResult.rsocket.fireAndForget.service.FireAndForgetApplicationKt"
+  classpath = sourceSets["main"].runtimeClasspath
+}
+
+tasks.register<BootRun>("bootFireAndForgetClient") {
+  group = "application"
+  description = "Run the RSocket FireAndForget Client"
+  mainClass = "com.fResult.rsocket.fireAndForget.client.FireAndForgetApplicationKt"
   classpath = sourceSets["main"].runtimeClasspath
 }
