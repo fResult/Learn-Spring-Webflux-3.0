@@ -31,6 +31,9 @@ Each module is implemented in both [Java](./java) and [Kotlin](./kotlin) to comp
 - `07-http`: Implementation of reactive HTTP applications featuring WebClient for clients, WebFlux for servers, security integration, and comparison with servlet-based approaches
    - Java Implementation (No implementation)
    - [Kotlin Implementation](./kotlin/07-http)
+- `08-rsocket`: Implementation of RSocket protocol for reactive messaging with setup, request-response, fire-and-forget, and streaming interactions
+   - Java Implementation (No implementation)
+   - [Kotlin Implementation](./kotlin/08-rsocket)
 
 ## My Summary
 
@@ -42,6 +45,7 @@ Each module is implemented in both [Java](./java) and [Kotlin](./kotlin) to comp
 - Mastered Project Reactor's core (`Mono` and `Flux`) and how they enable composition of asynchronous operations
 - Learned reactive database access patterns with Spring Data R2DBC replacing traditional JDBC
 - Explored the differences between traditional Spring MVC and reactive Spring WebFlux for building web applications
+- Discovered RSocket as a binary protocol alternative to HTTP for reactive communication patterns
 
 ### Things I Did Different and Learned Further
 
