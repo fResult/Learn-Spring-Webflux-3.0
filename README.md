@@ -35,9 +35,10 @@ Each module is implemented in both [Java](./java) and [Kotlin](./kotlin) to comp
 ### Things I Did Different and Learned Further
 
 - Used Gradle Kotlin DSL instead of Maven for build configuration
-- Implemented parallel Kotlin versions of all Java examples
+- Implemented parallel Kotlin versions of Java examples
 - Updated to Spring Boot 3.5.x while the book uses an older Spring Boot version 2.5.0
-- Adopted a monorepo approach with [Gradle multi-project builds][gradle-multiproject] to manage both Java and Kotlin implementations in a single repository
+- Adopted a monorepo approach with [Gradle Multi-project Builds][gradle-multiproject] and [Gradle Composite Builds][gradle-composite-builds] to manage both Java and Kotlin implementations in a single repository
 
 <!-- References -->
 [gradle-multiproject]: https://docs.gradle.org/current/userguide/intro_multi_project_builds.html
+[gradle-composite-builds]: https://docs.gradle.org/current/userguide/composite_builds.html
