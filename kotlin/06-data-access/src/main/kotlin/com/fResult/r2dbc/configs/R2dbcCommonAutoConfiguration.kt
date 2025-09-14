@@ -6,7 +6,6 @@ import com.fResult.r2dbc.CustomerService
 import com.fResult.r2dbc.repositories.common.SimpleCustomerRepository
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
-import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.context.event.ApplicationReadyEvent
 import org.springframework.context.ApplicationListener
 import org.springframework.context.annotation.Bean
