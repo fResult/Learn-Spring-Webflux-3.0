@@ -31,6 +31,7 @@ Each module is implemented in both [Java](./java) and [Kotlin](./kotlin) to comp
 ### What I Learned From Reading This Book
 
 - Appreciated how Spring Boot speeds up development through starter packages, auto-configuration, and easy transaction management
+- Understood the benefits of non-blocking I/O for scalable applications
 - Practiced Project Reactor's core abstractions (`Mono` and `Flux`) and how they enable composition of asynchronous operations
 
 ### Things I Did Different and Learned Further
