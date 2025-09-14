@@ -5,6 +5,7 @@
 This repository contains my hands-on exercises while learning Spring WebFlux 3.0 following the [Reactive Spring](https://leanpub.com/reactive-spring) book and [these repositories](https://github.com/Reactive-Spring-Book).
 
 ## Prerequisites
+
 - JDK 24 (for Java implementations)
 - JDK 23 (for Kotlin implementations)
 - Gradle 8.14

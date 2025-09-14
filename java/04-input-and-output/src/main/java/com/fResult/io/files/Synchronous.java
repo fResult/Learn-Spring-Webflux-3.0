@@ -1,9 +1,8 @@
 package com.fResult.io.files;
 
+import com.fResult.common.FileUtils;
 import java.io.*;
 import java.util.function.Consumer;
-
-import com.fResult.common.FileUtils;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 
