@@ -15,9 +15,9 @@ import org.springframework.stereotype.Component
 import reactor.core.publisher.Mono
 
 @Component
-class Service(private val props: FResultProperties) {
+class RequestResponseService(private val props: FResultProperties) {
   companion object {
-    val log: Logger = LogManager.getLogger(Service::class.java)
+    val log: Logger = LogManager.getLogger(RequestResponseService::class.java)
   }
 
   @EventListener(ApplicationReadyEvent::class)
