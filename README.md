@@ -41,6 +41,7 @@ Each module is implemented in both [Java](./java) and [Kotlin](./kotlin) to comp
 - Understood reactive programming principles and how they differ from imperative programming
 - Mastered Project Reactor's core (`Mono` and `Flux`) and how they enable composition of asynchronous operations
 - Learned reactive database access patterns with Spring Data R2DBC replacing traditional JDBC
+- Explored the differences between traditional Spring MVC and reactive Spring WebFlux for building web applications
 
 ### Things I Did Different and Learned Further
 
@@ -49,6 +50,8 @@ Each module is implemented in both [Java](./java) and [Kotlin](./kotlin) to comp
 - Updated to Spring Boot 3.5.x while the book uses an older Spring Boot version 2.5.0
 - Adopted a monorepo approach with [Gradle Multi-project Builds][gradle-multiproject] and [Gradle Composite Builds][gradle-composite-builds] to manage both Java and Kotlin implementations in a single repository
 - Implemented database profile switching between R2DBC, MongoDB, and other providers
+- Implemented reactive global error handling in [`ExceptionProblemResponseMapper#map`](https://github.com/fResult/Learn-Spring-Webflux-3.0/blob/72805b595fe7e3b692d7ccce6d78d2611b40abd3/kotlin/07-http/webflux/src/main/kotlin/com/fResult/common/ExceptionProblemResponseMapper.kt#L13-L21)
+    (utilized in [`ErrorHandlingRouteConfiguration`](https://github.com/fResult/Learn-Spring-Webflux-3.0/blob/72805b5/kotlin/07-http/webflux/src/main/kotlin/com/fResult/http/filters/ErrorHandlingRouteConfiguration.kt#L18) class).
 
 <!-- References -->
 [gradle-multiproject]: https://docs.gradle.org/current/userguide/intro_multi_project_builds.html
