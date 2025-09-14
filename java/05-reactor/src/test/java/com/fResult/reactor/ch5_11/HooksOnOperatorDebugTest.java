@@ -1,19 +1,18 @@
 package com.fResult.reactor.ch5_11;
 
-import lombok.extern.log4j.Log4j2;
-import lombok.val;
-import org.junit.jupiter.api.Test;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Hooks;
-import reactor.test.StepVerifier;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.time.Duration;
 import java.util.concurrent.atomic.AtomicReference;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import lombok.extern.log4j.Log4j2;
+import lombok.val;
+import org.junit.jupiter.api.Test;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Hooks;
+import reactor.test.StepVerifier;
 
 @Log4j2
 class HooksOnOperatorDebugTest {
