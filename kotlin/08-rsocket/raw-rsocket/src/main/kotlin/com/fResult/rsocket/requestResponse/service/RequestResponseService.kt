@@ -24,17 +24,19 @@ class RequestResponseService(private val props: FResultProperties) {
   fun onApplicationReady() {
     val serverTransport = TcpServerTransport.create(props.rsocket.hostname, props.rsocket.port)
 
-    SocketAcceptor.forRequestResponse(::requestResponseHandler)
+    val rSocketServer = SocketAcceptor.forRequestResponse(::requestResponseHandler)
       .let(RSocketServer::create)
-      .bind(serverTransport)
+
+    rSocketServer.bind(serverTransport)
       .doOnNext(::logStartup)
       .block()
   }
 
   private fun requestResponseHandler(payload: Payload): Mono<Payload> =
-    Mono.just(DefaultPayload.create("Hello, ${payload.dataUtf8}"))
+    payload.also { log.info("Received request data: {}", it.dataUtf8) }
+      .let { Mono.just(DefaultPayload.create("Hello, ${it.dataUtf8}")) }
 
   private fun logStartup(channel: CloseableChannel) {
-    log.info("Server started. Closeable: {}", channel.address())
+    log.info("Server started on the address: {}", channel.address())
   }
 }
