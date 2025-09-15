@@ -13,7 +13,6 @@ import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Component
 import reactor.core.publisher.Mono
 import reactor.util.retry.Retry
-import kotlin.reflect.jvm.jvmName
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.toJavaDuration
 
@@ -25,18 +24,18 @@ class RequestResponseClient(private val props: FResultProperties) {
 
   @EventListener(ApplicationReadyEvent::class)
   fun onApplicationReady() {
-    log.info("Starting {} connection", RequestResponseClient::class.jvmName)
+    log.info("Starting {} connection", RequestResponseClient::class.simpleName)
 
     val clientTransport = TcpClientTransport.create(props.rsocket.hostname, props.rsocket.port)
-    val source = RSocketConnector.create()
+    val rSocketSource = RSocketConnector.create()
       .reconnect(Retry.backoff(50, 500.milliseconds.toJavaDuration()))
       .connect(clientTransport)
 
-    val client = RSocketClient.from(source)
+    val client = RSocketClient.from(rSocketSource)
 
     client.requestResponse(Mono.just(DefaultPayload.create("Reactive Spring")))
-      .doOnNext(::logAndReleasePayload)
       .repeat(10)
+      .doOnNext(::logAndReleasePayload)
       .blockLast()
   }
 
