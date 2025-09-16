@@ -1,7 +1,6 @@
 package com.fResult.rsocket.fireAndForget.client
 
 import com.fResult.rsocket.FResultProperties
-import io.rsocket.Payload
 import io.rsocket.core.RSocketClient
 import io.rsocket.core.RSocketConnector
 import io.rsocket.transport.netty.client.TcpClientTransport
