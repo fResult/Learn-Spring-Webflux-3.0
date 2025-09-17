@@ -21,7 +21,6 @@ import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import java.time.Instant
 import java.util.stream.Stream
-import kotlin.math.max
 import kotlin.reflect.KClass
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.toJavaDuration
@@ -54,27 +53,28 @@ class BidirectionalService(
   }
 
   private fun streamUntilClientStop(clientRSocket: RSocket, payload: Payload): Flux<Payload> {
-    val clientHealthStream = clientRSocket.requestStream(DefaultPayload.create(ByteArray(0)))
-      .map(payloadToObject(ClientHealthState::class))
+    val onClientStopped = clientRSocket.requestStream(DefaultPayload.create(ByteArray(0)))
+      .map(decodePayloadAs(ClientHealthState::class))
       .filter(::isClientHealthStateStopped)
 
-    val replyPayloads = Flux.fromStream(Stream.generate(greetingResponseSupplierFrom(payload)))
-      .delayElements(max(3, (Math.random() * 10).toInt()).seconds.toJavaDuration())
-      .doFinally { signalType -> log.info("Finished.") }
-
-    return replyPayloads.takeUntilOther(clientHealthStream)
+    return Flux.fromStream(Stream.generate(greetingResponderFrom(payload)))
+      .delayElements(randomDelayUpTo10Seconds())
+      .takeUntilOther(onClientStopped)
       .map(encodingUtils::encode)
       .map(DefaultPayload::create)
+      .doFinally { signalType -> log.info("Finished.") }
   }
 
-  private fun <T : Any> payloadToObject(klass: KClass<T>): (Payload) -> T =
+  private fun <T : Any> decodePayloadAs(klass: KClass<T>): (Payload) -> T =
     { payload -> encodingUtils.decode(payload.dataUtf8, klass) }
 
   private fun isClientHealthStateStopped(chs: ClientHealthState) =
     ClientHealthState.STOPPED.equals(chs.state, ignoreCase = true)
 
-  private fun greetingResponseSupplierFrom(payload: Payload): () -> GreetingResponse = {
-    val greetingRequest = payload.let(payloadToObject(GreetingRequest::class))
+  private fun randomDelayUpTo10Seconds() = (3..10).random().seconds.toJavaDuration()
+
+  private fun greetingResponderFrom(payload: Payload): () -> GreetingResponse = {
+    val greetingRequest = payload.let(decodePayloadAs(GreetingRequest::class))
     val message = "Hello, ${greetingRequest.name} @ ${Instant.now()}"
 
     GreetingResponse(message)
