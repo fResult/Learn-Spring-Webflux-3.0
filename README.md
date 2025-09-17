@@ -53,6 +53,9 @@ Each module is implemented in both [Java](./java) and [Kotlin](./kotlin) to comp
 - Implemented parallel Kotlin versions of Java examples
 - Updated to Spring Boot 3.5.x while the book uses an older Spring Boot version 2.5.0
 - Adopted a monorepo approach with [Gradle Multi-project Builds][gradle-multiproject] and [Gradle Composite Builds][gradle-composite-builds] to manage both Java and Kotlin implementations in a single repository
+    - Learned that Gradle Kotlin DSL supports both type-safe and string-based dependency declarations, and that the string-based form was required
+        in [`08:rsocket/build.gradle.kts`](./kotlin/08-rsocket/build.gradle.kts) when adding dependencies inside `afterEvaluate`
+    - Learned that some plugins (e.g., `spring-boot`, `dependency-management`) must be applied with `apply(false)` in the root and then enabled in subprojects, since they cannot be declared directly like `kotlin("jvm")`.
 - Implemented database profile switching between R2DBC, MongoDB, and other providers
 - Implemented reactive global error handling in [`ExceptionProblemResponseMapper#map`](https://github.com/fResult/Learn-Spring-Webflux-3.0/blob/72805b595fe7e3b692d7ccce6d78d2611b40abd3/kotlin/07-http/webflux/src/main/kotlin/com/fResult/common/ExceptionProblemResponseMapper.kt#L13-L21)
     (utilized in [`ErrorHandlingRouteConfiguration`](https://github.com/fResult/Learn-Spring-Webflux-3.0/blob/72805b5/kotlin/07-http/webflux/src/main/kotlin/com/fResult/http/filters/ErrorHandlingRouteConfiguration.kt#L18) class).
