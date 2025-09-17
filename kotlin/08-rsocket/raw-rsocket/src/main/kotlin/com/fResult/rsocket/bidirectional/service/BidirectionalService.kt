@@ -71,7 +71,7 @@ class BidirectionalService(
     { payload -> encodingUtils.decode(payload.dataUtf8, klass) }
 
   private fun isClientHealthStateStopped(chs: ClientHealthState) =
-    chs.state.equals(ClientHealthState.STOPPED, ignoreCase = true)
+    ClientHealthState.STOPPED.equals(chs.state, ignoreCase = true)
 
   private fun greetingResponseSupplierFrom(payload: Payload): () -> GreetingResponse = {
     val greetingRequest = payload.let(payloadToObject(GreetingRequest::class))
