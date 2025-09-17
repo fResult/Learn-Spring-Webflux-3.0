@@ -55,7 +55,7 @@ class BidirectionalService(
 
   private fun streamUntilClientStop(clientRSocket: RSocket, payload: Payload): Flux<Payload> {
     val clientHealthStream = clientRSocket.requestStream(DefaultPayload.create(ByteArray(0)))
-      .map(::payloadToClientHealthState)
+      .map(payloadToObject(ClientHealthState::class))
       .filter(::isClientHealthStateStopped)
 
     val replyPayloads = Flux.fromStream(Stream.generate(greetingResponseSupplierFrom(payload)))
@@ -67,14 +67,14 @@ class BidirectionalService(
       .map(DefaultPayload::create)
   }
 
-  private fun payloadToClientHealthState(payload: Payload): ClientHealthState =
-    encodingUtils.decode(payload.dataUtf8, ClientHealthState::class)
+  private fun <T : Any> payloadToObject(klass: KClass<T>): (Payload) -> T =
+    { payload -> encodingUtils.decode(payload.dataUtf8, klass) }
 
   private fun isClientHealthStateStopped(chs: ClientHealthState) =
     chs.state.equals(ClientHealthState.STOPPED, ignoreCase = true)
 
   private fun greetingResponseSupplierFrom(payload: Payload): () -> GreetingResponse = {
-    val greetingRequest = encodingUtils.decode(payload.dataUtf8, GreetingRequest::class)
+    val greetingRequest = payload.let(payloadToObject(GreetingRequest::class))
     val message = "Hello, ${greetingRequest.name} @ ${Instant.now()}"
 
     GreetingResponse(message)
