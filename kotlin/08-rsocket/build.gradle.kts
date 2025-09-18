@@ -34,6 +34,7 @@ subprojects {
   afterEvaluate {
     dependencies {
       "implementation"(libs.spring.boot.starter.rsocket)
+      "implementation"("com.fasterxml.jackson.module:jackson-module-kotlin")
       "implementation"("io.projectreactor.kotlin:reactor-kotlin-extensions")
       "implementation"("org.jetbrains.kotlin:kotlin-reflect")
       "implementation"("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
