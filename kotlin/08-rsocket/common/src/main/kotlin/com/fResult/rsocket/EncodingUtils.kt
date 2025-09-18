@@ -11,8 +11,8 @@ class EncodingUtils(private val objectMapper: ObjectMapper) {
     private val logger = LogManager.getLogger()
   }
 
-  private val objectReader = objectMapper.readerFor(Any::class.java)
   private val typeReference = typeRef<Map<String, Any>>()
+  private val objectReader = objectMapper.readerFor(typeReference)
 
   fun <T : Any> decode(json: String, klass: KClass<T>): T =
     runCatching { objectMapper.readValue(json, klass.java) }
@@ -35,6 +35,7 @@ class EncodingUtils(private val objectMapper: ObjectMapper) {
             logger.error("Failed to encode object of type ${obj::class.simpleName}", ex)
             throw EncodingException("Unable to encode ${obj::class.simpleName}", ex)
           }
+
           else -> throw ex
         }
       }
