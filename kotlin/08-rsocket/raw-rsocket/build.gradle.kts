@@ -54,3 +54,20 @@ tasks.register<BootRun>("bootChannelClient") {
   mainClass = "com.fResult.rsocket.channel.client.ChannelApplicationKt"
   classpath = sourceSets["main"].runtimeClasspath
 }
+
+/* ==================================== *
+ * ========= Bidirectional ============ *
+ * ==================================== */
+tasks.register<BootRun>("bootBidirectionalService") {
+  group = "application"
+  description = "Run the RSocket Bidirectional Server"
+  mainClass = "com.fResult.rsocket.bidirectional.service.BidirectionalApplicationKt"
+  classpath = sourceSets["main"].runtimeClasspath
+}
+
+tasks.register<BootRun>("bootBidirectionalClient") {
+  group = "application"
+  description = "Run the RSocket Bidirectional Client"
+  mainClass = "com.fResult.rsocket.bidirectional.client.BidirectionalApplicationKt"
+  classpath = sourceSets["main"].runtimeClasspath
+}
