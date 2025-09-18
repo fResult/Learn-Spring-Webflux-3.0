@@ -10,7 +10,4 @@ import org.springframework.context.annotation.Configuration
 class FResultAutoConfiguration {
   @Bean
   fun encodingUtils(objectMapper: ObjectMapper) = EncodingUtils(objectMapper)
-
-  @Bean
-  fun objectMapper() = ObjectMapper()
 }
