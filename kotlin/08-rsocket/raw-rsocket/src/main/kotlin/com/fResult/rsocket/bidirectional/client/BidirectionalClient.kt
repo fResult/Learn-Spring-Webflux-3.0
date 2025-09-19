@@ -9,7 +9,6 @@ import io.rsocket.Payload
 import io.rsocket.RSocket
 import io.rsocket.core.RSocketConnector
 import io.rsocket.transport.netty.client.TcpClientTransport
-import io.rsocket.transport.netty.server.CloseableChannel
 import io.rsocket.util.DefaultPayload
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
@@ -38,6 +37,7 @@ class BidirectionalClient(
       .connect(TcpClientTransport.create(serviceHostname, servicePort))
       .flatMapMany { socket ->
         socket.requestStream(DefaultPayload.create(greetingRequestPayload))
+          .doOnNext(::logReceivedResponse)
           .map { payload -> encodingUtils.decode(payload.dataUtf8, GreetingResponse::class) }
       }
   }
@@ -63,10 +63,9 @@ class BidirectionalClient(
           .map(encodingUtils::encode)
           .map(DefaultPayload::create)
       }
-
-
-      private fun logStartup(channel: CloseableChannel) {
-        log.info("Server started on the address: {}", channel.address())
-      }
     }
+
+  fun logReceivedResponse(payload: Payload) {
+    log.info("Received response data: {}", payload.dataUtf8)
+  }
 }
