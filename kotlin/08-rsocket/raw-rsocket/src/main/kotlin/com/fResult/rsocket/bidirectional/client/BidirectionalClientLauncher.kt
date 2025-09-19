@@ -2,6 +2,7 @@ package com.fResult.rsocket.bidirectional.client
 
 import com.fResult.rsocket.EncodingUtils
 import com.fResult.rsocket.FResultProperties
+import com.fResult.rsocket.bidirectional.GreetingResponse
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import org.springframework.boot.context.event.ApplicationReadyEvent
@@ -32,6 +33,11 @@ class BidirectionalClientLauncher(
       .map { id -> BidirectionalClient(encodingUtils, id.toString(), hostname, port) }
       .flatMap { client -> Flux.just(client).delayElements((1..30).random().seconds.toJavaDuration()) }
       .flatMap(BidirectionalClient::getGreetings)
-      .subscribe(log::info)
+      .subscribe(::logGreetingResponse)
+  }
+
+  private fun logGreetingResponse(greeting: GreetingResponse?): Unit {
+    greeting?.also { log.info(it.message) }
+      ?: log.warn("Received null GreetingResponse")
   }
 }
