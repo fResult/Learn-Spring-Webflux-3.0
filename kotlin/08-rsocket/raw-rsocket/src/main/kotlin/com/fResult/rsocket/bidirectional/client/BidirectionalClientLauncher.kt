@@ -37,7 +37,7 @@ class BidirectionalClientLauncher(
   }
 
   private fun logGreetingResponse(greeting: GreetingResponse?): Unit {
-    greeting?.also { log.info(it.message) }
+    greeting?.apply { log.info(message) }
       ?: log.warn("Received null GreetingResponse")
   }
 }
