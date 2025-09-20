@@ -30,10 +30,18 @@ class BidirectionalClientLauncher(
     log.info("Launching {} clients connecting to {}:{}", maxClients, hostname, port)
 
     Flux.fromStream(IntStream.range(0, maxClients).boxed())
-      .map { id -> BidirectionalClient(encodingUtils, id.toString(), hostname, port) }
+      .map(buildBidirectionalClient(encodingUtils, hostname, port))
       .flatMap { client -> Flux.just(client).delayElements((1..30).random().seconds.toJavaDuration()) }
       .flatMap(BidirectionalClient::getGreetings)
       .subscribe(::logGreetingResponse)
+  }
+
+  private fun buildBidirectionalClient(
+    encodingUtils: EncodingUtils,
+    host: String,
+    port: Int
+  ): (Int) -> BidirectionalClient = { id ->
+    BidirectionalClient(encodingUtils, id.toString(), host, port)
   }
 
   private fun logGreetingResponse(greeting: GreetingResponse?): Unit {
