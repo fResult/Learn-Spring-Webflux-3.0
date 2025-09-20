@@ -54,12 +54,7 @@ class BidirectionalClient(
         val start = Instant.now().toEpochMilli()
         val delayMillis = (0..30_000).random().toLong()
 
-        val stateFlux = Flux.fromStream(Stream.generate {
-          val now = Instant.now().toEpochMilli()
-          val stop = ((start + delayMillis) < now) && Math.random() > .8
-
-          ClientHealthState(if (stop) "STOPPED" else "STARTED")
-        })
+        val stateFlux = Flux.fromStream(Stream.generate(nextClientHealthState(start, delayMillis)))
           .delayElements(5.seconds.toJavaDuration())
 
         return stateFlux
@@ -67,6 +62,13 @@ class BidirectionalClient(
           .map(DefaultPayload::create)
       }
     }
+
+  fun nextClientHealthState(start: Long, delayMillis: Long): () -> ClientHealthState = {
+    val now = Instant.now().toEpochMilli()
+    val stop = ((start + delayMillis) < now) && Math.random() > .8
+
+    ClientHealthState(if (stop) "STOPPED" else "STARTED")
+  }
 
   fun logReceivedResponse(payload: Payload) {
     log.info("Received response data: {}", payload.dataUtf8)
