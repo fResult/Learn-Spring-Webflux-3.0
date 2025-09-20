@@ -38,7 +38,7 @@ class BidirectionalClient(
       .flatMapMany { socket ->
         socket.requestStream(DefaultPayload.create(greetingRequestPayload))
           .doOnNext(::logReceivedResponse)
-          .map { payload -> encodingUtils.decode(payload.dataUtf8, GreetingResponse::class) }
+          .map(::toGreetingResponse)
       }
   }
 
@@ -68,4 +68,7 @@ class BidirectionalClient(
   fun logReceivedResponse(payload: Payload) {
     log.info("Received response data: {}", payload.dataUtf8)
   }
+
+  fun toGreetingResponse(payload: Payload): GreetingResponse =
+    encodingUtils.decode(payload.dataUtf8, GreetingResponse::class)
 }
