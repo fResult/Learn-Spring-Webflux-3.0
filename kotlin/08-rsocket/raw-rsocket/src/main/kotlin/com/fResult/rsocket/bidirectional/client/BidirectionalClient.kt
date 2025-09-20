@@ -35,12 +35,15 @@ class BidirectionalClient(
     return RSocketConnector.create()
       .acceptor(::acceptor)
       .connect(TcpClientTransport.create(serviceHostname, servicePort))
-      .flatMapMany { socket ->
-        socket.requestStream(DefaultPayload.create(greetingRequestPayload))
-          .doOnNext(::logReceivedResponse)
-          .map(::toGreetingResponse)
-      }
+      .flatMapMany(streamGreetingResponses(greetingRequestPayload))
   }
+
+  private fun streamGreetingResponses(requestPayload: String): (RSocket) -> Flux<GreetingResponse> =
+    { socket ->
+      socket.requestStream(DefaultPayload.create(requestPayload))
+        .doOnNext(::logReceivedResponse)
+        .map(::toGreetingResponse)
+    }
 
   private fun acceptor(setup: ConnectionSetupPayload, serverRSocket: RSocket): Mono<RSocket> =
     Mono.just(createRequestStreamHandler())
