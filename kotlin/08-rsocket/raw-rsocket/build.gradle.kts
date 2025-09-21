@@ -2,6 +2,9 @@ import org.springframework.boot.gradle.tasks.run.BootRun
 
 dependencies {
   implementation(project(":common"))
+
+  // MacOS ARM (Apple Silicon) DNS resolver
+  runtimeOnly("io.netty:netty-resolver-dns-native-macos:4.1.89.Final:osx-aarch_64")
 }
 
 /* ================================ *
