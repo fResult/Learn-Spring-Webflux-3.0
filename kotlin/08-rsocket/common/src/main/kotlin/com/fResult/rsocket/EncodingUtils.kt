@@ -1,5 +1,6 @@
 package com.fResult.rsocket
 
+import com.fResult.rsocket.dsl.fp.Functions.identity
 import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -16,6 +17,11 @@ class EncodingUtils(private val objectMapper: ObjectMapper) {
 
   fun <T : Any> decode(json: String, klass: KClass<T>): T =
     runCatching { objectMapper.readValue(json, klass.java) }
+      .fold(
+        onSuccess = ::identity,
+        onFailure = jsonExceptionHandler("decode JSON into ${klass.simpleName}. JSON=${json.take(200)}"),
+      )
+
       .getOrElse { ex ->
         when (ex) {
           is JsonProcessingException -> {
@@ -43,4 +49,15 @@ class EncodingUtils(private val objectMapper: ObjectMapper) {
 
 
   private inline fun <reified T> typeRef(): TypeReference<T> = object : TypeReference<T>() {}
+
+  private fun <R> jsonExceptionHandler(context: String): (Throwable) -> R = { ex ->
+    when (ex) {
+      is JsonProcessingException -> {
+        logger.error("JSON processing error during $context", ex)
+        throw EncodingException("Unable to $context", ex)
+      }
+
+      else -> throw ex
+    }
+  }
 }
