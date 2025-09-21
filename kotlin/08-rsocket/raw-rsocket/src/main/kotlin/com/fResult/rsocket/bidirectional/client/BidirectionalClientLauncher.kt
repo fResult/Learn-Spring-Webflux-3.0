@@ -38,7 +38,11 @@ class BidirectionalClientLauncher(
       .flatMap(::toDelayClient)
       .flatMap(BidirectionalClient::getGreetings)
       .retryWhen(retryBackoffOnClosedChannel { maxAttempts = 5 })
-      .subscribe(::logGreetingResponse)
+      .subscribe(
+        ::onGreetingReceived,
+        ::onGreetingError,
+        ::onGreetingComplete,
+      )
   }
 
   private fun buildBidirectionalClient(
@@ -62,8 +66,13 @@ class BidirectionalClientLauncher(
       .onRetryExhaustedThrow { _, _ -> RuntimeException("Retries exhausted") }
   }
 
-  private fun logGreetingResponse(greeting: GreetingResponse?): Unit {
+  private fun onGreetingReceived(greeting: GreetingResponse?): Unit {
     greeting?.apply { log.info(message) }
       ?: log.warn("Received null GreetingResponse")
   }
+
+  private fun onGreetingError(ex: Throwable): Unit =
+    log.error("Client stream failed with error: ${ex.message}", ex)
+
+  private fun onGreetingComplete(): Unit = log.info("Client greeting streams completed")
 }
