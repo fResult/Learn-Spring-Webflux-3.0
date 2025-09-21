@@ -22,31 +22,26 @@ class EncodingUtils(private val objectMapper: ObjectMapper) {
         onFailure = jsonExceptionHandler("decode JSON into ${klass.simpleName}. JSON=${json.take(200)}"),
       )
 
-      .getOrElse { ex ->
-        when (ex) {
-          is JsonProcessingException -> {
-            logger.error("Failed to decode JSON into ${klass.simpleName}. JSON=${json.take(200)}", ex)
-            throw EncodingException("Unable to encode ${klass.simpleName}", ex)
-          }
-
-          else -> throw ex
-        }
-      }
-
   fun <T : Any> encode(obj: T): String =
     runCatching { objectMapper.writeValueAsString(obj) }
-      .getOrElse { ex ->
-        when (ex) {
-          is JsonProcessingException -> {
-            logger.error("Failed to encode object of type ${obj::class.simpleName}", ex)
-            throw EncodingException("Unable to encode ${obj::class.simpleName}", ex)
-          }
+      .fold(
+        onSuccess = ::identity,
+        onFailure = jsonExceptionHandler("encode object of type ${obj::class.simpleName}"),
+      )
 
-          else -> throw ex
-        }
-      }
+  fun decodeMetadata(json: String): Map<String, Any> =
+    runCatching { objectReader.readValue<Map<String, Any>>(json) }
+      .fold(
+        onSuccess = ::identity,
+        onFailure = jsonExceptionHandler("decode metadata JSON. JSON=${json.take(200)}"),
+      )
 
-
+  fun encodeMetadata(metadata: Map<String, Any>): String =
+    runCatching { objectMapper.writeValueAsString(metadata) }
+      .fold(
+        onSuccess = ::identity,
+        onFailure = jsonExceptionHandler("encode metadata map"),
+      )
 
   private inline fun <reified T> typeRef(): TypeReference<T> = object : TypeReference<T>() {}
 
