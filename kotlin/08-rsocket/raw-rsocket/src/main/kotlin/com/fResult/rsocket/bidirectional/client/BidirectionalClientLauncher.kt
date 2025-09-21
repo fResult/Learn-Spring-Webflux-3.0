@@ -49,7 +49,7 @@ class BidirectionalClientLauncher(
     BidirectionalClient(encodingUtils, id.toString(), host, port)
   }
 
-  fun toDelayClient(client: BidirectionalClient): Flux<BidirectionalClient> =
+  private fun toDelayClient(client: BidirectionalClient): Flux<BidirectionalClient> =
     Flux.just(client).delayElements((1..30).random().seconds.toJavaDuration())
 
   private fun retryBackoffOnClosedChannel(init: RetryConfigBuilder.() -> Unit): RetryBackoffSpec {
