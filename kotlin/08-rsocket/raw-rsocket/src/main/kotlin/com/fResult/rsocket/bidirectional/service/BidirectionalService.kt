@@ -57,12 +57,14 @@ class BidirectionalService(
       .map(decodePayloadAs(ClientHealthState::class))
       .filter(::isClientHealthStateStopped)
 
-    return Flux.fromStream(Stream.generate(greetingResponderFrom(payload)))
+    val greetingRequest = payload.let(decodePayloadAs(GreetingRequest::class))
+
+    return Flux.fromStream(Stream.generate(greetingResponderFrom(greetingRequest)))
       .delayElements(randomDelayUpTo10Seconds())
       .takeUntilOther(onClientStopped)
       .map(encodingUtils::encode)
       .map(DefaultPayload::create)
-      .doFinally { signalType -> log.info("Finished.") }
+      .doFinally { signalType -> log.info("Finished greeting to ${greetingRequest.name}.") }
   }
 
   private fun <T : Any> decodePayloadAs(klass: KClass<T>): (Payload) -> T =
@@ -73,11 +75,8 @@ class BidirectionalService(
 
   private fun randomDelayUpTo10Seconds() = (3..10).random().seconds.toJavaDuration()
 
-  private fun greetingResponderFrom(payload: Payload): () -> GreetingResponse = {
-    val greetingRequest = payload.let(decodePayloadAs(GreetingRequest::class))
-    val message = "Hello, ${greetingRequest.name} @ ${Instant.now()}"
-
-    GreetingResponse(message)
+  private fun greetingResponderFrom(request: GreetingRequest): () -> GreetingResponse = {
+    GreetingResponse("Hello, ${request.name} @ ${Instant.now()}")
   }
 
   private fun logStartup(channel: CloseableChannel): Unit =
