@@ -12,8 +12,8 @@ class EncodingUtils(private val objectMapper: ObjectMapper) {
     private val logger = LogManager.getLogger()
   }
 
-  private val typeReference = typeRef<Map<String, Any>>()
-  private val objectReader = objectMapper.readerFor(typeReference)
+  private val genericMapReference = typeRef<Map<String, Any>>()
+  private val objectReader = objectMapper.readerFor(genericMapReference)
 
   fun <T : Any> decode(json: String, klass: KClass<T>): T =
     runCatching { objectMapper.readValue(json, klass.java) }
