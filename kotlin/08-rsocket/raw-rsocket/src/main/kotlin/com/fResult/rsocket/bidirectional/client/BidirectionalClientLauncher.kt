@@ -32,7 +32,6 @@ class BidirectionalClientLauncher(
     val hostname = props.rsocket.hostname
     val port = props.rsocket.port
     log.info("Launching {} clients connecting to {}:{}", maxClients, hostname, port)
-
     Flux.fromStream(IntStream.range(0, maxClients).boxed())
       .map(buildBidirectionalClient(encodingUtils, hostname, port))
       .flatMap(::toDelayClient)
@@ -48,7 +47,7 @@ class BidirectionalClientLauncher(
   private fun buildBidirectionalClient(
     encodingUtils: EncodingUtils,
     host: String,
-    port: Int
+    port: Int,
   ): (Int) -> BidirectionalClient = { id ->
     BidirectionalClient(encodingUtils, id.toString(), host, port)
   }
@@ -66,7 +65,7 @@ class BidirectionalClientLauncher(
       .onRetryExhaustedThrow { _, _ -> RuntimeException("Retries exhausted") }
   }
 
-  private fun onGreetingReceived(greeting: GreetingResponse?): Unit {
+  private fun onGreetingReceived(greeting: GreetingResponse?) {
     greeting?.apply { log.info(message) }
       ?: log.warn("Received null GreetingResponse")
   }
