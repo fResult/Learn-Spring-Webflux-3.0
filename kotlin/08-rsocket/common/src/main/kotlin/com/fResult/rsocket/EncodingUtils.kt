@@ -1,6 +1,6 @@
 package com.fResult.rsocket
 
-import com.fResult.rsocket.dsl.fp.Functions.identity
+import com.fResult.rsocket.fp.Functions.identity
 import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
