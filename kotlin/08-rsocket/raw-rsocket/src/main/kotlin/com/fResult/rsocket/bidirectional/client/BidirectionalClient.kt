@@ -4,6 +4,7 @@ import com.fResult.rsocket.EncodingUtils
 import com.fResult.rsocket.bidirectional.ClientHealthState
 import com.fResult.rsocket.bidirectional.GreetingRequest
 import com.fResult.rsocket.bidirectional.GreetingResponse
+import com.fResult.rsocket.fp.then
 import io.rsocket.ConnectionSetupPayload
 import io.rsocket.Payload
 import io.rsocket.RSocket
@@ -56,10 +57,10 @@ class BidirectionalClient(
 
         val stateFlux = Flux.fromStream(Stream.generate(nextClientHealthState(start, delayMillis)))
           .delayElements(5.seconds.toJavaDuration())
+        val encodeJson: (ClientHealthState) -> String = encodingUtils::encode
+        val createPayload: (String) -> Payload = DefaultPayload::create
 
-        return stateFlux
-          .map(encodingUtils::encode)
-          .map(DefaultPayload::create)
+        return stateFlux.map(encodeJson then createPayload)
       }
     }
 
