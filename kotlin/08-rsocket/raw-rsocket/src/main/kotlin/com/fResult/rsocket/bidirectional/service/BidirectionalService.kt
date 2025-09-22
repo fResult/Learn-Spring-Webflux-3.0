@@ -5,6 +5,7 @@ import com.fResult.rsocket.FResultProperties
 import com.fResult.rsocket.bidirectional.ClientHealthState
 import com.fResult.rsocket.bidirectional.GreetingRequest
 import com.fResult.rsocket.bidirectional.GreetingResponse
+import com.fResult.rsocket.fp.then
 import io.rsocket.ConnectionSetupPayload
 import io.rsocket.Payload
 import io.rsocket.RSocket
@@ -58,12 +59,13 @@ class BidirectionalService(
       .filter(::isClientHealthStateStopped)
 
     val greetingRequest = payload.let(decodePayloadAs(GreetingRequest::class))
+    val encodeJson: (GreetingResponse) -> String = encodingUtils::encode
+    val createPayload: (String) -> Payload = DefaultPayload::create
 
     return Flux.fromStream(Stream.generate(greetingResponderFrom(greetingRequest)))
       .delayElements(randomDelayUpTo10Seconds())
       .takeUntilOther(onClientStopped)
-      .map(encodingUtils::encode)
-      .map(DefaultPayload::create)
+      .map(encodeJson then createPayload)
       .doFinally { signalType -> log.info("Finished greeting to ${greetingRequest.name}.") }
   }
 
