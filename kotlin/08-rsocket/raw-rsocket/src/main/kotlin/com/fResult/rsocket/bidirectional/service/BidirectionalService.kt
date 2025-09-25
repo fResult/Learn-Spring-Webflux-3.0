@@ -43,7 +43,7 @@ class BidirectionalService(
     socketServer.bind(serverTransport).doOnNext(::logStartup).block()
   }
 
-  private fun socketAcceptor(setup: ConnectionSetupPayload, sendingSocket: RSocket) =
+  private fun socketAcceptor(setup: ConnectionSetupPayload, sendingSocket: RSocket): Mono<RSocket> =
     Mono.just(createRequestStreamHandler(sendingSocket))
 
   private fun createRequestStreamHandler(clientRSocket: RSocket): RSocket {

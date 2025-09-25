@@ -55,7 +55,7 @@ class BidirectionalClientLauncher(
   private fun toDelayClient(client: BidirectionalClient): Flux<BidirectionalClient> =
     Flux.just(client).delayElements((1..30).random().seconds.toJavaDuration())
 
-  private fun retryBackoffOnClosedChannel(init: RetryConfigBuilder.() -> Unit): RetryBackoffSpec {
+  private fun retryBackoffOnClosedChannel(init: RetryConfigBuilder.() -> Unit = {}): RetryBackoffSpec {
     val cfg = RetryConfigBuilder().apply(init).build()
 
     return Retry.backoff(cfg.maxAttempts, cfg.firstBackOff)
