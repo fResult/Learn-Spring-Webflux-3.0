@@ -1,3 +1,3 @@
-package com.fResult.rsocket.bidirectional
+package com.fResult.rsocket.dtos
 
 data class GreetingResponse(val message: String)
