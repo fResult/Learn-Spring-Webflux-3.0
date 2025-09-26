@@ -2,8 +2,8 @@ package com.fResult.rsocket.bidirectional.client
 
 import com.fResult.rsocket.EncodingUtils
 import com.fResult.rsocket.bidirectional.ClientHealthState
-import com.fResult.rsocket.bidirectional.GreetingRequest
-import com.fResult.rsocket.bidirectional.GreetingResponse
+import com.fResult.rsocket.dtos.GreetingRequest
+import com.fResult.rsocket.dtos.GreetingResponse
 import com.fResult.rsocket.fp.then
 import io.rsocket.ConnectionSetupPayload
 import io.rsocket.Payload

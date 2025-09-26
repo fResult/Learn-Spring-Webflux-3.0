@@ -2,7 +2,7 @@ package com.fResult.rsocket.bidirectional.client
 
 import com.fResult.rsocket.EncodingUtils
 import com.fResult.rsocket.FResultProperties
-import com.fResult.rsocket.bidirectional.GreetingResponse
+import com.fResult.rsocket.dtos.GreetingResponse
 import com.fResult.rsocket.dsl.retry.RetryConfigBuilder
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
