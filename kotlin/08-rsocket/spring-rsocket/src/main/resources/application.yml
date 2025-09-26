@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: spring-rsocket
+  rsocket:
+    server:
+      port: 8181
+
+#logging.level:
+#  io.rsocket: DEBUG
+#  org.springframework: DEBUG
