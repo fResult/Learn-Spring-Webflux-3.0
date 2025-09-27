@@ -4,7 +4,7 @@ dependencies {
   implementation(project(":common"))
 
   // MacOS ARM (Apple Silicon) DNS resolver
-  runtimeOnly("io.netty:netty-resolver-dns-native-macos:4.1.89.Final:osx-aarch_64")
+  runtimeOnly("io.netty:netty-resolver-dns-native-macos:4.2.6.Final")
 }
 
 /* ================================ *
