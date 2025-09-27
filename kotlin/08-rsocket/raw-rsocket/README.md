@@ -68,4 +68,36 @@ cd $(git rev-parse --show-toplevel) && \
     ./gradlew :kotlin:08-rsocket:raw-rsocket:bootChannelClient
 ```
 
+#### Bidirectional Scripts
+
+First, run the service application:
+
+```shell
+cd $(git rev-parse --show-toplevel) && \
+    ./gradlew :kotlin:08-rsocket:raw-rsocket:bootBidirectional
+```
+
+Then, in another terminal, run the client application:
+
+```shell
+cd $(git rev-parse --show-toplevel) && \
+    ./gradlew :kotlin:08-rsocket:raw-rsocket:bootBidirectional
+```
+
+#### Metadata Push Scripts
+
+First, run the service application:
+
+```shell
+cd $(git rev-parse --show-toplevel) && \
+    ./gradlew :kotlin:08-rsocket:raw-rsocket:bootMetadataPush
+```
+
+Then, in another terminal, run the client application:
+
+```shell
+cd $(git rev-parse --show-toplevel) && \
+    ./gradlew :kotlin:08-rsocket:raw-rsocket:bootMetadataPush
+```
+
 [← Back to \[08 RSocket\]'s README](../README.md)
