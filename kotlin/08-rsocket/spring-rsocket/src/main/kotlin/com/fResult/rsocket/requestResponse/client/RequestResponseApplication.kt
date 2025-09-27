@@ -9,4 +9,5 @@ class RequestResponseApplication
 @Throws(InterruptedException::class)
 fun main(args: Array<String>) {
   runApplication<RequestResponseApplication>(*args)
+  Thread.currentThread().join()
 }
