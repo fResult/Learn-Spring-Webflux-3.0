@@ -7,6 +7,10 @@ dependencies {
   runtimeOnly("io.netty:netty-resolver-dns-native-macos:4.2.6.Final")
 }
 
+springBoot {
+  mainClass = "com.fResult.rsocket.requestResponse.service.RequestResponseApplicationKt"
+}
+
 /* ================================ *
  * ======= Request Response ======= *
  * ================================ */
