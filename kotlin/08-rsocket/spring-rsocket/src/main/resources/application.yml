@@ -9,3 +9,4 @@ fresult:
 #logging.level:
 #  io.rsocket: DEBUG
 #  org.springframework: DEBUG
+#  org.springframework.boot.autoconfigure: DEBUG
