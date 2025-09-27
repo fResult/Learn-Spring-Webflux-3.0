@@ -27,3 +27,20 @@ tasks.register<BootRun>("bootRequestResponseClient") {
   mainClass = "com.fResult.rsocket.requestResponse.client.RequestResponseApplicationKt"
   classpath = sourceSets["main"].runtimeClasspath
 }
+
+/* ================================= *
+ * ========= Channel (Stream) ====== *
+ * ================================= */
+tasks.register<BootRun>("bootChannelService") {
+  group = "application"
+  description = "Run the RSocket Channel (Stream) Server"
+  mainClass = "com.fResult.rsocket.channel.service.ChannelApplicationKt"
+  classpath = sourceSets["main"].runtimeClasspath
+}
+
+tasks.register<BootRun>("bootChannelClient") {
+  group = "application"
+  description = "Run the RSocket Channel (Stream) Client"
+  mainClass = "com.fResult.rsocket.channel.client.ChannelApplicationKt"
+  classpath = sourceSets["main"].runtimeClasspath
+}
