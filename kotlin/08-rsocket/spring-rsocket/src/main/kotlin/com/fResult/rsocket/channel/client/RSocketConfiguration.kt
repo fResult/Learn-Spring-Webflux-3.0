@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.messaging.rsocket.RSocketRequester
 
 @Configuration
-internal class RSocketConfiguration {
+class RSocketConfiguration {
   @Bean
   fun rSocketRequester(properties: FResultProperties, builder: RSocketRequester.Builder): RSocketRequester {
     return builder.tcp(properties.rsocket.hostname, properties.rsocket.port)
