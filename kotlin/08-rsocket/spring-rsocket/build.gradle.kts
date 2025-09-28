@@ -44,3 +44,20 @@ tasks.register<BootRun>("bootChannelClient") {
   mainClass = "com.fResult.rsocket.channel.client.ChannelApplicationKt"
   classpath = sourceSets["main"].runtimeClasspath
 }
+
+/* ================================ *
+ * ======= Fire and Forget ======= *
+ * ================================ */
+tasks.register<BootRun>("bootFireAndForgetService") {
+  group = "application"
+  description = "Run the RSocket Fire and Forget Server"
+  mainClass = "com.fResult.rsocket.fireAndForget.service.FireAndForgetApplicationKt"
+  classpath = sourceSets["main"].runtimeClasspath
+}
+
+tasks.register<BootRun>("bootFireAndForgetClient") {
+  group = "application"
+  description = "Run the RSocket Fire and Forget Client"
+  mainClass = "com.fResult.rsocket.fireAndForget.client.FireAndForgetApplicationKt"
+  classpath = sourceSets["main"].runtimeClasspath
+}
