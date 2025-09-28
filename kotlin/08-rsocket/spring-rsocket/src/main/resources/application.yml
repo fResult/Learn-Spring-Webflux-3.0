@@ -10,3 +10,4 @@ fresult:
 #  io.rsocket: DEBUG
 #  org.springframework: DEBUG
 #  org.springframework.boot.autoconfigure: DEBUG
+#  springframework.messaging.rsocket: DEBUG

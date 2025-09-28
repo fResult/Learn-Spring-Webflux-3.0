@@ -83,3 +83,19 @@ Then, in another terminal, run the client application:
 cd $(git rev-parse --show-toplevel) && \
   ./gradlew :kotlin:08-rsocket:spring-rsocket:bootFireAndForgetClient
 ```
+
+#### Bidirectional Communication Scripts
+
+First, run the service application:
+
+```shell
+cd $(git rev-parse --show-toplevel) && \
+  ./gradlew :kotlin:08-rsocket:spring-rsocket:bootBidirectionalService
+```
+
+Then, in another terminal, run the client application:
+
+```shell
+cd $(git rev-parse --show-toplevel) && \
+  ./gradlew :kotlin:08-rsocket:spring-rsocket:bootBidirectionalClient
+```
