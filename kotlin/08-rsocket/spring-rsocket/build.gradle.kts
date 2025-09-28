@@ -28,9 +28,9 @@ tasks.register<BootRun>("bootRequestResponseClient") {
   classpath = sourceSets["main"].runtimeClasspath
 }
 
-/* ================================= *
- * ========= Channel (Stream) ====== *
- * ================================= */
+/* ================================ *
+ * ======= Channel (Stream) ======= *
+ * ================================ */
 tasks.register<BootRun>("bootChannelService") {
   group = "application"
   description = "Run the RSocket Channel (Stream) Server"
@@ -45,9 +45,9 @@ tasks.register<BootRun>("bootChannelClient") {
   classpath = sourceSets["main"].runtimeClasspath
 }
 
-/* ================================ *
+/* =============================== *
  * ======= Fire and Forget ======= *
- * ================================ */
+ * =============================== */
 tasks.register<BootRun>("bootFireAndForgetService") {
   group = "application"
   description = "Run the RSocket Fire and Forget Server"
@@ -59,5 +59,22 @@ tasks.register<BootRun>("bootFireAndForgetClient") {
   group = "application"
   description = "Run the RSocket Fire and Forget Client"
   mainClass = "com.fResult.rsocket.fireAndForget.client.FireAndForgetApplicationKt"
+  classpath = sourceSets["main"].runtimeClasspath
+}
+
+/* =============================== *
+ * ======== Bidirectional ======== *
+ * =============================== */
+tasks.register<BootRun>("bootBidirectionalService") {
+  group = "application"
+  description = "Run the RSocket Bidirectional Server"
+  mainClass = "com.fResult.rsocket.bidirectional.service.BidirectionalApplicationKt"
+  classpath = sourceSets["main"].runtimeClasspath
+}
+
+tasks.register<BootRun>("bootBidirectionalClient") {
+  group = "application"
+  description = "Run the RSocket Bidirectional Client"
+  mainClass = "com.fResult.rsocket.bidirectional.client.BidirectionalApplicationKt"
   classpath = sourceSets["main"].runtimeClasspath
 }
