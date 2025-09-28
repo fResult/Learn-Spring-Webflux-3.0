@@ -20,7 +20,7 @@ class RequestResponseClient(private val requester: RSocketRequester) {
     log.info("The metadata mime type is [{}]", requester.metadataMimeType())
 
     requester.route("greeting")
-      .data("Reactive RSocket")
+      .data("Reactive Spring")
       .retrieveMono(String::class.java)
       .retryWhen(retryBackoffOnClosedChannel { maxAttempts = 5 })
       .subscribe(::onGreetingSuccess, ::onGreetingFailure, ::onGreetingComplete)
