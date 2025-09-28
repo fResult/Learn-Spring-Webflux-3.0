@@ -66,7 +66,8 @@ class BidirectionalClient(
 
   fun nextClientHealthState(start: Long, delayMillis: Long): () -> ClientHealthState = {
     val now = Instant.now().toEpochMilli()
-    val stop = ((start + delayMillis) < now) && Math.random() > .8
+    val elapsedTime = now - start
+    val stop = elapsedTime >= delayMillis && Math.random() > .8
 
     ClientHealthState(if (stop) "STOPPED" else "STARTED")
   }
