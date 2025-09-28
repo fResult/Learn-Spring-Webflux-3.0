@@ -9,9 +9,9 @@ import org.springframework.http.MediaType
 import org.springframework.messaging.rsocket.RSocketRequester
 
 @Configuration
-class RequestResponseClientConfig {
+class RSocketConfiguration {
   companion object {
-    private val log: Logger = LogManager.getLogger(RequestResponseClientConfig::class.java)
+    private val log: Logger = LogManager.getLogger(RSocketConfiguration::class.java)
   }
 
   @Bean
