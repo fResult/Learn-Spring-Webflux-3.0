@@ -2,6 +2,24 @@
 
 [← Back to \[08 RSocket\]'s README](../README.md)
 
+## Implementation Details
+
+- Spring RSocket Integration
+  - Spring Boot RSocket (via `spring-boot-starter-rsocket` dependency) 
+    - Server port & transport via `spring.rsocket.server.port` ([`application-service.yml`](./src/main/resources/application-service.yml))
+    - Embedded server port & transport configured in [`application-service.yml`](./src/main/resources/application-service.yml)  
+    - Client beans (`RSocketRequester`) defined in [`requestResponse/RSocketConfiguration.kt`](./src/main/kotlin/com/fResult/rsocket/requestResponse/client/RSocketConfiguration.kt) and [`channel/RSocketConfiguration.kt`](./src/main/kotlin/com/fResult/rsocket/channel/client/RSocketConfiguration.kt)
+  - `@MessageMapping`-driven endpoints
+  - Automatic payload serialization with Jackson
+- Request/Response Endpoints
+  - `RSocketRequester` bean configuration [`RSocketConfiguration `](./src/main/kotlin/com/fResult/rsocket/requestResponse/client/RSocketConfiguration.kt)
+  - Client invoking greeting route and retrieving `Mono<String>` with retry logic [`RequestResponseClient`](./src/main/kotlin/com/fResult/rsocket/requestResponse/client/RequestResponseClient.kt)
+  - Controller handling greeting messages, logging headers and returning `Mono<String>` [`GreetingController`](./src/main/kotlin/com/fResult/rsocket/requestResponse/service/GreetingController.kt)
+- Channel (Streaming) Endpoints
+  - Bean setup for `RSocketRequester` [`RSocketConfiguration`](./src/main/kotlin/com/fResult/rsocket/channel/client/RSocketConfiguration.kt)
+  - Full-duplex channel client sending "Ping #n" with retry and stream callbacks [`ChannelClient`](./src/main/kotlin/com/fResult/rsocket/channel/client/ChannelClient.kt)
+  - Reactive controller for request-channel endpoint with ping → pong transformation and logging [`PongController`](./src/main/kotlin/com/fResult/rsocket/channel/service/PongController.kt)
+
 ## Available Scripts
 
 ### Building Application
