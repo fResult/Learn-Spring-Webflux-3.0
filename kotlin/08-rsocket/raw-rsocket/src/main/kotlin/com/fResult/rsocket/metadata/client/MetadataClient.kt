@@ -2,7 +2,7 @@ package com.fResult.rsocket.metadata.client
 
 import com.fResult.rsocket.EncodingUtils
 import com.fResult.rsocket.FResultProperties
-import com.fResult.rsocket.dsl.retry.RetryConfigBuilder
+import com.fResult.rsocket.dsl.retry.retryBackoffOnClosedChannel
 import com.fResult.rsocket.metadata.Constants
 import io.rsocket.Payload
 import io.rsocket.core.RSocketClient
@@ -15,10 +15,7 @@ import org.springframework.boot.context.event.ApplicationReadyEvent
 import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Component
 import reactor.core.publisher.Mono
-import reactor.util.retry.Retry
-import reactor.util.retry.RetryBackoffSpec
-import java.nio.channels.ClosedChannelException
-import java.util.Locale
+import java.util.*
 
 @Component
 class MetadataClient(
@@ -40,16 +37,6 @@ class MetadataClient(
     RSocketClient.from(rSocket)
       .metadataPush(Mono.just(buildMetadataUpdatePayload("fResult-client", Locale.ENGLISH)))
       .block()
-  }
-
-  private fun retryBackoffOnClosedChannel(block: RetryConfigBuilder.() -> Unit = {}): RetryBackoffSpec {
-    val cfg = RetryConfigBuilder().apply(block).build()
-
-    return Retry.backoff(cfg.maxAttempts, cfg.maxBackoff)
-      .maxBackoff(cfg.maxBackoff)
-      .filter { it is ClosedChannelException }
-      .jitter(0.2)
-      .onRetryExhaustedThrow { _, _ -> RuntimeException("Retries exhausted") }
   }
 
   private fun buildMetadataUpdatePayload(clientId: String, locale: Locale): Payload {

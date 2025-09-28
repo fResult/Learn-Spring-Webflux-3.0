@@ -1,6 +1,6 @@
 package com.fResult.rsocket.channel.client
 
-import com.fResult.rsocket.dsl.retry.RetryConfigBuilder
+import com.fResult.rsocket.dsl.retry.retryBackoffOnClosedChannel
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import org.springframework.boot.context.event.ApplicationReadyEvent
@@ -8,9 +8,6 @@ import org.springframework.context.event.EventListener
 import org.springframework.messaging.rsocket.RSocketRequester
 import org.springframework.stereotype.Component
 import reactor.core.publisher.Flux
-import reactor.util.retry.Retry
-import reactor.util.retry.RetryBackoffSpec
-import java.nio.channels.ClosedChannelException
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.toJavaDuration
 
@@ -43,14 +40,4 @@ class ChannelClient(private val requester: RSocketRequester) {
   private fun onPongSuccess(pong: String): Unit = log.info("Received response: {}", pong)
   private fun onPongFailure(ex: Throwable): Unit = log.error("Client stream failed with error: {}", ex.message, ex)
   private fun onPongComplete(): Unit = log.info("Client stream completed")
-
-  private fun retryBackoffOnClosedChannel(init: RetryConfigBuilder.() -> Unit = {}): RetryBackoffSpec {
-    val cfg = RetryConfigBuilder().apply(init).build()
-
-    return Retry.backoff(cfg.maxAttempts, cfg.firstBackOff)
-      .maxBackoff(cfg.maxBackoff)
-      .filter { it is ClosedChannelException }
-      .jitter(0.2)
-      .onRetryExhaustedThrow { _, _ -> RuntimeException("Retries exhausted") }
-  }
 }

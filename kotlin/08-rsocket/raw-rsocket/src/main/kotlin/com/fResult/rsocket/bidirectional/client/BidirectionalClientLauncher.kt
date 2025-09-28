@@ -2,17 +2,14 @@ package com.fResult.rsocket.bidirectional.client
 
 import com.fResult.rsocket.EncodingUtils
 import com.fResult.rsocket.FResultProperties
+import com.fResult.rsocket.dsl.retry.retryBackoffOnClosedChannel
 import com.fResult.rsocket.dtos.GreetingResponse
-import com.fResult.rsocket.dsl.retry.RetryConfigBuilder
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import org.springframework.boot.context.event.ApplicationReadyEvent
 import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Component
 import reactor.core.publisher.Flux
-import reactor.util.retry.Retry
-import reactor.util.retry.RetryBackoffSpec
-import java.nio.channels.ClosedChannelException
 import java.util.stream.IntStream
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.toJavaDuration
@@ -54,16 +51,6 @@ class BidirectionalClientLauncher(
 
   private fun toDelayClient(client: BidirectionalClient): Flux<BidirectionalClient> =
     Flux.just(client).delayElements((1..30).random().seconds.toJavaDuration())
-
-  private fun retryBackoffOnClosedChannel(init: RetryConfigBuilder.() -> Unit = {}): RetryBackoffSpec {
-    val cfg = RetryConfigBuilder().apply(init).build()
-
-    return Retry.backoff(cfg.maxAttempts, cfg.firstBackOff)
-      .maxBackoff(cfg.maxBackoff)
-      .filter { it is ClosedChannelException }
-      .jitter(0.2)
-      .onRetryExhaustedThrow { _, _ -> RuntimeException("Retries exhausted") }
-  }
 
   private fun onGreetingReceived(greeting: GreetingResponse?) {
     greeting?.apply { log.info(message) }
