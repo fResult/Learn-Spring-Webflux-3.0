@@ -23,6 +23,13 @@
   - `RSocketRequester` bean configuration [`RSocketConfiguration`](./src/main/kotlin/com/fResult/rsocket/fireAndForget/client/RSocketConfiguration.kt)
   - Controller handling fire-and-forget “greeting” commands, logging incoming names [`GreetingController`](./src/main/kotlin/com/fResult/rsocket/fireAndForget/service/GreetingController.kt)
   - Client sending 10 fire-and-forget greeting commands with `.send()`, retry logic and success/failure callbacks [`FireAndForgetClient`](./src/main/kotlin/com/fResult/rsocket/fireAndForget/client/FireAndForgetClient.kt)
+- Bidirectional Communication
+  - Server-side greetings endpoint with `@MessageMapping("greetings")`, streaming greetings until the client signals STOP via health notifications [`GreetingController`](./src/main/kotlin/com/fResult/rsocket/bidirectional/service/GreetingController.kt)
+  - Client-side `health` endpoint providing a continuous Flux of `ClientHealthState` for server-driven stop control [`HealthController`](./src/main/kotlin/com/fResult/rsocket/bidirectional/client/HealthController.kt)
+  - `RSocketRequester` bean with embedded `SocketAcceptor` to wire health handler and establish bidirectional connection [`RSocketConfiguration`](./src/main/kotlin/com/fResult/rsocket/bidirectional/client/RSocketConfiguration.kt)
+  - Bidirectional client invoking greetings route to retrieve `Flux<GreetingResponse>`, plus a multi-client launcher with retry/backoff and lifecycle callbacks
+    [`BidirectionalClient`](./src/main/kotlin/com/fResult/rsocket/bidirectional/client/BidirectionalClient.kt),
+    [`BidirectionalClientLauncher`](./src/main/kotlin/com/fResult/rsocket/bidirectional/client/BidirectionalClientLauncher.kt)
 
 ## Available Scripts
 
