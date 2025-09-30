@@ -95,3 +95,20 @@ tasks.register<BootRun>("bootSetupConnectionsClient") {
   mainClass = "com.fResult.rsocket.setup.client.SetupApplicationKt"
   classpath = sourceSets["main"].runtimeClasspath
 }
+
+/* =============================== *
+ * ======= Routing Requests ====== *
+ * =============================== */
+tasks.register<BootRun>("bootRoutingService") {
+  group = "application"
+  description = "Run the RSocket Routing Server"
+  mainClass = "com.fResult.rsocket.routing.service.RoutingApplicationKt"
+  classpath = sourceSets["main"].runtimeClasspath
+}
+
+tasks.register<BootRun>("bootRoutingClient") {
+  group = "application"
+  description = "Run the RSocket Routing Client"
+  mainClass = "com.fResult.rsocket.routing.client.RoutingApplicationKt"
+  classpath = sourceSets["main"].runtimeClasspath
+}
