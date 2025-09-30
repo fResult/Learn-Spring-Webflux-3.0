@@ -7,7 +7,7 @@
 - Spring RSocket Integration
   - Spring Boot auto-configuration via `spring-boot-starter-rsocket` (all interaction models)
     - Server & client settings from `spring.rsocket.*` ([`application-service.yml`](./src/main/resources/application-service.yml))
-    - Client beans (`RSocketRequester`) defined in `RSocketConfiguration.kt` for each application (request/response, channel, fire-and-forget, and so on)
+    - Client beans (`RSocketRequester`) defined in `RSocketConfiguration` class for each application (request/response, channel, fire-and-forget, and so on)
     - Jackson JSON serialization enabled automatically
   - `@MessageMapping`-driven endpoints
 - Request/Response Endpoints
@@ -34,6 +34,13 @@
   - Server-side setup handler using `@ConnectMapping("setup")` to log the incoming setup payload and headers [`SetupController`](./src/main/kotlin/com/fResult/rsocket/setup/service/SetupController.kt)
   - Greeting endpoint with a destination variable (`greetings.{name}`) returning a `Mono<String>` [`SetupController`](./src/main/kotlin/com/fResult/rsocket/setup/service/SetupController.kt)
   - ApplicationRunner demonstrating a request to `greetings.{name}` and subscribing to the `Mono<String>` response [`SetupClientConfiguration`](./src/main/kotlin/com/fResult/rsocket/setup/client/SetupClientConfiguration.kt)
+- Routing Endpoints
+  - `RSocketRequester` bean configuration [`RSocketConfiguration`](./src/main/kotlin/com/fResult/rsocket/routing/client/RSocketConfiguration.kt)
+  - Server-side controller defining two routes ([`CustomerController`](./src/main/kotlin/com/fResult/rsocket/routing/service/RoutingController.kt)):
+    - `@MessageMapping("customers")` → `Flux<Customer>`
+    - `@MessageMapping("customers.{id}")` → `Mono<Customer>` by ID
+  - Client invoking both routes via `.route(...)`, retrieving a `Flux<Customer>` for all and `Mono<Customer>` for a single ID, with onNext/onError/onComplete callbacks [`RoutingClient`](./src/main/kotlin/com/fResult/rsocket/routing/client/RoutingClient.kt)
+  - Domain model for customer data [`Customer`](./src/main/kotlin/com/fResult/rsocket/routing/Customer.kt)
 
 ## Available Scripts
 
