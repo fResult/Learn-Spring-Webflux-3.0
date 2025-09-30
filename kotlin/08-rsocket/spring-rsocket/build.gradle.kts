@@ -97,7 +97,7 @@ tasks.register<BootRun>("bootSetupConnectionsClient") {
 }
 
 /* =============================== *
- * ======= Routing Requests ====== *
+ * ====== Routing Endpoints ====== *
  * =============================== */
 tasks.register<BootRun>("bootRoutingService") {
   group = "application"
@@ -110,5 +110,22 @@ tasks.register<BootRun>("bootRoutingClient") {
   group = "application"
   description = "Run the RSocket Routing Client"
   mainClass = "com.fResult.rsocket.routing.client.RoutingApplicationKt"
+  classpath = sourceSets["main"].runtimeClasspath
+}
+
+/* =============================== *
+ * ======= Data Encodings ======== *
+ * =============================== */
+tasks.register<BootRun>("bootEncodingService") {
+  group = "application"
+  description = "Run the RSocket Encoding Server"
+  mainClass = "com.fResult.rsocket.encoding.service.EncodingApplicationKt"
+  classpath = sourceSets["main"].runtimeClasspath
+}
+
+tasks.register<BootRun>("bootEncodingClient") {
+  group = "application"
+  description = "Run the RSocket Encoding Client"
+  mainClass = "com.fResult.rsocket.encoding.client.EncodingApplicationKt"
   classpath = sourceSets["main"].runtimeClasspath
 }
