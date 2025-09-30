@@ -106,3 +106,19 @@ Then, in another terminal, run the client application:
 cd $(git rev-parse --show-toplevel) && \
   ./gradlew :kotlin:08-rsocket:spring-rsocket:bootBidirectionalClient
 ```
+
+#### Setup Connections Scripts
+
+First, run the service application:
+
+```shell
+cd $(git rev-parse --show-toplevel) && \
+  ./gradlew :kotlin:08-rsocket:spring-rsocket:bootSetupConnectionsService
+```
+
+Then, in another terminal, run the client application:
+
+```shell
+cd $(git rev-parse --show-toplevel) && \
+  ./gradlew :kotlin:08-rsocket:spring-rsocket:bootSetupConnectionsClient
+```
