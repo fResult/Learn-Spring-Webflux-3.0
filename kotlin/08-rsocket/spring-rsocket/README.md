@@ -5,12 +5,11 @@
 ## Implementation Details
 
 - Spring RSocket Integration
-  - Spring Boot RSocket (via `spring-boot-starter-rsocket` dependency) 
-    - Server port & transport via `spring.rsocket.server.port` ([`application-service.yml`](./src/main/resources/application-service.yml))
-    - Embedded server port & transport configured in [`application-service.yml`](./src/main/resources/application-service.yml)  
+  - Spring Boot auto-configuration via `spring-boot-starter-rsocket` (all interaction models)
+    - Server & client settings from `spring.rsocket.*` ([`application-service.yml`](./src/main/resources/application-service.yml))
     - Client beans (`RSocketRequester`) defined in `RSocketConfiguration.kt` for each application (request/response, channel, fire-and-forget, and so on)
+    - Jackson JSON serialization enabled automatically
   - `@MessageMapping`-driven endpoints
-  - Automatic payload serialization with Jackson
 - Request/Response Endpoints
   - `RSocketRequester` bean configuration [`RSocketConfiguration `](./src/main/kotlin/com/fResult/rsocket/requestResponse/client/RSocketConfiguration.kt)
   - Client invoking greeting route and retrieving `Mono<String>` with retry logic [`RequestResponseClient`](./src/main/kotlin/com/fResult/rsocket/requestResponse/client/RequestResponseClient.kt)
@@ -30,6 +29,11 @@
   - Bidirectional client invoking greetings route to retrieve `Flux<GreetingResponse>`, plus a multi-client launcher with retry/backoff and lifecycle callbacks
     [`BidirectionalClient`](./src/main/kotlin/com/fResult/rsocket/bidirectional/client/BidirectionalClient.kt),
     [`BidirectionalClientLauncher`](./src/main/kotlin/com/fResult/rsocket/bidirectional/client/BidirectionalClientLauncher.kt)
+- Setup Connections
+  - Client RSocketRequester bean configured with `setupData`, `setupRoute` and a fixed-delay reconnect strategy [`RSocketConfiguration`](./src/main/kotlin/com/fResult/rsocket/setup/client/RSocketConfiguration.kt)
+  - Server-side setup handler using `@ConnectMapping("setup")` to log the incoming setup payload and headers [`SetupController`](./src/main/kotlin/com/fResult/rsocket/setup/service/SetupController.kt)
+  - Greeting endpoint with a destination variable (`greetings.{name}`) returning a `Mono<String>` [`SetupController`](./src/main/kotlin/com/fResult/rsocket/setup/service/SetupController.kt)
+  - ApplicationRunner demonstrating a request to `greetings.{name}` and subscribing to the `Mono<String>` response [`SetupClientConfiguration`](./src/main/kotlin/com/fResult/rsocket/setup/client/SetupClientConfiguration.kt)
 
 ## Available Scripts
 
