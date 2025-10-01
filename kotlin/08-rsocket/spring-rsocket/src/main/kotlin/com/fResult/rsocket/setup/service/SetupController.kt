@@ -19,6 +19,7 @@ class SetupController {
   @MessageMapping("greetings.{name}")
   fun hello(@DestinationVariable name: String): Mono<String> = Mono.just("Hello $name!")
 
+  @Suppress("UNUSED")
   @ConnectMapping("setup")
   fun setup(@Payload setupPayload: String, @Headers headers: Map<String, Any>) {
     log.info("Received setup payload: {}", setupPayload)
