@@ -23,4 +23,3 @@ class GreetingController {
     return Mono.just(GreetingResponse("Hello, ${body.name}!") )
   }
 }
-
