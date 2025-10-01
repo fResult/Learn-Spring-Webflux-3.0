@@ -40,6 +40,14 @@
   - Register Jackson encoder & decoder in RSocket strategies on the service side [`RSocketServiceConfiguration`](./src/main/kotlin/com/fResult/rsocket/encoding/service/RSocketServiceConfiguration.kt)
   - Register Jackson encoder & decoder in RSocket strategies on the client side [`RSocketClientConfiguration`](./src/main/kotlin/com/fResult/rsocket/encoding/client/RSocketClientConfiguration.kt)
   - Client sending JSON `GreetingRequest` and retrieving JSON `GreetingResponse` via `RSocketRequester.retrieveMono(...)` [`EncodingClient`](./src/main/kotlin/com/fResult/rsocket/encoding/client/EncodingClient.kt)
+- Metadata Push & Extraction
+  - Custom metadata MIME types and header keys defined in [`Constants`](./src/main/kotlin/com/fResult/rsocket/metadata/Constants.kt)
+  - RSocket strategies customization to extract metadata and register a `StringDecoder` [`RSocketServiceConfiguration`](./src/main/kotlin/com/fResult/rsocket/metadata/service/RSocketServiceConfiguration.kt)
+  - Server-side [`MetadataController`](./src/main/kotlin/com/fResult/rsocket/metadata/service/MetadataController.kt) handling:
+    - Connection setup via `@ConnectMapping` (logs all headers)
+    - Message route `@MessageMapping("message")` with `@Header(Constants.CLIENT_ID_HEADER)` and `@Headers` for full metadata map
+  - Client-side `RSocketRequester` bean configured for JSON payloads [`RSocketClientConfiguration`](./src/main/kotlin/com/fResult/rsocket/metadata/client/RSocketClientConfiguration.kt)
+    - [`MetadataClient`](./src/main/kotlin/com/fResult/rsocket/metadata/client/MetadataClient.kt) sending two **fire-and-forget** message requests with custom metadata (`client-id`, `lang`) via `.metadata(value, MIME_TYPE)`
 
 ## Available Scripts
 
