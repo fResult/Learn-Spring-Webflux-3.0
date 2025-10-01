@@ -114,7 +114,7 @@ tasks.register<BootRun>("bootRoutingClient") {
 }
 
 /* =============================== *
- * ======= Data Encodings ======== *
+ * ======== Data Encodings ======= *
  * =============================== */
 tasks.register<BootRun>("bootEncodingService") {
   group = "application"
@@ -131,7 +131,7 @@ tasks.register<BootRun>("bootEncodingClient") {
 }
 
 /* =============================== *
- * ======= Metadata Push ========= *
+ * ======== Metadata Push ======== *
  * =============================== */
 tasks.register<BootRun>("bootMetadataService") {
   group = "application"
@@ -144,5 +144,22 @@ tasks.register<BootRun>("bootMetadataClient") {
   group = "application"
   description = "Run the RSocket Metadata Push Client"
   mainClass = "com.fResult.rsocket.metadata.client.MetadataApplicationKt"
+  classpath = sourceSets["main"].runtimeClasspath
+}
+
+/* =============================== *
+ * ======== Error Handling ======= *
+ * =============================== */
+tasks.register<BootRun>("bootErrorHandlingService") {
+  group = "application"
+  description = "Run the RSocket Error Handling Server"
+  mainClass = "com.fResult.rsocket.errorHandling.service.ErrorHandlingApplicationKt"
+  classpath = sourceSets["main"].runtimeClasspath
+}
+
+tasks.register<BootRun>("bootErrorHandlingClient") {
+  group = "application"
+  description = "Run the RSocket Error Handling Client"
+  mainClass = "com.fResult.rsocket.errorHandling.client.ErrorHandlingApplicationKt"
   classpath = sourceSets["main"].runtimeClasspath
 }
