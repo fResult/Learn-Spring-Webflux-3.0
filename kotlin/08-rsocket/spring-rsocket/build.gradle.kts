@@ -129,3 +129,20 @@ tasks.register<BootRun>("bootEncodingClient") {
   mainClass = "com.fResult.rsocket.encoding.client.EncodingApplicationKt"
   classpath = sourceSets["main"].runtimeClasspath
 }
+
+/* =============================== *
+ * ======= Metadata Push ========= *
+ * =============================== */
+tasks.register<BootRun>("bootMetadataService") {
+  group = "application"
+  description = "Run the RSocket Metadata Push Server"
+  mainClass = "com.fResult.rsocket.metadata.service.MetadataApplicationKt"
+  classpath = sourceSets["main"].runtimeClasspath
+}
+
+tasks.register<BootRun>("bootMetadataClient") {
+  group = "application"
+  description = "Run the RSocket Metadata Push Client"
+  mainClass = "com.fResult.rsocket.metadata.client.MetadataApplicationKt"
+  classpath = sourceSets["main"].runtimeClasspath
+}
