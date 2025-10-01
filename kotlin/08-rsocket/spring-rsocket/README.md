@@ -11,21 +11,17 @@
     - Jackson JSON serialization enabled automatically
   - `@MessageMapping`-driven endpoints
 - Request/Response Endpoints
-  - `RSocketRequester` bean configuration [`RSocketConfiguration `](./src/main/kotlin/com/fResult/rsocket/requestResponse/client/RSocketConfiguration.kt)
   - Client invoking greeting route and retrieving `Mono<String>` with retry logic [`RequestResponseClient`](./src/main/kotlin/com/fResult/rsocket/requestResponse/client/RequestResponseClient.kt)
   - Controller handling greeting messages, logging headers and returning `Mono<String>` [`GreetingController`](./src/main/kotlin/com/fResult/rsocket/requestResponse/service/GreetingController.kt)
 - Channel (Streaming) Endpoints
-  - Bean setup for `RSocketRequester` [`RSocketConfiguration`](./src/main/kotlin/com/fResult/rsocket/channel/client/RSocketConfiguration.kt)
   - Full-duplex channel client sending "Ping #n" with retry and stream callbacks [`ChannelClient`](./src/main/kotlin/com/fResult/rsocket/channel/client/ChannelClient.kt)
   - Reactive controller for request-channel endpoint with ping → pong transformation and logging [`PongController`](./src/main/kotlin/com/fResult/rsocket/channel/service/PongController.kt)
 - Fire-and-Forget Endpoints
-  - `RSocketRequester` bean configuration [`RSocketConfiguration`](./src/main/kotlin/com/fResult/rsocket/fireAndForget/client/RSocketConfiguration.kt)
   - Controller handling fire-and-forget “greeting” commands, logging incoming names [`GreetingController`](./src/main/kotlin/com/fResult/rsocket/fireAndForget/service/GreetingController.kt)
   - Client sending 10 fire-and-forget greeting commands with `.send()`, retry logic and success/failure callbacks [`FireAndForgetClient`](./src/main/kotlin/com/fResult/rsocket/fireAndForget/client/FireAndForgetClient.kt)
 - Bidirectional Communication
   - Server-side greetings endpoint with `@MessageMapping("greetings")`, streaming greetings until the client signals STOP via health notifications [`GreetingController`](./src/main/kotlin/com/fResult/rsocket/bidirectional/service/GreetingController.kt)
   - Client-side `health` endpoint providing a continuous Flux of `ClientHealthState` for server-driven stop control [`HealthController`](./src/main/kotlin/com/fResult/rsocket/bidirectional/client/HealthController.kt)
-  - `RSocketRequester` bean with embedded `SocketAcceptor` to wire health handler and establish bidirectional connection [`RSocketConfiguration`](./src/main/kotlin/com/fResult/rsocket/bidirectional/client/RSocketConfiguration.kt)
   - Bidirectional client invoking greetings route to retrieve `Flux<GreetingResponse>`, plus a multi-client launcher with retry/backoff and lifecycle callbacks
     [`BidirectionalClient`](./src/main/kotlin/com/fResult/rsocket/bidirectional/client/BidirectionalClient.kt),
     [`BidirectionalClientLauncher`](./src/main/kotlin/com/fResult/rsocket/bidirectional/client/BidirectionalClientLauncher.kt)
@@ -35,7 +31,6 @@
   - Greeting endpoint with a destination variable (`greetings.{name}`) returning a `Mono<String>` [`SetupController`](./src/main/kotlin/com/fResult/rsocket/setup/service/SetupController.kt)
   - ApplicationRunner demonstrating a request to `greetings.{name}` and subscribing to the `Mono<String>` response [`SetupClientConfiguration`](./src/main/kotlin/com/fResult/rsocket/setup/client/SetupClientConfiguration.kt)
 - Routing Endpoints
-  - `RSocketRequester` bean configuration [`RSocketConfiguration`](./src/main/kotlin/com/fResult/rsocket/routing/client/RSocketConfiguration.kt)
   - Server-side controller defining two routes ([`CustomerController`](./src/main/kotlin/com/fResult/rsocket/routing/service/RoutingController.kt)):
     - `@MessageMapping("customers")` → `Flux<Customer>`
     - `@MessageMapping("customers.{id}")` → `Mono<Customer>` by ID
