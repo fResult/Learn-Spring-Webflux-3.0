@@ -19,7 +19,7 @@ class MetadataController {
   @Suppress("UNUSED")
   @ConnectMapping
   fun setup(@Headers metadata: Map<String, Any>): Mono<Void> {
-    log.info("## Setup")
+    log.info("######## Setup ########")
     return enumerate(metadata)
   }
 
@@ -28,7 +28,7 @@ class MetadataController {
     @Header(Constants.CLIENT_ID_HEADER) clientId: String,
     @Headers metadata: Map<String, Any>,
   ): Mono<Void> {
-    log.info("## Message for {} {}", Constants.CLIENT_ID_HEADER, clientId)
+    log.info("######## Message for {} {} ########", Constants.CLIENT_ID_HEADER, clientId)
 
     return enumerate(metadata)
   }
