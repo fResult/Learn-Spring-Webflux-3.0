@@ -188,3 +188,19 @@ Then, in another terminal, run the client application:
 cd $(git rev-parse --show-toplevel) && \
   ./gradlew :kotlin:08-rsocket:spring-rsocket:bootMetadataClient
 ```
+
+#### Error Handling Scripts
+
+First, run the service application:
+
+```shell
+cd $(git rev-parse --show-toplevel) && \
+  ./gradlew :kotlin:08-rsocket:spring-rsocket:bootErrorHandlingService
+```
+
+Then, in another terminal, run the client application:
+
+```shell
+cd $(git rev-parse --show-toplevel) && \
+  ./gradlew :kotlin:08-rsocket:spring-rsocket:bootErrorHandlingClient
+```
