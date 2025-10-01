@@ -36,6 +36,10 @@
     - `@MessageMapping("customers.{id}")` → `Mono<Customer>` by ID
   - Client invoking both routes via `.route(...)`, retrieving a `Flux<Customer>` for all and `Mono<Customer>` for a single ID, with onNext/onError/onComplete callbacks [`RoutingClient`](./src/main/kotlin/com/fResult/rsocket/routing/client/RoutingClient.kt)
   - Domain model for customer data [`Customer`](./src/main/kotlin/com/fResult/rsocket/routing/Customer.kt)
+- Custom JSON Encoding/Decoding
+  - Register Jackson encoder & decoder in RSocket strategies on the service side [`RSocketServiceConfiguration`](./src/main/kotlin/com/fResult/rsocket/encoding/service/RSocketServiceConfiguration.kt)
+  - Register Jackson encoder & decoder in RSocket strategies on the client side [`RSocketClientConfiguration`](./src/main/kotlin/com/fResult/rsocket/encoding/client/RSocketClientConfiguration.kt)
+  - Client sending JSON `GreetingRequest` and retrieving JSON `GreetingResponse` via `RSocketRequester.retrieveMono(...)` [`EncodingClient`](./src/main/kotlin/com/fResult/rsocket/encoding/client/EncodingClient.kt)
 
 ## Available Scripts
 
