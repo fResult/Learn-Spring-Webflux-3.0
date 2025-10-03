@@ -16,11 +16,14 @@ class MetadataClient(private val requester: RSocketRequester) {
       .metadata(Locale.CHINESE.language, Constants.LANG)
       .send()
 
-    val english = requester.route("message")
-      .metadata(UUID.randomUUID().toString(), Constants.CLIENT_ID)
-      .metadata(Locale.ENGLISH.language, Constants.LANG)
-      .send()
+    val english = requester.route("message").metadata(withClientContext(Locale.ENGLISH)).send()
+    val thai = requester.route("message").metadata(withClientContext(Locale.of("th", "TH"))).send()
 
-    chinese.then(english).subscribe()
+    chinese.then(english).then(thai).subscribe()
+  }
+
+  fun withClientContext(locale: Locale): (RSocketRequester.MetadataSpec<*>) -> Unit = { spec ->
+    spec.metadata(UUID.randomUUID().toString(), Constants.CLIENT_ID)
+    spec.metadata(locale.language, Constants.LANG)
   }
 }
