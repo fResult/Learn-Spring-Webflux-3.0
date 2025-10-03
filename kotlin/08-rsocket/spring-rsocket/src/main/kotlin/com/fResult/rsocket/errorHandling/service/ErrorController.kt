@@ -1,5 +1,6 @@
 package com.fResult.rsocket.errorHandling.service
 
+import com.fResult.rsocket.errorHandling.GreetingException
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import org.springframework.messaging.handler.annotation.MessageExceptionHandler
@@ -26,7 +27,8 @@ class ErrorController {
   fun handleException(ex: Exception): Unit = log.error("Error occurred: {}", ex.message, ex)
 
   private fun greetWithRandomFailure(greeting: String): Mono<String> {
-    return if (Math.random() >= 0.5) Mono.error(IllegalArgumentException("Oops!"))
+    return if (Math.random() >= 0.67) Mono.error(GreetingException("Error occurred when greeting [$greeting]"))
+    else if (Math.random() >= 0.33) Mono.error(IllegalArgumentException("Oops!"))
     else Mono.just(greeting)
   }
 }
