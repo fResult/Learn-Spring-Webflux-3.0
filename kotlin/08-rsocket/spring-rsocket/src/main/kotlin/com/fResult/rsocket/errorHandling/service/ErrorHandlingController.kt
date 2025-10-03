@@ -33,23 +33,23 @@ class ErrorHandlingController {
       }
   }
 
-  @MessageExceptionHandler(GreetingException::class)
-  fun handleGreetingException(ex: GreetingException): String {
-    log.error("Error occurred when greeting: {}", ex.message, ex)
-    return "Greeting error: ${ex.message}"
-  }
+//  @MessageExceptionHandler(GreetingException::class)
+//  fun handleGreetingException(ex: GreetingException): String {
+//    log.error("Error occurred when greeting: {}", ex.message, ex)
+//    return "Greeting error: ${ex.message}"
+//  }
 
-  @MessageExceptionHandler(IllegalArgumentException::class)
-  fun handleIllegalArgumentException(ex: IllegalArgumentException): String {
-    log.error("Illegal argument: {}", ex.message, ex)
-    return "Illegal argument: ${ex.message}"
-  }
+//  @MessageExceptionHandler(IllegalArgumentException::class)
+//  fun handleIllegalArgumentException(ex: IllegalArgumentException): String {
+//    log.error("Illegal argument: {}", ex.message, ex)
+//    return "Illegal argument: ${ex.message}"
+//  }
 
-  @MessageExceptionHandler(Exception::class)
-  fun handleException(ex: Exception): String {
-    log.error("General error: {}", ex.message, ex)
-    return "Error: ${ex.message}"
-  }
+//  @MessageExceptionHandler(Exception::class)
+//  fun handleException(ex: Exception): String {
+//    log.error("General error: {}", ex.message, ex)
+//    return "Error: ${ex.message}"
+//  }
 
 
   private fun greetWithRandomFailure(greeting: String): Mono<String> {
