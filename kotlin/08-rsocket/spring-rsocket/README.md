@@ -48,6 +48,12 @@
     - Message route `@MessageMapping("message")` with `@Header(Constants.CLIENT_ID_HEADER)` and `@Headers` for full metadata map
   - Client-side `RSocketRequester` bean configured for JSON payloads [`RSocketClientConfiguration`](./src/main/kotlin/com/fResult/rsocket/metadata/client/RSocketClientConfiguration.kt)
     - [`MetadataClient`](./src/main/kotlin/com/fResult/rsocket/metadata/client/MetadataClient.kt) sending two **fire-and-forget** message requests with custom metadata (`client-id`, `lang`) via `.metadata(value, MIME_TYPE)`
+  - Error Handling & Exception Mapping 
+    - Domain exception type for greeting failures [`GreetingException`](./src/main/kotlin/com/fResult/rsocket/errorHandling/GreetingException.kt)
+    - Service-side `ErrorHandlingController` with a `@MessageMapping("greetings")` Flux endpoint that:
+      - simulates random failures via `greetWithRandomFailure` and `.onErrorContinue`
+      - ~~handles exceptions with `@MessageExceptionHandler` methods for `GreetingException`, `IllegalArgumentException`, and generic `Exception` [`ErrorHandlingController`](./src/main/kotlin/com/fResult/rsocket/errorHandling/service/ErrorHandlingController.kt)~~
+      - `ErrorHandlingClient` invoking the greetings route with `retrieveFlux(String::class.java)`, applying retry-backoff and logging errors via `doOnError` and `subscribe` callbacks [`ErrorHandlingClient`](./src/main/kotlin/com/fResult/rsocket/errorHandling/client/ErrorHandlingClient.kt)
 
 ## Available Scripts
 
