@@ -1,8 +1,8 @@
 dependencies {
-	implementation(project(":common"))
-	implementation(libs.spring.boot.starter.security)
-	implementation(libs.spring.security.messaging)
-	implementation(libs.spring.security.rsocket)
+  implementation(project(":common"))
+  implementation(libs.spring.boot.starter.security)
+  implementation(libs.spring.security.messaging)
+  implementation(libs.spring.security.rsocket)
 
-	testImplementation(libs.spring.security.test)
+  testImplementation(libs.spring.security.test)
 }
