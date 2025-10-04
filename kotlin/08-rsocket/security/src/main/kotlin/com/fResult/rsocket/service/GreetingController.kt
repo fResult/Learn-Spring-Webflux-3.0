@@ -1,4 +1,4 @@
-package com.fResult.security.service
+package com.fResult.rsocket.service
 
 import com.fResult.rsocket.dtos.GreetingRequest
 import com.fResult.rsocket.dtos.GreetingResponse

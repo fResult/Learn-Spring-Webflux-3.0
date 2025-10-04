@@ -1,4 +1,4 @@
-package com.fResult.security.client
+package com.fResult.rsocket.service
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
@@ -6,8 +6,7 @@ import org.springframework.boot.runApplication
 @SpringBootApplication
 class SecurityApplication
 
-@Throws(InterruptedException::class)
 fun main(args: Array<String>) {
+	System.setProperty("spring.profiles.active", "service")
 	runApplication<SecurityApplication>(*args)
-	Thread.currentThread().join()
 }
