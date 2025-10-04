@@ -17,6 +17,8 @@ spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-star
 spring-boot-configuration-processor = { module = "org.springframework.boot:spring-boot-configuration-processor" , version.ref = "springboot" }
 spring-boot-devtools = { module = "org.springframework.boot:spring-boot-devtools", version.ref = "springboot" }
 
+spring-security-messaging = { module = "org.springframework.security:spring-security-messaging" }
+spring-security-rsocket = { module = "org.springframework.security:spring-security-rsocket" }
 spring-security-test = { module = "org.springframework.security:spring-security-test" }
 
 [plugins]
