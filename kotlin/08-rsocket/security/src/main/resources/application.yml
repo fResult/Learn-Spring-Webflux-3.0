@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: rsocket-security
+
+fresult:
+  rsocket:
+    port: 8181
