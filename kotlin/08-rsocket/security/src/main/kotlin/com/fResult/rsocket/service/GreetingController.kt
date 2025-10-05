@@ -9,7 +9,9 @@ import org.springframework.stereotype.Controller
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import java.util.stream.Stream
+import kotlin.time.Clock
 import kotlin.time.Duration.Companion.seconds
+import kotlin.time.ExperimentalTime
 import kotlin.time.toJavaDuration
 
 @Controller
@@ -20,7 +22,8 @@ class GreetingController {
       .map { GreetingRequest(it) }
       .flatMapMany(::greet)
 
+  @OptIn(ExperimentalTime::class)
   fun greet(request: GreetingRequest): Flux<GreetingResponse> =
-    Flux.fromStream(Stream.generate { GreetingResponse("Hello, ${request.name}!") })
+    Flux.fromStream(Stream.generate { GreetingResponse("Hello, ${request.name} @ ${Clock.System.now()}!") })
       .delayElements(1.seconds.toJavaDuration())
 }
