@@ -4,8 +4,14 @@
 
 ## Implementation Details
 
-- xxxxx
-- yyyyy
+- Reactive in-memory user store with BCrypt-hashed passwords and roles [`ServiceSecurityConfig.authorization()`](./src/main/kotlin/com/fResult/rsocket/service/ServiceSecurityConfig.kt)
+- RSocket simple authentication configured via `RSocketSecurity.simpleAuthentication()` → `PayloadSocketAcceptorInterceptor` [`ServiceSecurityConfig.authorization()`](./src/main/kotlin/com/fResult/rsocket/service/ServiceSecurityConfig.kt)
+- `AuthenticationPrincipalArgumentResolver` registered in `RSocketMessageHandler` for injecting authenticated user [`ServiceSecurityConfig.rSocketMessageHandler()`](./src/main/kotlin/com/fResult/rsocket/service/ServiceSecurityConfig.kt)
+- Secure streaming endpoint with `@MessageMapping("greetings")` using `@AuthenticationPrincipal` to obtain `UserDetails` [`GreetingController.greet()`](./src/main/kotlin/com/fResult/rsocket/service/GreetingController.kt)
+- Client credentials defined as `UsernamePasswordMetadata` beans for users **"fResult"** and **"KornZilla"** [`ClientSecurityConfig`](./src/main/kotlin/com/fResult/rsocket/client/ClientSecurityConfig.kt)
+- `RSocketRequester` bean configured with `setupMetadata(credentials, MESSAGE_RSOCKET_AUTHENTICATION)` and `SimpleAuthenticationEncoder` registered [`RSocketConfiguration`](./src/main/kotlin/com/fResult/rsocket/client/RSocketConfiguration.kt)
+- Demonstrating two authenticated greeting streams by sending credentials metadata and consuming `Flux<GreetingResponse>` with retry/backoff [`SecurityClient`](./src/main/kotlin/com/fResult/rsocket/client/SecurityClient.kt)
+- Service and client application bootstrap classes with profile "service" ([`SecurityApplication`](./src/main/kotlin/com/fResult/rsocket/service/SecurityApplication.kt)) for the server and a blocking main for the client ([`SecurityApplication`](./src/main/kotlin/com/fResult/rsocket/client/SecurityApplication.kt))
 
 ## Available Scripts
 
