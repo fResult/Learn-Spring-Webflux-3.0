@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: rsocket-integration
+
+fresult:
+  rsocket:
+    port: 8181
