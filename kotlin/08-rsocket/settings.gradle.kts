@@ -4,6 +4,7 @@ include("common")
 include("raw-rsocket")
 include("spring-rsocket")
 include("security")
+include("integration")
 
 dependencyResolutionManagement {
   versionCatalogs {
