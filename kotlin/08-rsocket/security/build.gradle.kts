@@ -23,7 +23,7 @@ tasks.register<BootRun>("bootServiceRun") {
 
 tasks.register<BootRun>("bootClientRun") {
   group = "application"
-  description = "Run the application with the 'client' Spring profile"
+  description = "Run the application for the client side"
   mainClass.set("com.fResult.rsocket.client.SecurityApplicationKt")
   classpath = sourceSets["main"].runtimeClasspath
 }
