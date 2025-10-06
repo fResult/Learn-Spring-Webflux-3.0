@@ -1,4 +1,4 @@
-package com.fResult.integration
+package com.fResult.rsocket.integration
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
