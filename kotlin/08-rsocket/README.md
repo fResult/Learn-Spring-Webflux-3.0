@@ -6,6 +6,8 @@ This module is based on concepts from the [rsocket repository](https://github.co
 
 - [Raw RSocket Module](./raw-rsocket/README.md)
 - [Spring RSocket Module](./spring-rsocket/README.md)
+- [Security Module](./security/README.md)
+- [Integration Module](./integration/README.md)
 
 ## Table 1. Message Exchange Pattern Formulations with the RSocketRequester
 
