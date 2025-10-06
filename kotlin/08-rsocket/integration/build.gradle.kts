@@ -5,3 +5,7 @@ dependencies {
 
   testImplementation("org.springframework.integration:spring-integration-test")
 }
+
+springBoot {
+  mainClass.set("com.fResult.rsocket.service.IntegrationApplicationKt")
+}
