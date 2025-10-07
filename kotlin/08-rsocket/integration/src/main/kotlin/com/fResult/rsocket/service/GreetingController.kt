@@ -22,7 +22,7 @@ class GreetingController {
   @OptIn(ExperimentalTime::class)
   @MessageMapping("greetings")
   fun greet(body: GreetingRequest): Flux<GreetingResponse> =
-    Flux.fromStream { Stream.generate { GreetingResponse("Hello, ${body.name} @ ${Clock.System.now()}") } }
+    Flux.fromStream { Stream.generate { GreetingResponse("Hello, ${body.name} @ ${Clock.System.now()}!") } }
       .take(10)
       .delayElements(1.seconds.toJavaDuration())
       .doOnNext(::onGreetSent)
