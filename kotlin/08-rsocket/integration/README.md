@@ -4,8 +4,14 @@
 
 ## Implementation Details
 
-- xxxxx
-- yyyyy
+- Reactive greeting controller streaming 10 responses with delay and logging [`GreetingController`](./src/main/kotlin/com/fResult/rsocket/service/GreetingController.kt)
+- RSocket client connector bean configured with host, port and `RSocketStrategies` [`RSocketConnectionConfiguration`](./src/main/kotlin/com/fResult/rsocket/integration/RSocketConnectionConfiguration.kt)
+- Reactive message channel bean for `IntegrationFlow` [`ChannelConfiguration`](./src/main/kotlin/com/fResult/rsocket/integration/ChannelConfiguration.kt)
+- File inbound channel adapter watching `$HOME/in` directory with fixed-rate poller [`FileInboundConfiguration`](./src/main/kotlin/com/fResult/rsocket/integration/FileInboundConfiguration.kt)
+- Integration flow on [`IntegrationFlowConfiguration`](./src/main/kotlin/com/fResult/rsocket/integration/IntegrationFlowConfiguration.kt) that:
+  - Reads files → transforms to `String` → maps to [`GreetingRequest`](../common/src/main/kotlin/com/fResult/rsocket/dtos/GreetingRequest.kt)
+  - Sends to RSocket "greetings" request-stream gateway and expects [`GreetingResponse`](../common/src/main/kotlin/com/fResult/rsocket/dtos/GreetingResponse.kt)
+  - Splits the response `Flux`, routes through the message channel, and logs payloads & headers
 
 ## Available Scripts
 
