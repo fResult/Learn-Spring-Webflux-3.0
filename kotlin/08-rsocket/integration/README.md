@@ -39,4 +39,20 @@ cd $(git rev-parse --show-toplevel) && \
   ./gradlew :kotlin:08-rsocket:integration:bootIntegrationRun
 ```
 
+To test client side, create text files in `$HOME/in` directory.
+
+```shell
+# Unix shell
+mkdir -p $HOME/in
+echo "Java" > $HOME/in/java.txt
+echo "Kotlin" > $HOME/in/kotlin.txt
+echo "Spring" > $HOME/in/spring.txt
+
+# Windows PowerShell
+mkdir $env:USERPROFILE\in
+"Java" | Out-File -FilePath $env:USERPROFILE\in\java.txt
+"Kotlin" | Out-File -FilePath $env:USERPROFILE\in\kotlin.txt
+"Spring" | Out-File -FilePath $env:USERPROFILE\in\spring.txt
+```
+
 [← Back to \[08 RSocket\]'s README](../README.md)
