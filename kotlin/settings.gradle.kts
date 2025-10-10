@@ -6,6 +6,7 @@ includeBuild("05-reactor")
 includeBuild("06-data-access")
 includeBuild("07-http")
 includeBuild("08-rsocket")
+includeBuild("09-service-orchestration")
 
 dependencyResolutionManagement {
   versionCatalogs {
