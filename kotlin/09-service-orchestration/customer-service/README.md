@@ -30,6 +30,4 @@ When the application starts, we should see a log entry similar to the following,
 Registered instance CUSTOMER-SERVICE/customer-service:fa9669d4a0348597d4b38baaa58173a6 with status UP (replication=true)rvice-orchestration:eureka-service:bootRun
 ```
 
-
-
 [← Back to \[09 Service Orchestration\]'s README](../README.md)
