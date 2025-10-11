@@ -8,7 +8,9 @@ This module is based on concepts from the [orchestration repository](https://git
 
 ### Building Applications
 
-- To build Eureka service, see [eureka-service/README.md](./eureka-service/README.md#building-application)
+- To build **Eureka service**, see [eureka-service/README.md](./eureka-service/README.md#building-application)
+- To build **Customer service**, see [customer-service/README.md](./customer-service/README.md#building-application)
+- To build **Profile service**, see [profile-service/README.md](./profile-service/README.md#building-application)
 
 ```shell
 cd $(git rev-parse --show-toplevel) && \
