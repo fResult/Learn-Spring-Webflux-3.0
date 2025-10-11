@@ -3,7 +3,6 @@ package com.fResult.rsocket.errorHandling.service
 import com.fResult.rsocket.errorHandling.GreetingException
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
-import org.springframework.messaging.handler.annotation.MessageExceptionHandler
 import org.springframework.messaging.handler.annotation.MessageMapping
 import org.springframework.stereotype.Controller
 import reactor.core.publisher.Flux

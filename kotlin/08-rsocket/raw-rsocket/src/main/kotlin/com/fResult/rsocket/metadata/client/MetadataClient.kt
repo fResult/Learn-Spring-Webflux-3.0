@@ -31,7 +31,7 @@ class MetadataClient(
     log.info("Starting {} connection", MetadataClient::class.simpleName)
 
     val rSocket = RSocketConnector.create()
-      .reconnect(retryBackoffOnClosedChannel { maxAttempts = 5 } )
+      .reconnect(retryBackoffOnClosedChannel { maxAttempts = 5 })
       .connect(TcpClientTransport.create(props.rsocket.hostname, props.rsocket.port))
 
     RSocketClient.from(rSocket)

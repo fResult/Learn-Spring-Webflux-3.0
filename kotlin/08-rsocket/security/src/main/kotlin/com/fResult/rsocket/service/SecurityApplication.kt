@@ -7,6 +7,6 @@ import org.springframework.boot.runApplication
 class SecurityApplication
 
 fun main(args: Array<String>) {
-	System.setProperty("spring.profiles.active", "service")
-	runApplication<SecurityApplication>(*args)
+  System.setProperty("spring.profiles.active", "service")
+  runApplication<SecurityApplication>(*args)
 }

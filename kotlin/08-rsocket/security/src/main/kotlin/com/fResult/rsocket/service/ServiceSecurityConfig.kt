@@ -18,8 +18,17 @@ class ServiceSecurityConfig {
   fun authentication(): MapReactiveUserDetailsService {
     // Note: the passwords are pre-encoded with BCryptPasswordEncoder (for `P@ssw0rd`) for demonstration purposes
     val user1 =
-      buildUserDetailsEncodedPasswordByBCrypt("fResult", "d0VGi/3lKQQWNQz4aUUDNO1BfS6jr/9M3pRIRCCGL39SuJlNAh7zO", "ADMIN", "USER")
-    val user2 = buildUserDetailsEncodedPasswordByBCrypt("KornZilla", "DdtIe6ShdBcjyvGD7rBJ8eTLWUqERjSGDGNSIyn7CXBeDL3znqxt.", "USER")
+      buildUserDetailsEncodedPasswordByBCrypt(
+        "fResult",
+        "d0VGi/3lKQQWNQz4aUUDNO1BfS6jr/9M3pRIRCCGL39SuJlNAh7zO",
+        "ADMIN",
+        "USER"
+      )
+    val user2 = buildUserDetailsEncodedPasswordByBCrypt(
+      "KornZilla",
+      "DdtIe6ShdBcjyvGD7rBJ8eTLWUqERjSGDGNSIyn7CXBeDL3znqxt.",
+      "USER"
+    )
 
     return MapReactiveUserDetailsService(user1, user2)
   }

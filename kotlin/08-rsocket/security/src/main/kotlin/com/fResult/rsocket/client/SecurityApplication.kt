@@ -8,6 +8,6 @@ class SecurityApplication
 
 @Throws(InterruptedException::class)
 fun main(args: Array<String>) {
-	runApplication<SecurityApplication>(*args)
-	Thread.currentThread().join()
+  runApplication<SecurityApplication>(*args)
+  Thread.currentThread().join()
 }

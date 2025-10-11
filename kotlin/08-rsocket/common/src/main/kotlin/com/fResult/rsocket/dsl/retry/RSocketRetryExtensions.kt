@@ -25,7 +25,7 @@ import java.nio.channels.ClosedChannelException
  * @return a backoff spec with 20% jitter and RuntimeException on exhaustion
  */
 fun retryBackoffOnClosedChannel(
-  block: RetryConfigBuilder.() -> Unit = {}
+  block: RetryConfigBuilder.() -> Unit = {},
 ): RetryBackoffSpec {
   val cfg = RetryConfigBuilder()
     .apply(block)

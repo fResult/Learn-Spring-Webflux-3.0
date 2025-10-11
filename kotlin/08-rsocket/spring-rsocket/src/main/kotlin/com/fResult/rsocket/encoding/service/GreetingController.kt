@@ -20,6 +20,6 @@ class GreetingController {
   fun greet(@Payload body: GreetingRequest, @Headers headers: Map<String, Any>): Mono<GreetingResponse> {
     headers.forEach { key, value -> log.info("Greeting header: {} -> {}", key, value) }
 
-    return Mono.just(GreetingResponse("Hello, ${body.name}!") )
+    return Mono.just(GreetingResponse("Hello, ${body.name}!"))
   }
 }
