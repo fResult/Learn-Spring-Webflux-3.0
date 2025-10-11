@@ -1,4 +1,4 @@
-rootProject.name = "service-orchrestration"
+rootProject.name = "09-service-orchestration"
 
 dependencyResolutionManagement {
   versionCatalogs {
