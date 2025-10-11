@@ -20,6 +20,7 @@ spring-boot-devtools = { module = "org.springframework.boot:spring-boot-devtools
 spring-security-messaging = { module = "org.springframework.security:spring-security-messaging" }
 spring-security-rsocket = { module = "org.springframework.security:spring-security-rsocket" }
 spring-security-test = { module = "org.springframework.security:spring-security-test" }
+spring-cloud-starter-netflix-eureka-server = { module = "org.springframework.cloud:spring-cloud-starter-netflix-eureka-server", version = "2025.0.0" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
