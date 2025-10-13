@@ -2,6 +2,10 @@
 
 [← Back to \[09 Service Orchestration\]'s README](../README.md)
 
+**Profile Service** provides information related to `Profile` entities attached to the `Customer`.\
+This is a one-to-one relationship with the `Customer` data (managed by [Customer Service](../customer-service/README.md)).\
+Each customer has one profile with a username and password.
+
 ## Implementation Details
 
 - xxxxx
