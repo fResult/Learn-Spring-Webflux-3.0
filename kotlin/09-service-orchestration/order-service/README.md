@@ -2,6 +2,9 @@
 
 [← Back to \[09 Service Orchestration\]'s README](../README.md)
 
+**Order Service** provides all the orders that belong to `Customer`.\
+This service works with [Customer Service](../customer-service/README.md) in a one-to-many relationship with each `Customer` able to have many `Order` instances.
+
 ## Implementation Details
 
 - xxxxx
