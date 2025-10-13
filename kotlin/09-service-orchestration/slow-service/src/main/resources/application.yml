@@ -2,6 +2,9 @@ spring:
   application:
     name: slow-service
 
+slow-service:
+  delay-in-seconds: 0
+
 server:
   port: 0
 eureka:
