@@ -2,6 +2,13 @@
 
 [← Back to \[09 Service Orchestration\]'s README](../customer-service/README.md)
 
+**Error Service** offers endpoints that fail in particular ways, also for demonstration purposes.
+
+**Error Service** returns different types of errors.\
+This service shows how to handle services that fail in different ways.
+
+**Error Service** offers endpoints that fail in particular ways, also for demonstration purposes.
+
 ## Implementation Details
 
 - xxxxx
