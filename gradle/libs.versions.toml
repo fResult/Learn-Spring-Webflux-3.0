@@ -23,7 +23,7 @@ spring-security-rsocket = { module = "org.springframework.security:spring-securi
 spring-security-test = { module = "org.springframework.security:spring-security-test" }
 
 spring-cloud-dependencies-bom = { module = "org.springframework.cloud:spring-cloud-dependencies", version.ref = "springCloud" }
-spring-cloud-starter-netflix-eureka-server = { module = "org.springframework.cloud:spring-cloud-starter-netflix-eureka-server", version = "springCloud" }
+spring-cloud-starter-netflix-eureka-server = { module = "org.springframework.cloud:spring-cloud-starter-netflix-eureka-server" }
 spring-cloud-starter-netflix-eureka-client = { module = "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client" }
 
 [plugins]
