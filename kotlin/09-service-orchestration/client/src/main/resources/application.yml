@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: client
+
+server:
+  port: 0
+
+logging:
+  level:
+    com.fResult: DEBUG
+
+# Spring Cloud Gateway
+#management:
+#  endpoint:
+#    gateway:
+#      enabled: true
