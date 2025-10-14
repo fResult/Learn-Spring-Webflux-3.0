@@ -34,6 +34,9 @@ Each module is implemented in both [Java](./java) and [Kotlin](./kotlin) to comp
 - `08-rsocket`: Implementation of RSocket protocol for reactive messaging with setup, request-response, fire-and-forget, and streaming interactions
    - Java Implementation (No implementation)
    - [Kotlin Implementation](./kotlin/08-rsocket)
+- `09-service-orchestration`: Implementation of service discovery and registration using Spring Cloud Netflix Eureka for microservices coordination
+   - Java Implementation (No implementation)
+   - [Kotlin Implementation](./kotlin/09-service-orchestration)
 
 ## My Summary
 
@@ -59,6 +62,8 @@ Each module is implemented in both [Java](./java) and [Kotlin](./kotlin) to comp
 - Implemented database profile switching between R2DBC, MongoDB, and other providers
 - Implemented reactive global error handling in [`ExceptionProblemResponseMapper#map`](https://github.com/fResult/Learn-Spring-Webflux-3.0/blob/72805b595fe7e3b692d7ccce6d78d2611b40abd3/kotlin/07-http/webflux/src/main/kotlin/com/fResult/common/ExceptionProblemResponseMapper.kt#L13-L21)
     (utilized in [`ErrorHandlingRouteConfiguration`](https://github.com/fResult/Learn-Spring-Webflux-3.0/blob/72805b5/kotlin/07-http/webflux/src/main/kotlin/com/fResult/http/filters/ErrorHandlingRouteConfiguration.kt#L18) class).
+- Learned to properly configure Spring Cloud dependencies in Gradle version catalogs by declaring libraries in the `[libraries]` section rather than just versions, enabling correct dependency resolution through the BOM (Bill of Materials)
+- Learned that Spring Cloud dependencies must be declared as libraries in `libs.versions.toml`, not just as versions, for proper Gradle catalog resolution
 
 <!-- References -->
 [gradle-multiproject]: https://docs.gradle.org/current/userguide/intro_multi_project_builds.html

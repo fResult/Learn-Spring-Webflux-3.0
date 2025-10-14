@@ -6,6 +6,7 @@ include("profile-service")
 include("order-service")
 include("slow-service")
 include("error-service")
+include("client")
 
 dependencyResolutionManagement {
   versionCatalogs {
