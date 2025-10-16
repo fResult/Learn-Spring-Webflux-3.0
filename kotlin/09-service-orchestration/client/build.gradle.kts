@@ -27,3 +27,13 @@ tasks.register<BootRun>("bootScatterGatherClient") {
   mainClass.set("com.fResult.orchestration.scatterGather.ScatterGatherApplicationKt")
   classpath = sourceSets["main"].runtimeClasspath
 }
+
+/* ============================== *
+ * ======= Reactor Basic  ======= *
+ * ============================== */
+tasks.register<BootRun>("bootReactorBasicClient") {
+  group = "application"
+  description = "Run the Reactor Basic Client"
+  mainClass.set("com.fResult.orchestration.reactor.BasicApplicationKt")
+  classpath = sourceSets["main"].runtimeClasspath
+}
