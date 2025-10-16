@@ -19,3 +19,14 @@ cd $(git rev-parse --show-toplevel) && \
   ./gradlew :kotlin:09-service-orchestration:client:clean \
             :kotlin:09-service-orchestration:client:build
 ```
+
+### Running Application
+
+First, make sure that the [Eureka server](../eureka-service/README.md#running-application) and [Customer Service](../customer-service/README.md#running-application) are up and running.
+
+Then, run the [`ScatterGatherApplication`](src/main/kotlin/com/fResult/orchestration/scatterGather/ScatterGatherApplication.kt):
+
+```bash
+cd $(git rev-parse --show-toplevel) && \
+  ./gradlew :kotlin:09-service-orchestration:client:bootScatterGatherClient
+```
