@@ -1,3 +1,5 @@
+import org.springframework.boot.gradle.tasks.run.BootRun
+
 val resilience4jVersion  = "2.3.0"
 
 dependencies {
@@ -14,4 +16,14 @@ dependencies {
 
 springBoot {
   mainClass.set("com.fResult.orchestration.BasicApplicationKt")
+}
+
+/* ============================== *
+ * ======= Scatter Gather ======= *
+ * ============================== */
+tasks.register<BootRun>("bootScatterGatherClient") {
+  group = "application"
+  description = "Run the Scatter Gather Client"
+  mainClass.set("com.fResult.orchestration.scatterGather.ScatterGatherApplicationKt")
+  classpath = sourceSets["main"].runtimeClasspath
 }
