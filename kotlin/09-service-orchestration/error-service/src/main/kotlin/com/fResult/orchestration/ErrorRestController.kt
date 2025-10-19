@@ -39,7 +39,7 @@ class ErrorRestController {
     log.info("Retry endpoint called for clientId=$clientId, attempt #$countThusFar")
 
     return if (countThusFar > 2) greetingResponse(countThusFar, port.get())
-    else Mono.error(IllegalArgumentException())
+    else Mono.error(IllegalArgumentException("Simulated error for retry logic for clientId=$clientId, attempt #$countThusFar"))
   }
 
   @GetMapping("/circuit-breaker")
