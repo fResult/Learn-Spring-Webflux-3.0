@@ -42,3 +42,23 @@ Then, run the [`BasicReactorApplication`](src/main/kotlin/com/fResult/orchestrat
 cd $(git rev-parse --show-toplevel) && \
   ./gradlew :kotlin:09-service-orchestration:client:bootReactorBasicClient
 ```
+
+#### Resilient4j Script
+
+First, make sure that the [Eureka server](../eureka-service/README.md#running-application) and [Error Service](../error-service/README.md#running-application) are up and running.
+
+Then, run the [`ResilientClientApplication`](src/main/kotlin/com/fResult/orchestration/resilience4j/ResilientClientApplication.kt):
+
+```bash
+cd $(git rev-parse --show-toplevel) && \
+  ./gradlew :kotlin:09-service-orchestration:client:bootResilience4jClient
+```
+
+To run with `retry` profile enabled, use the following command:
+
+```bash
+cd $(git rev-parse --show-toplevel) && \
+  SPRING_PROFILES_ACTIVE=retry ./gradlew :kotlin:09-service-orchestration:client:bootResilience4jClient
+```
+
+[← Back to \[09 Service Orchestration\]'s README](../README.md)
