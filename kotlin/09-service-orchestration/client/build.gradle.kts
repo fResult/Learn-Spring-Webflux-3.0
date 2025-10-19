@@ -37,3 +37,13 @@ tasks.register<BootRun>("bootReactorBasicClient") {
   mainClass.set("com.fResult.orchestration.reactor.BasicApplicationKt")
   classpath = sourceSets["main"].runtimeClasspath
 }
+
+/* ============================= *
+ * ======= Resilience4j  ======= *
+ * ============================= */
+tasks.register<BootRun>("bootResilience4jClient") {
+  group = "application"
+  description = "Run the Resilience4j Client"
+  mainClass.set("com.fResult.orchestration.resilience4j.ResilientClientApplicationKt")
+  classpath = sourceSets["main"].runtimeClasspath
+}
