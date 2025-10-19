@@ -22,13 +22,7 @@ class RetryClient(private val http: WebClient) {
     private val log = Loggers.getLogger(RetryClient::class.java)
   }
 
-  private val config = RetryConfig.custom<Retry>()
-    .waitDuration(1.seconds.toJavaDuration())
-    .intervalFunction(IntervalFunction.ofExponentialBackoff(500.milliseconds.toJavaDuration(), 2.0))
-    .maxAttempts(3)
-    .build()
-
-  private val retry = Retry.of("greetings-retry", config)
+  private val retry = Retry.of("greetings-retry", ::retryConfig)
   private val uid = UUID.randomUUID().toString()
 
   @EventListener
@@ -37,6 +31,12 @@ class RetryClient(private val http: WebClient) {
       .transformDeferred(RetryOperator.of(retry))
       .subscribe(::onRetryReceived, ::onRetryError, ::onRetryCompleted)
   }
+
+  private fun retryConfig(): RetryConfig = RetryConfig.custom<Retry>()
+    .waitDuration(1.seconds.toJavaDuration())
+    .intervalFunction(IntervalFunction.ofExponentialBackoff(500.milliseconds.toJavaDuration(), 2.0))
+    .maxAttempts(3)
+    .build()
 
   private fun onRetryReceived(message: String?): Unit =
     log.info("Received: {}", message)
