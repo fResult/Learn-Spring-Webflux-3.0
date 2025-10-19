@@ -7,8 +7,7 @@ This module has examples for hedging, scatter-gather, and resilience patterns us
 
 ## Implementation Details
 
-- xxxxx
-- yyyyy
+- Scatter-Gather pattern - calls `Customer Service`, `Profile Service`, and `Order Service` at the same time and combines results
 
 ## Available Scripts
 
