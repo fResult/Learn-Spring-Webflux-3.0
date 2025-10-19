@@ -13,6 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger
 @RestController
 class ErrorRestController {
   companion object {
+    const val UID_PARAM_NAME = "uid"
     private val log = Loggers.getLogger(ErrorRestController::class.java)
   }
 
@@ -27,21 +28,27 @@ class ErrorRestController {
   }
 
   @GetMapping("/ok")
-  fun okEndpoint(@RequestParam(required = false) clientId: String?): Mono<GreetingResponse> {
+  fun okEndpoint(@RequestParam(required = false, name = UID_PARAM_NAME) clientId: String?): Mono<GreetingResponse> {
     val countThusFar = registerAndCountClient(clientId)
     return greetingResponse(countThusFar, port.get())
   }
 
   @GetMapping("/retry")
-  fun retryEndpoint(@RequestParam(required = false) clientId: String?): Mono<GreetingResponse> {
+  fun retryEndpoint(@RequestParam(required = false, name = UID_PARAM_NAME) clientId: String?): Mono<GreetingResponse> {
     val countThusFar = registerAndCountClient(clientId)
+    log.info("Retry endpoint called for clientId=$clientId, attempt #$countThusFar")
 
     return if (countThusFar > 2) greetingResponse(countThusFar, port.get())
     else Mono.error(IllegalArgumentException())
   }
 
   @GetMapping("/circuit-breaker")
-  fun circuitBreakerEndpoint(@RequestParam(required = false) clientId: String?): Mono<Map<String, String>> {
+  fun circuitBreakerEndpoint(
+    @RequestParam(
+      required = false,
+      name = UID_PARAM_NAME
+    ) clientId: String?,
+  ): Mono<Map<String, String>> {
     registerAndCountClient(clientId)
 
     return Mono.error(IllegalArgumentException())
@@ -55,5 +62,5 @@ class ErrorRestController {
   }
 
   private fun greetingResponse(count: Int, port: Int): Mono<GreetingResponse> =
-    Mono.just(GreetingResponse("Greeting attempt # $count from port $port"))
+    Mono.just(GreetingResponse("Greeting attempt #$count from port $port"))
 }
