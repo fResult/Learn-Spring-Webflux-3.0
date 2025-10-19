@@ -19,17 +19,17 @@ abstract class TimerUtils {
     fun <T> monitor(config: Mono<T>): Mono<T> {
       val start = AtomicLong()
 
-      return config.doOnError { ex -> log.error("Oops!", ex) }
-        .doOnSubscribe { subscription -> start.set(System.currentTimeMillis()) }
-        .doOnNext { greeting -> log.info("Total time: {}", System.currentTimeMillis() - start.get()) }
+      return config.doOnError { ex -> log.error("Oops! {}", ex.message, ex) }
+        .doOnSubscribe { _ -> start.set(System.currentTimeMillis()) }
+        .doOnNext { _ -> log.info("Total time: {}", System.currentTimeMillis() - start.get()) }
     }
 
     fun <T> monitor(configs: Flux<T>): Flux<T> {
       val start = AtomicLong()
 
-      return configs.doOnError { ex -> log.error("Oops!", ex) }
-        .doOnSubscribe { subscription -> start.set(System.currentTimeMillis()) }
-        .doOnNext { greeting -> log.info("Total time: {}", System.currentTimeMillis() - start.get()) }
+      return configs.doOnError { ex -> log.error("Oops! {}", ex.message, ex) }
+        .doOnSubscribe { _ -> start.set(System.currentTimeMillis()) }
+        .doOnNext { _ -> log.info("Total time: {}", System.currentTimeMillis() - start.get()) }
     }
   }
 }
