@@ -17,5 +17,5 @@ class GlobalExceptionHandler {
       "${IllegalArgumentException::class.simpleName}: ${ex.message ?: "Invalid argument"}",
     )
       .toMono()
-      .map(ResponseEntity.badRequest()::body)
+      .map(ResponseEntity.internalServerError()::body)
 }
