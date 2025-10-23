@@ -61,4 +61,11 @@ cd $(git rev-parse --show-toplevel) && \
   SPRING_PROFILES_ACTIVE=retry ./gradlew :kotlin:09-service-orchestration:client:bootResilience4jClient
 ```
 
+To run with `circuit-breaker` profile enabled, use the following command:
+
+```bash
+cd $(git rev-parse --show-toplevel) && \
+  SPRING_PROFILES_ACTIVE=circuit-breaker ./gradlew :kotlin:09-service-orchestration:client:bootResilience4jClient
+```
+
 [← Back to \[09 Service Orchestration\]'s README](../README.md)
