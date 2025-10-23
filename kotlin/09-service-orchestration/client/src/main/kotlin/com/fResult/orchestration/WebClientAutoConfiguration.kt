@@ -11,7 +11,7 @@ import reactor.util.Loggers
 @Configuration
 class WebClientAutoConfiguration {
   companion object {
-    private val log: Logger = Loggers.getLogger(TimerUtils::class.java)
+    private val log: Logger = Loggers.getLogger(WebClientAutoConfiguration::class.java)
   }
 
   @Bean
