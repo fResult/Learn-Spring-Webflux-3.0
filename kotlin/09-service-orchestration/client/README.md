@@ -75,4 +75,11 @@ cd $(git rev-parse --show-toplevel) && \
   SPRING_PROFILES_ACTIVE=rate-limiter ./gradlew :kotlin:09-service-orchestration:client:bootResilience4jClient
 ```
 
+To run with `bulkhead` profile enabled, use the following command:
+
+```bash
+cd $(git rev-parse --show-toplevel) && \
+  SPRING_PROFILES_ACTIVE=bulkhead ./gradlew :kotlin:09-service-orchestration:client:bootResilience4jClient
+```
+
 [← Back to \[09 Service Orchestration\]'s README](../README.md)
