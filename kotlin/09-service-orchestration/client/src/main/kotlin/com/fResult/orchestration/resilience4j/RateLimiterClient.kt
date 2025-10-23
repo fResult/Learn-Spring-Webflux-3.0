@@ -34,7 +34,7 @@ class RateLimiterClient(private val http: WebClient) {
     val resultCounter = AtomicInteger()
     val errorCounter = AtomicInteger()
 
-    (0..max).forEach { idx ->
+    (1..max).forEach { idx ->
       log.info("Submitting request #{} for Rate Limiter client with UID={}", idx, uid)
       buildRequest(countDownLatch, resultCounter, errorCounter, rateLimiter, idx)
         .subscribe()
@@ -44,10 +44,14 @@ class RateLimiterClient(private val http: WebClient) {
     log.info("Final results for Rate Limiter client with UID=$uid: Successful Calls=${resultCounter.get()}, Errors=${errorCounter.get()}")
   }
 
+  // Config limitForPeriod = 10, limitRefreshPeriod = 1 second for normal operation
+  // Config limitForPeriod =  2, limitRefreshPeriod = 5 seconds for error demonstration
   private fun rateLimiterConfig(): RateLimiterConfig =
     RateLimiterConfig.custom()
-      .limitForPeriod(10)
-      .limitRefreshPeriod(1.seconds.toJavaDuration())
+      // .limitForPeriod(10)
+      // .limitRefreshPeriod(1.seconds.toJavaDuration())
+      .limitForPeriod(2)
+      .limitRefreshPeriod(5.seconds.toJavaDuration())
       .build()
 
   private fun buildRequest(
