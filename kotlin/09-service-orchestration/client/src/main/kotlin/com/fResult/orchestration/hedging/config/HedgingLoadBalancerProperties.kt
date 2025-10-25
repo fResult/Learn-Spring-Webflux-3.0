@@ -1,4 +1,4 @@
-package com.fResult.orchestration.hedging
+package com.fResult.orchestration.hedging.config
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 

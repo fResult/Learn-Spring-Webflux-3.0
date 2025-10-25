@@ -1,5 +1,6 @@
 package com.fResult.orchestration.hedging
 
+import com.fResult.orchestration.hedging.config.HedgingLoadBalancerProperties
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.runApplication

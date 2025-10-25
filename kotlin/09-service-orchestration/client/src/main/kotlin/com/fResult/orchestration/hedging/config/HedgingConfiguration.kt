@@ -1,5 +1,7 @@
-package com.fResult.orchestration.hedging
+package com.fResult.orchestration.hedging.config
 
+import com.fResult.orchestration.hedging.HedgingFilterFunction
+import com.fResult.orchestration.hedging.config.HedgingLoadBalancerProperties
 import org.springframework.cloud.client.discovery.ReactiveDiscoveryClient
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
