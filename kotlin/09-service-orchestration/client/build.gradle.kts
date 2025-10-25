@@ -47,3 +47,13 @@ tasks.register<BootRun>("bootResilience4jClient") {
   mainClass.set("com.fResult.orchestration.resilience4j.ResilientClientApplicationKt")
   classpath = sourceSets["main"].runtimeClasspath
 }
+
+/* ============================= *
+ * ========== Hedging ========== *
+ * ============================= */
+tasks.register<BootRun>("bootHedgingClient") {
+  group = "application"
+  description = "Run the Hedging Client"
+  mainClass.set("com.fResult.orchestration.hedging.HedgingApplicationKt")
+  classpath = sourceSets["main"].runtimeClasspath
+}

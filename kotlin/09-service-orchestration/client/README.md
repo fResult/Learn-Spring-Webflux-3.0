@@ -82,4 +82,15 @@ cd $(git rev-parse --show-toplevel) && \
   SPRING_PROFILES_ACTIVE=bulkhead ./gradlew :kotlin:09-service-orchestration:client:bootResilience4jClient
 ```
 
+#### Hedging Script
+
+First, make sure that the [Eureka server](../eureka-service/README.md#running-application) and two instances of [Slow Service](../slow-service/README.md#running-application) are up and running.\
+
+Then, run the [`HedgingApplication`](src/main/kotlin/com/fResult/orchestration/hedging/HedgingApplication.kt):
+
+```bash
+cd $(git rev-parse --show-toplevel) && \
+  ./gradlew :kotlin:09-service-orchestration:client:bootHedgingClient
+```
+
 [← Back to \[09 Service Orchestration\]'s README](../README.md)
