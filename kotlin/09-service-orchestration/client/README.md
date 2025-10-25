@@ -86,11 +86,37 @@ cd $(git rev-parse --show-toplevel) && \
 
 First, make sure that the [Eureka server](../eureka-service/README.md#running-application) and two instances of [Slow Service](../slow-service/README.md#running-application) are up and running.\
 
+Then, run few instances of Slow Service on different ports:
+
+1) Open a terminal and run 10 seconds delayed instance:
+
+    ```bash
+    kotlin/09-service-orchestration/slow-service/run_slow.sh
+    ```
+
+2) Open another terminal and run another 10 seconds delayed instance:
+
+    ```bash
+    kotlin/09-service-orchestration/slow-service/run_slow.sh
+    ```
+
+3) Open more terminals and run 0 seconds delayed instances:
+
+    ```bash
+    kotlin/09-service-orchestration/slow-service/run_fast.sh
+    ```
+
+4) Finally, open one more terminal and run another 0 seconds delayed instance:
+
+    ```bash
+    kotlin/09-service-orchestration/slow-service/run_fast.sh
+    ```
+
 Then, run the [`HedgingApplication`](src/main/kotlin/com/fResult/orchestration/hedging/HedgingApplication.kt):
 
 ```bash
 cd $(git rev-parse --show-toplevel) && \
-  ./gradlew :kotlin:09-service-orchestration:client:bootHedgingClient
+  SPRING_PROFILES_ACTIVE=hedging ./gradlew :kotlin:09-service-orchestration:client:bootHedgingClient
 ```
 
 [← Back to \[09 Service Orchestration\]'s README](../README.md)
