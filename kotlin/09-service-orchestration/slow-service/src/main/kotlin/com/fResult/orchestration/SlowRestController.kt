@@ -37,6 +37,7 @@ class SlowRestController(private val props: SlowServiceProperties) {
   @GetMapping("/greetings")
   fun greet(@RequestParam(required = false, defaultValue = "World") name: String): Mono<GreetingResponse> {
     val startedAt = Clock.System.now()
+    log.info("Received greeting request for name='$name' on port ${port.get()} at $startedAt, will delay for $delay seconds")
 
     return Mono.just(GreetingResponse("Hello, $name! (from port ${port.get()} started at $startedAt and finished at ${Clock.System.now()})"))
       .doOnNext { response -> log.info("Greeting response: $response") }
