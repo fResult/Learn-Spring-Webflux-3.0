@@ -1,0 +1,3 @@
+hedging:
+  load-balancer:
+    max-nodes: 3
