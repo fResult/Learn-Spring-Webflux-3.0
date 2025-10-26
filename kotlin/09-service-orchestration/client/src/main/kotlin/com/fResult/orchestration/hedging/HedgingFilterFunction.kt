@@ -64,5 +64,8 @@ class HedgingFilterFunction(
   }
 
   private fun <T> toShuffled(list: List<T>) =
-    list.toMutableList().apply { shuffle() }.toList()
+    list.toMutableList()
+      .apply { shuffle() }
+      .also { xs -> xs.forEach { log.info(it.toString()) } }
+      .toList()
 }
