@@ -7,7 +7,11 @@ This module has examples for hedging, scatter-gather, and resilience patterns us
 
 ## Implementation Details
 
-- Scatter-Gather pattern - calls `Customer Service`, `Profile Service`, and `Order Service` at the same time and combines results
+### Scatter-Gather Pattern
+- Calls `Customer Service` with multiple customer IDs in a single request ([`CrmClient.kt`](src/main/kotlin/com/fResult/orchestration/scatterGather/CrmClient.kt))
+- Uses `WebClient` with service discovery (`http://customer-service`) for load balancing
+- Aggregates responses into `Flux<Customer>` stream
+- Uses `TimerUtils.cache()` to measure response time ([`ScatterGather.kt`](src/main/kotlin/com/fResult/orchestration/scatterGather/ScatterGather.kt))
 
 ## Available Scripts
 
