@@ -13,6 +13,13 @@ This module has examples for hedging, scatter-gather, and resilience patterns us
 - Aggregates responses into `Flux<Customer>` stream
 - Uses `TimerUtils.cache()` to measure response time ([`ScatterGather.kt`](src/main/kotlin/com/fResult/orchestration/scatterGather/ScatterGather.kt))
 
+### Reactor Basic Patterns
+
+- **Timeout**: Limits response time using `timeout()` operator ([`TimeoutClient.kt`](src/main/kotlin/com/fResult/orchestration/reactor/TimeoutClient.kt))
+- **Retry**: Retries failed requests with fixed number of attempts using `retry()` ([`RetryClient.kt`](src/main/kotlin/com/fResult/orchestration/reactor/RetryClient.kt))
+- **Retry with Backoff**: Retries with exponential backoff using `retryWhen(Retry.backoff())` ([`RetryWhenClient.kt`](src/main/kotlin/com/fResult/orchestration/reactor/RetryWhenClient.kt))
+- **Degrading/Fallback**: Returns empty result on errors using `onErrorResume()` ([`DegradingClient.kt`](src/main/kotlin/com/fResult/orchestration/reactor/DegradingClient.kt))
+- Uses `OrderClient` with service discovery for calling Order Service ([`OrderClient.kt`](src/main/kotlin/com/fResult/orchestration/reactor/OrderClient.kt))
 ## Available Scripts
 
 ### Building Application
