@@ -14,6 +14,7 @@ This module is based on concepts from the [orchestration repository](https://git
 - To build **Order service**, see [order-service/README.md](./order-service/README.md#building-application)
 - To build **Slow service**, see [slow-service/README.md](./slow-service/README.md#building-application)
 - To build **Error service**, see [error-service/README.md](./error-service/README.md#building-application)
+- To build **Client**, see [client/README.md](./client/README.md#building-application)
 
 ```shell
 cd $(git rev-parse --show-toplevel) && \

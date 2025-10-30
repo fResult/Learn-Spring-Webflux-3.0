@@ -8,8 +8,15 @@ Each customer has one profile with a username and password.
 
 ## Implementation Details
 
-- xxxxx
-- yyyyy
+- Provides REST endpoint `/profiles/:id` for retrieving individual profile data ([`ProfileRestController.kt`](src/main/kotlin/com/fResult/orchestration/ProfileRestController.kt))
+- Returns `Mono<Profile>` for single profile lookup by ID
+- Generates random password using `UUID.randomUUID()` for each profile on startup
+- Stores profile data in-memory as `Map<Int, Profile>` with pre-defined usernames ([`ProfileRestController.kt`](src/main/kotlin/com/fResult/orchestration/ProfileRestController.kt))
+- Pre-populates profiles for customer IDs 1 (username: "Jane") and 2 (username: "Mia")
+- Profile model contains `id`, `username`, and `password` fields ([`Profile.kt`](src/main/kotlin/com/fResult/orchestration/Profile.kt))
+- Registers with Eureka server using dynamic instance ID ([`application.yml`](src/main/resources/application.yml))
+- Uses random port assignment (`server.port: 0`) for multiple instances
+- One-to-one relationship: Each customer ID maps to exactly one profile
 
 ## Available Scripts
 

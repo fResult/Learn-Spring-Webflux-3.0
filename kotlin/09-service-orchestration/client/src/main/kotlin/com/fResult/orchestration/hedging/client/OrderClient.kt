@@ -15,7 +15,7 @@ class OrderClient(@LoadBalancedWebClient private val http: WebClient) {
   }
 
   fun getOrders(vararg ids: Int): Flux<Order> {
-    val ordersRoot = "http://order-service/orders?ids=${StringUtils.arrayToDelimitedString(ids.toTypedArray(), ",")}"
+    val ordersRoot = "http://order-service/orders?customer-ids=${StringUtils.arrayToDelimitedString(ids.toTypedArray(), ",")}"
 
     return http.get().uri(ordersRoot).retrieve().bodyToFlux(Order::class.java)
       .onErrorResume { ex ->

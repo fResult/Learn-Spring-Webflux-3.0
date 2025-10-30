@@ -12,12 +12,12 @@ import reactor.util.Loggers
 
 @Component
 @Profile("hedging")
-class HedgingRequestClient(
+class HedgingRequestLauncher(
   @HedgingWebClient private val hedgingHttp: WebClient,
   private val orderClient: OrderClient,
 ) {
   companion object {
-    private val log = Loggers.getLogger(HedgingRequestClient::class.java)
+    private val log = Loggers.getLogger(HedgingRequestLauncher::class.java)
   }
 
   @EventListener(ApplicationReadyEvent::class)

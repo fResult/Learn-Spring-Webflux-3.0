@@ -4,8 +4,15 @@
 
 ## Implementation Details
 
-- xxxxx
-- yyyyy
+- Provides REST endpoint `/customers` for retrieving customer data ([`CustomerRestController.kt`](src/main/kotlin/com/fResult/orchestration/CustomerRestController.kt))
+- Supports filtering by customer IDs using `ids` query parameter (e.g., `/customers?ids=1,2,3`)
+- Supports configurable delay using `delay` query parameter for testing slow responses
+- Returns `Flux<Customer>` stream for reactive processing
+- Uses `delaySubscription()` to simulate network latency when `delay=true`
+- Configurable delay duration via `delay` property in [`application.yml`](src/main/resources/application.yml) (default: 2000ms)
+- Registers with Eureka server using dynamic instance ID ([`application.yml`](src/main/resources/application.yml))
+- Uses random port assignment (`server.port: 0`) for multiple instances
+- Stores customer data in-memory as `Map<Int, Customer>` ([`Customer.kt`](src/main/kotlin/com/fResult/orchestration/Customer.kt))
 
 ## Available Scripts
 

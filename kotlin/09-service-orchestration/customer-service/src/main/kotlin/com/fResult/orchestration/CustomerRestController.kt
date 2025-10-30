@@ -10,7 +10,7 @@ import kotlin.time.toJavaDuration
 
 @RestController
 class CustomerRestController(
-  @Value("\${delay:2000}")
+  @Value($$"${delay:2000}")
   private val delayInMillis: Int,
 ) {
   private val customers: Map<Int, Customer> = mapOf(
