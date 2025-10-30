@@ -42,13 +42,20 @@ Each module is implemented in both [Java](./java) and [Kotlin](./kotlin) to comp
 
 ### What I Learned From Reading This Book
 
-- Appreciated how Spring Boot speeds up development through starter packages, auto-configuration, and easy transaction management
-- Understood the benefits of non-blocking I/O for scalable applications
-- Understood reactive programming principles and how they differ from imperative programming
-- Mastered Project Reactor's core (`Mono` and `Flux`) and how they enable composition of asynchronous operations
-- Learned reactive database access patterns with Spring Data R2DBC replacing traditional JDBC
-- Explored the differences between traditional Spring MVC and reactive Spring WebFlux for building web applications
-- Discovered RSocket as a binary protocol alternative to HTTP for reactive communication patterns
+- **Spring Boot fundamentals**: Appreciated how Spring Boot speeds up development through starter packages, auto-configuration, and easy transaction management
+- **Non-blocking I/O**: Understood the benefits of non-blocking I/O for scalable applications
+- **Reactive programming principles**: Understood reactive programming principles and how they differ from imperative programming
+- **Project Reactor**: Mastered Project Reactor's core (`Mono` and `Flux`) and how they enable composition of asynchronous operations
+- **Reactive database access**: Learned reactive database access patterns with Spring Data R2DBC replacing traditional JDBC
+- **Spring MVC vs WebFlux**: Explored the differences between traditional Spring MVC and reactive Spring WebFlux for building web applications
+- **RSocket protocol**: Discovered RSocket as a binary protocol alternative to HTTP for reactive communication patterns
+- **Service Orchestration Patterns**:
+  - **Hedging pattern**: Racing multiple service instances with different latencies to reduce tail latency
+  - **Scatter-Gather pattern**: Aggregating data from multiple microservices (Customer, Profile, Order) into single response
+  - **Resilience4j integration**: Circuit Breaker, Retry, Rate Limiter, and Bulkhead patterns for fault tolerance
+  - **Service Discovery**: Using Eureka server for dynamic service registration and discovery
+  - **Load balancing**: Running multiple instances with random ports (`server.port: 0`) for horizontal scaling
+  - **Gateways**: Routing requests through API Gateway to backend services
 
 ### Things I Did Different and Learned Further
 
