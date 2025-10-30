@@ -17,13 +17,13 @@ class CrmClient(private val http: WebClient) {
     return http.get().uri(customersRoot).retrieve().bodyToFlux(Customer::class.java)
   }
 
-  fun getOrders(customerIds: Array<Int>): Flux<Order> {
+  fun getCustomersOrders(customerIds: Array<Int>): Flux<Order> {
     val ordersRoot = "http://order-service/orders?customer-ids=${StringUtils.arrayToDelimitedString(customerIds, ",")}"
 
     return http.get().uri(ordersRoot).retrieve().bodyToFlux(Order::class.java)
   }
 
-  fun getProfile(customerId: Int): Mono<Profile> {
+  fun getCustomerProfile(customerId: Int): Mono<Profile> {
     val profilesRoot = "http://profile-service/profiles?customer-id=$customerId"
 
     return http.get().uri(profilesRoot).retrieve().bodyToMono(Profile::class.java)
