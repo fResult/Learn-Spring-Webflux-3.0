@@ -20,6 +20,27 @@ This module has examples for hedging, scatter-gather, and resilience patterns us
 - **Retry with Backoff**: Retries with exponential backoff using `retryWhen(Retry.backoff())` ([`RetryWhenClient.kt`](src/main/kotlin/com/fResult/orchestration/reactor/RetryWhenClient.kt))
 - **Degrading/Fallback**: Returns empty result on errors using `onErrorResume()` ([`DegradingClient.kt`](src/main/kotlin/com/fResult/orchestration/reactor/DegradingClient.kt))
 - Uses `OrderClient` with service discovery for calling Order Service ([`OrderClient.kt`](src/main/kotlin/com/fResult/orchestration/reactor/OrderClient.kt))
+
+### Resilience4j Patterns
+
+- **Retry**: Retries failed requests with exponential backoff using `RetryOperator` ([`RetryClient.kt`](src/main/kotlin/com/fResult/orchestration/resilience4j/RetryClient.kt))
+  - Configures max attempts (3) and wait duration (1 second with 2x multiplier)
+  - Uses `transformDeferred(RetryOperator.of(retry))` for declarative retry
+- **Circuit Breaker**: Opens circuit after failure threshold to stop calling failing service ([`CircuitBreakerClient.kt`](src/main/kotlin/com/fResult/orchestration/resilience4j/CircuitBreakerClient.kt))
+  - Configures failure rate threshold (50%), sliding window size (5), and wait duration in open state (1 second)
+  - Uses `transformDeferred(CircuitBreakerOperator.of(circuitBreaker))`
+  - Handles `CallNotPermittedException` when circuit is open
+- **Rate Limiter**: Limits number of requests per time period ([`RateLimiterClient.kt`](src/main/kotlin/com/fResult/orchestration/resilience4j/RateLimiterClient.kt))
+  - Configures limit for period (2 calls) and refresh period (5 seconds)
+  - Uses `transformDeferred(RateLimiterOperator.of(rateLimiter))`
+  - Tracks successful and failed requests with `AtomicInteger`
+- **Bulkhead**: Limits concurrent requests to prevent resource exhaustion ([`BulkheadClient.kt`](src/main/kotlin/com/fResult/orchestration/resilience4j/BulkheadClient.kt))
+  - Configures max concurrent calls (half of available processors) and max wait duration (5ms)
+  - Uses `transformDeferred(BulkheadOperator.of(bulkhead))`
+  - Demonstrates rejection when bulkhead is full
+- Uses `GreetingClientUtils` to call Error Service with common `WebClient` logic ([`GreetingClientUtils.kt`](src/main/kotlin/com/fResult/orchestration/resilience4j/GreetingClientUtils.kt))
+- Profile-based activation for testing different resilience patterns ([`application.yml`](src/main/resources/application.yml))
+
 ## Available Scripts
 
 ### Building Application
