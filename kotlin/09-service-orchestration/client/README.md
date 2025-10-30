@@ -41,6 +41,21 @@ This module has examples for hedging, scatter-gather, and resilience patterns us
 - Uses `GreetingClientUtils` to call Error Service with common `WebClient` logic ([`GreetingClientUtils.kt`](src/main/kotlin/com/fResult/orchestration/resilience4j/GreetingClientUtils.kt))
 - Profile-based activation for testing different resilience patterns ([`application.yml`](src/main/resources/application.yml))
 
+### Hedging Pattern
+
+- Calls multiple service instances concurrently and accepts the first successful response ([`HedgingFilterFunction.kt`](src/main/kotlin/com/fResult/orchestration/hedging/HedgingFilterFunction.kt))
+- Discovers available service instances using `ReactiveDiscoveryClient` ([`HedgingConfiguration.kt`](src/main/kotlin/com/fResult/orchestration/hedging/config/HedgingConfiguration.kt))
+- Shuffles and limits instances to `maxNodes` (default: 3) for hedging ([`HedgingLoadBalancerProperties.kt`](src/main/kotlin/com/fResult/orchestration/hedging/config/HedgingLoadBalancerProperties.kt))
+- Sends requests to multiple instances using `Flux.firstWithSignal()` to get fastest response
+- Configures 10 seconds timeout for hedging requests
+- Cancels pending requests automatically when first response arrives
+- Uses custom `ExchangeFilterFunction` to intercept and transform requests
+- Resolves service URIs from discovered instances (`http://<host>:<port><path>`)
+- **Hedging Client** (`@HedgingWebClient`): Uses custom hedging filter for service discovery with hedging strategy ([`HedgingConfiguration.kt`](src/main/kotlin/com/fResult/orchestration/hedging/config/HedgingConfiguration.kt))
+- **Load-Balanced Client** (`@LoadBalancedWebClient`): Uses standard Spring Cloud LoadBalancer filter ([`LoadBalancedClientConfiguration.kt`](src/main/kotlin/com/fResult/orchestration/hedging/config/LoadBalancedClientConfiguration.kt))
+- Uses `@Qualifier` annotations to differentiate between hedging and load-balanced clients ([`HedgingWebClient.kt`](src/main/kotlin/com/fResult/orchestration/hedging/qualifier/HedgingWebClient.kt), [`LoadBalancedWebClient.kt`](src/main/kotlin/com/fResult/orchestration/hedging/qualifier/LoadBalancedWebClient.kt))
+- Demonstrates both hedging (for `Slow Service`) and load-balanced (for `Order Service`) calls ([`HedgingRequestLauncher.kt`](src/main/kotlin/com/fResult/orchestration/hedging/client/HedgingRequestLauncher.kt))
+
 ## Available Scripts
 
 ### Building Application
