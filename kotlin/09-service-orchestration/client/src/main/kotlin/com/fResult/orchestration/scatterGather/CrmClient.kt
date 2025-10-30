@@ -23,6 +23,21 @@ class CrmClient(private val http: WebClient) {
     return http.get().uri(ordersRoot).retrieve().bodyToFlux(Order::class.java)
   }
 
+  /**
+   * Simulates the N+1 problem described in Chapter 12 (Service Orchestration).
+   *
+   * While reactive WebClient enables *parallel execution* (avoiding serial latency),
+   * this single-record fetch pattern remains a bad practice because:
+   *
+   * - Wastes network resources (N round-trips for N customers)
+   * - Fails to leverage database batch query capabilities
+   * - Creates unnecessary load on profile-service
+   *
+   * Prefer batch endpoints (e.g., GET `/profiles?customer-ids=1,2,3`) as demonstrated in getCustomers().
+   *
+   * See book section 12.7 - Reactive Scatter/Gather, Page 393 of 421:
+   * "The getProfile method returns a single Profile, which is unfortunate..."
+   */
   fun getCustomerProfile(customerId: Int): Mono<Profile> {
     val profilesRoot = "http://profile-service/profiles?customer-id=$customerId"
 
