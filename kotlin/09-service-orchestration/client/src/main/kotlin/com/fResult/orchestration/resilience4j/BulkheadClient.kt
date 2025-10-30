@@ -38,7 +38,7 @@ class BulkheadClient(private val http: WebClient) {
 
     val immediate = Schedulers.immediate()
     (1..availableProcessors).forEach { n ->
-      buildRequest(immediate, n).subscribe { log.info("Received response: {}", it)}
+      buildRequest(immediate, n).subscribe { log.info("Received response: {}", it) }
     }
   }
 

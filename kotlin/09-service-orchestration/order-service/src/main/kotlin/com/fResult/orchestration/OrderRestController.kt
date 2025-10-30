@@ -27,7 +27,7 @@ class OrderRestController {
   }
 
   @GetMapping
-  fun orders(@RequestParam(required = false, name = "ids") customerIds: Array<Int>): Flux<Order> {
+  fun orders(@RequestParam(required = false, name = "customer-ids") customerIds: Array<Int>): Flux<Order> {
     val customerIdStream = customerIdToOrders.keys.stream()
     val includedCustomerIds = customerIds.toList()
     val orderStream = customerIdStream.filter(includedCustomerIds::contains)

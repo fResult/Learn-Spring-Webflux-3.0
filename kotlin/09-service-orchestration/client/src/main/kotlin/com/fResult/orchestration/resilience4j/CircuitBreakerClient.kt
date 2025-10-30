@@ -30,22 +30,8 @@ class CircuitBreakerClient(private val http: WebClient) {
     log.info("Starting Circuit Breaker client with UID=$uid")
     GreetingClientUtils.getGreetingFor(http, "greetings-circuit-breaker", "circuit-breaker")
       .transformDeferred(CircuitBreakerOperator.of(circuitBreaker))
-      .doOnError { ex ->
-        if (ex is WebClientResponseException.InternalServerError) {
-          log.error(
-            "Oops! We got a {} from our network call. This will probably be a problem but we might try again...",
-            ex.javaClass.simpleName,
-          )
-        }
-        if (ex is CallNotPermittedException) {
-          log.error("No more requests are permitted, now would be a good time to fail fast")
-        }
-      }.retry(5)
-      .subscribe(
-        { message -> log.info("Received: {}", message) },
-        { ex -> log.error("Error received: {}", ex.message) },
-        { log.info("Circuit Breaker sequence completed") }
-      )
+      .doOnError(::onGreetingError).retry(5)
+      .subscribe(::onGreetingReceived, ::onGreetingError, ::onGreetingComplete)
   }
 
   private fun circuitBreakerConfig() = CircuitBreakerConfig.custom()
@@ -55,4 +41,26 @@ class CircuitBreakerClient(private val http: WebClient) {
     .waitDurationInOpenState(1.seconds.toJavaDuration())
     .permittedNumberOfCallsInHalfOpenState(2)
     .build()
+
+  private fun onGreetingReceived(message: String?): Unit =
+    log.info("Received greeting: {}", message)
+
+  private fun onGreetingError(ex: Throwable): Unit =
+    when (ex) {
+      is WebClientResponseException.InternalServerError ->
+        log.error(
+          "Oops! We got a {} from our network call. This will probably be a problem but we might try again... {}",
+          ex.javaClass.simpleName,
+          ex
+        )
+
+      is CallNotPermittedException ->
+        log.error("Call not permitted error received while getting greeting: {}", ex.message, ex)
+
+      else ->
+        log.error("Unexpected error received while getting greeting: {}", ex.message, ex)
+    }
+
+  private fun onGreetingComplete(): Unit =
+    log.info("Greeting with Circuit Breaker completed")
 }

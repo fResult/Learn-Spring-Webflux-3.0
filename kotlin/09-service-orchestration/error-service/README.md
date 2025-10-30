@@ -11,8 +11,21 @@ This service shows how to handle services that fail in different ways.
 
 ## Implementation Details
 
-- xxxxx
-- yyyyy
+- Provides multiple REST endpoints for testing different error scenarios ([`ErrorRestController.kt`](src/main/kotlin/com/fResult/orchestration/ErrorRestController.kt))
+- **`/ok` endpoint**: Always returns successful response with greeting message
+    - Supports `uid` query parameter to track client request counts
+    - Returns greeting with attempt count and server port
+- **`/retry` endpoint**: Fails first 2 attempts, succeeds on 3rd attempt
+    - Uses `ConcurrentHashMap<String, AtomicInteger>` to track per-client attempt counts
+    - Returns `IllegalArgumentException` for first 2 attempts to trigger retry logic
+    - Succeeds with greeting response after 2 failed attempts
+- **`/circuit-breaker` endpoint**: Always fails to trigger circuit breaker opening
+    - Returns `IllegalArgumentException` for all requests
+    - Used to test circuit breaker failure threshold and open state
+- Tracks client request counts using `uid` parameter for stateful error simulation ([`ErrorRestController.kt`](src/main/kotlin/com/fResult/orchestration/ErrorRestController.kt))
+- Global exception handler converts exceptions to HTTP `400 Bad Request` with `ProblemDetail` response ([`GlobalExceptionHandler.kt`](src/main/kotlin/com/fResult/orchestration/GlobalExceptionHandler.kt))
+- Registers with Eureka server using dynamic instance ID ([`application.yml`](src/main/resources/application.yml))
+- Uses random port assignment (`server.port: 0`) for multiple instances
 
 ## Available Scripts
 

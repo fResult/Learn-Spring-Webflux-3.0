@@ -16,7 +16,7 @@ class DegradingClient(private val orderClient: OrderClient) {
   @EventListener(ApplicationReadyEvent::class)
   fun onApplicationReady() {
     orderClient.getOrders(1, 2)
-      .onErrorResume { ex -> Flux.empty() }
+      .onErrorResume { _ -> Flux.empty() }
       .subscribe(::onOrderReceived)
   }
 
