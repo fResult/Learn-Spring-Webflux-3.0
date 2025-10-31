@@ -9,6 +9,7 @@ resilience4j = "2.3.0"
 spring-boot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator", version.ref = "springboot" }
 spring-boot-starter-data-r2dbc = { module = "org.springframework.boot:spring-boot-starter-data-r2dbc", version.ref = "springboot" }
 spring-boot-starter-data-mongodb-reactive = { module = "org.springframework.boot:spring-boot-starter-data-mongodb-reactive", version.ref = "springboot" }
+spring-boot-starter-data-redis-reactive = { module = "org.springframework.boot:spring-boot-starter-data-redis-reactive", version.ref = "springboot" }
 spring-boot-starter-jdbc = { module = "org.springframework.boot:spring-boot-starter-jdbc", version.ref = "springboot" }
 spring-boot-starter-rsocket = { module = "org.springframework.boot:spring-boot-starter-rsocket", version.ref = "springboot" }
 spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "springboot" }
@@ -27,6 +28,7 @@ spring-cloud-dependencies-bom = { module = "org.springframework.cloud:spring-clo
 spring-cloud-starter-netflix-eureka-server = { module = "org.springframework.cloud:spring-cloud-starter-netflix-eureka-server" }
 spring-cloud-starter-netflix-eureka-client = { module = "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client" }
 spring-cloud-starter-loadbalancer = { module = "org.springframework.cloud:spring-cloud-starter-loadbalancer" }
+spring-cloud-starter-gateway = { module = "org.springframework.cloud:spring-cloud-starter-gateway" }
 
 resilience4j-bulkhead = { module = "io.github.resilience4j:resilience4j-bulkhead", version.ref = "resilience4j" }
 resilience4j-circuitbreaker = { module = "io.github.resilience4j:resilience4j-circuitbreaker", version.ref = "resilience4j" }
