@@ -7,6 +7,12 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
 
+
+/**
+ * From 12.8.3 - Filter
+ *
+ * - [Reactive Spring Book GitHub's SimpleProxyFilterRouteConfiguration](https://github.com/reactive-spring-book/orchestration/blob/main/client/src/main/java/rsb/orchestration/gateway/SimpleProxyFilterRouteConfiguration.java)
+ */
 @Configuration
 @Profile("routes-filter-simple")
 class SimpleProxyFilterRouteConfiguration {

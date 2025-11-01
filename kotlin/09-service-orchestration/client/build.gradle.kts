@@ -6,7 +6,6 @@ dependencies {
   implementation(enforcedPlatform(libs.spring.cloud.dependencies.bom))
   implementation(libs.spring.cloud.starter.netflix.eureka.client)
   implementation(libs.spring.cloud.starter.loadbalancer)
-
   implementation(libs.spring.boot.starter.data.redis.reactive)
   implementation(libs.spring.boot.starter.security)
   implementation(libs.spring.cloud.starter.gateway.server.webflux)
