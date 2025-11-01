@@ -60,3 +60,13 @@ tasks.register<BootRun>("bootHedgingClient") {
   mainClass.set("com.fResult.orchestration.hedging.HedgingApplicationKt")
   classpath = sourceSets["main"].runtimeClasspath
 }
+
+/* ============================= *
+ * ========= API Gateway ======= *
+ * ============================= */
+tasks.register<BootRun>("bootApiGatewayClient") {
+  group = "application"
+  description = "Run the API Gateway"
+  mainClass.set("com.fResult.orchestration.gateway.ApiGatewayApplicationKt")
+  classpath = sourceSets["main"].runtimeClasspath
+}

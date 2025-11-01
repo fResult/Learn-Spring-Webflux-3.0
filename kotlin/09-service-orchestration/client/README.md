@@ -180,4 +180,29 @@ cd $(git rev-parse --show-toplevel) && \
   SPRING_PROFILES_ACTIVE=hedging ./gradlew :kotlin:09-service-orchestration:client:bootHedgingClient
 ```
 
+#### Gateway Script
+
+First, make sure that the [Eureka server](../eureka-service/README.md#running-application) and required backend services are up and running.
+
+Then, run the [`GatewayApplication`](src/main/kotlin/com/fResult/orchestration/gateway/ApiGatewayApplication.kt):
+
+```bash
+cd $(git rev-parse --show-toplevel) && \
+  ./gradlew :kotlin:09-service-orchestration:client:bootGatewayClient
+```
+
+To run with `routes-simple` profile enabled, use the following command:
+
+```bash
+cd $(git rev-parse --show-toplevel) && \
+  SPRING_PROFILES_ACTIVE=routes-simple ./gradlew :kotlin:09-service-orchestration:client:bootGatewayClient
+```
+
+To run with `routes-predicate` profile enabled, use the following command:
+
+```bash
+cd $(git rev-parse --show-toplevel) && \
+  SPRING_PROFILES_ACTIVE=routes-predicate ./gradlew :kotlin:09-service-orchestration:client:bootGatewayClient
+```
+
 [← Back to \[09 Service Orchestration\]'s README](../README.md)
