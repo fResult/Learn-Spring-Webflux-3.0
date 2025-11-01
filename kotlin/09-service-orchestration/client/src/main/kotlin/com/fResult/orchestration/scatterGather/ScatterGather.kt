@@ -1,9 +1,6 @@
 package com.fResult.orchestration.scatterGather
 
-import com.fResult.orchestration.Customer
-import com.fResult.orchestration.CustomerWithDetails
-import com.fResult.orchestration.Order
-import com.fResult.orchestration.TimerUtils
+import com.fResult.orchestration.*
 import org.springframework.boot.context.event.ApplicationReadyEvent
 import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Component
@@ -14,6 +11,7 @@ import reactor.kotlin.core.util.function.component2
 import reactor.kotlin.core.util.function.component3
 import reactor.util.Logger
 import reactor.util.Loggers
+import reactor.util.function.Tuple3
 
 @Component
 class ScatterGather(private val crmClient: CrmClient) {
@@ -31,15 +29,21 @@ class ScatterGather(private val crmClient: CrmClient) {
     (1..5).forEach(monitorAndLogCustomerOrders(customerWithDetails))
   }
 
-  private fun enrichWithOrdersAndProfile(orders: Flux<Order>): (Customer) -> Flux<CustomerWithDetails> = { customer ->
-    val orderFor = ::isOrderForCustomer
+  private fun enrichWithOrdersAndProfile(orders: Flux<Order>): (Customer) -> Flux<CustomerWithDetails> =
+    { customer ->
+      val orderFor = ::isOrderForCustomer
 
-    Flux.zip(
-      customer.toMono(),
-      orders.filter(orderFor(customer.id)).collectList(),
-      crmClient.getCustomerProfile(customer.id)
-    ).map { (customer, orderList, profile) -> CustomerWithDetails(customer, orderList, profile) }
-  }
+      Flux.zip(
+        customer.toMono(),
+        orders.filter(orderFor(customer.id)).collectList(),
+        crmClient.getCustomerProfile(customer.id)
+      ).map(toCustomerWithDetails)
+    }
+
+  private val toCustomerWithDetails: (Tuple3<Customer, List<Order>, Profile>) -> CustomerWithDetails =
+    { (customer, orders, profile) ->
+      CustomerWithDetails(customer, orders, profile)
+    }
 
   private fun isOrderForCustomer(customerId: Int): (Order) -> Boolean = { order ->
     order.customerId == customerId
@@ -51,8 +55,8 @@ class ScatterGather(private val crmClient: CrmClient) {
 
   private fun logCustomerDetails(details: CustomerWithDetails) {
     log.info("---------------")
-    log.info("Customer: ${details.customer}")
-    log.info("Profile: ${details.profile}")
-    details.orders.forEach { order -> log.info("Order: {}", order) }
+    log.info("Customer: {}", details.customer)
+    log.info("Profile: {}", details.profile)
+    details.orders.also { log.info("Orders: ") } .forEach { order -> log.info("\t{}", order) }
   }
 }
