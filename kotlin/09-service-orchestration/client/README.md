@@ -8,10 +8,24 @@ This module has examples for hedging, scatter-gather, and resilience patterns us
 ## Implementation Details
 
 ### Scatter-Gather Pattern
-- Calls `Customer Service` with multiple customer IDs in a single request ([`CrmClient.kt`](src/main/kotlin/com/fResult/orchestration/scatterGather/CrmClient.kt))
-- Uses `WebClient` with service discovery (`http://customer-service`) for load balancing
-- Aggregates responses into `Flux<Customer>` stream
-- Uses `TimerUtils.cache()` to measure response time ([`ScatterGather.kt`](src/main/kotlin/com/fResult/orchestration/scatterGather/ScatterGather.kt))
+
+- Uses `CrmClient` for making reactive HTTP calls via `WebClient` to backend services ([`CrmClient.kt`](src/main/kotlin/com/fResult/orchestration/scatterGather/CrmClient.kt))
+- **Batch-optimized endpoints** for customers and orders:
+  - `getCustomers(ids)`: Fetches multiple customers in single request using `?ids=1,2,3` query parameter
+  - `getCustomersOrders(customerIds)`: Fetches all orders for multiple customers using `?customer-ids=1,2,3`
+  - Leverages database batch queries (e.g., SQL `WHERE customer_fk IN (...)`) to avoid unnecessary network roundtrips
+- **N+1 Problem demonstration** with `getCustomerProfile(customerId)`:
+  - Intentionally fetches profiles one-by-one to simulate worst-case ORM pattern (see *Reactive Spring* Chapter 12, Section 12.7)
+  - Makes N separate HTTP calls for N customers (e.g., 100 requests for 100 customers)
+  - Uses non-RESTful endpoint `GET /profiles?customer-id=<id>` (should be `GET /customers/:customerId/profile` per REST conventions)
+  - **Mitigated by reactive programming**: Launches all requests in parallel using `flatMap()` instead of serial execution
+  - Still wasteful of network resources but significantly faster than blocking/serial approach
+  - **Production recommendation**: Use batch endpoint (e.g., `GET /profiles?customer-ids=1,2,3`) instead
+- Orchestrates data aggregation in `ScatterGather` component using `Flux.zip()` and reactive pipelines ([`ScatterGather.kt`](src/main/kotlin/com/fResult/orchestration/scatterGather/ScatterGather.kt)):
+  - Enriches each `Customer` with their `orders` (filtered from batch result) and `profile` (fetched individually)
+  - Combines into `CustomerWithDetails` model containing customer, orders list, and profile ([`CustomerWithDetails.kt`](src/main/kotlin/com/fResult/orchestration/CustomerWithDetails.kt))
+- Uses `TimerUtils.cache()` and `TimerUtils.monitor()` for performance measurement and logging
+- Uses service discovery (`http://customer-service`, `http://order-service`, `http://profile-service`) for dynamic routing via Eureka
 
 ### Reactor Basic Patterns
 

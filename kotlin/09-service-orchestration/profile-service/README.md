@@ -8,7 +8,8 @@ Each customer has one profile with a username and password.
 
 ## Implementation Details
 
-- Provides REST endpoint `/profiles/:id` for retrieving individual profile data ([`ProfileRestController.kt`](src/main/kotlin/com/fResult/orchestration/ProfileRestController.kt))
+- Provides REST endpoint GET `/profiles?customer-id=<customer_id>` for retrieving individual profile data ([`ProfileRestController.kt`](src/main/kotlin/com/fResult/orchestration/ProfileRestController.kt))\
+  (Note that this is bad API design; it should be GET `/customers/:customerId/profile` to follow RESTful conventions)
 - Returns `Mono<Profile>` for single profile lookup by ID
 - Generates random password using `UUID.randomUUID()` for each profile on startup
 - Stores profile data in-memory as `Map<Int, Profile>` with pre-defined usernames ([`ProfileRestController.kt`](src/main/kotlin/com/fResult/orchestration/ProfileRestController.kt))
