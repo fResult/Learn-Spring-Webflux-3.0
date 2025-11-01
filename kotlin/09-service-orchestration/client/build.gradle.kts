@@ -7,6 +7,9 @@ dependencies {
   implementation(libs.spring.cloud.starter.netflix.eureka.client)
   implementation(libs.spring.cloud.starter.loadbalancer)
 
+  implementation(libs.spring.boot.starter.data.redis.reactive)
+  implementation(libs.spring.boot.starter.security)
+  implementation(libs.spring.cloud.starter.gateway)
   implementation(libs.resilience4j.ratelimiter)
   implementation(libs.resilience4j.circuitbreaker)
   implementation(libs.resilience4j.retry)
