@@ -219,4 +219,21 @@ cd $(git rev-parse --show-toplevel) && \
   SPRING_PROFILES_ACTIVE=routes-filter ./gradlew :kotlin:09-service-orchestration:client:bootGatewayClient
 ```
 
+To run with `routes-limiter` profile enabled, use the following command:
+
+```bash
+# Make sure that redis-server is running locally
+brew services start redis
+
+# Check redis ping (must get `PONG` response)
+redis-cli ping
+
+# Then run the gateway client with rate limiter profile
+cd $(git rev-parse --show-toplevel) && \
+  SPRING_PROFILES_ACTIVE=routes-limiter ./gradlew :kotlin:09-service-orchestration:client:bootGatewayClient
+  
+# To stop redis-server after testing
+brew services stop redis
+```
+
 [← Back to \[09 Service Orchestration\]'s README](../README.md)
