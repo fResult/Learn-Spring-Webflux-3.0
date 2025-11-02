@@ -243,4 +243,11 @@ cd $(git rev-parse --show-toplevel) && \
   SPRING_PROFILES_ACTIVE=routes-loadbalanced ./gradlew :kotlin:09-service-orchestration:client:bootGatewayClient
 ```
 
+To run with `routes-events` profile enabled (for monitoring events), use the following command:
+
+```bash
+cd $(git rev-parse --show-toplevel) && \
+  SPRING_PROFILES_ACTIVE=routes-events ./gradlew :kotlin:09-service-orchestration:client:bootGatewayClient
+```
+
 [← Back to \[09 Service Orchestration\]'s README](../README.md)
