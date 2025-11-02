@@ -1,4 +1,4 @@
-package com.fResult.orchestration.gateway
+package com.fResult.orchestration.gateway.events
 
 import org.springframework.cloud.gateway.event.RefreshRoutesResultEvent
 import org.springframework.cloud.gateway.route.CachingRouteLocator
@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
 import org.springframework.context.event.EventListener
-import org.springframework.util.Assert
 import reactor.util.Loggers
 
 /**
@@ -28,12 +27,23 @@ class EventsConfiguration {
   fun refreshRoutesResultEvent(event: RefreshRoutesResultEvent) {
     log.info(event.javaClass.simpleName)
     log.info("Routes refreshed: ${event.source}")
-    Assert.state(event.source is CachingRouteLocator) { "The source must be an instance of ${CachingRouteLocator::class.simpleName}" }
+
+    val source = event.source
+    when (source) {
+      is CachingRouteLocator -> {
+        source.routes.subscribe { route -> log.info("{}:{}:{}", route.javaClass, route.metadata, route.filters) }
+      }
+
+      else -> log.warn("The source must be an instance of {}", CachingRouteLocator::class.simpleName)
+    }
   }
 
   @Bean
   fun gateway(builder: RouteLocatorBuilder): RouteLocator =
-    builder.routes().route(::routeForSpringGuides).build()
+    builder
+      .routes()
+      .route(::routeForSpringGuides)
+      .build()
 
   private fun routeForSpringGuides(spec: PredicateSpec): Buildable<Route> =
     spec.path("/").filters(::guidesPathFilters).uri("https://spring.io")
