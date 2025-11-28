@@ -8,10 +8,24 @@ This module has examples for hedging, scatter-gather, and resilience patterns us
 ## Implementation Details
 
 ### Scatter-Gather Pattern
-- Calls `Customer Service` with multiple customer IDs in a single request ([`CrmClient.kt`](src/main/kotlin/com/fResult/orchestration/scatterGather/CrmClient.kt))
-- Uses `WebClient` with service discovery (`http://customer-service`) for load balancing
-- Aggregates responses into `Flux<Customer>` stream
-- Uses `TimerUtils.cache()` to measure response time ([`ScatterGather.kt`](src/main/kotlin/com/fResult/orchestration/scatterGather/ScatterGather.kt))
+
+- Uses `CrmClient` for making reactive HTTP calls via `WebClient` to backend services ([`CrmClient.kt`](src/main/kotlin/com/fResult/orchestration/scatterGather/CrmClient.kt))
+- **Batch-optimized endpoints** for customers and orders:
+  - `getCustomers(ids)`: Fetches multiple customers in single request using `?ids=1,2,3` query parameter
+  - `getCustomersOrders(customerIds)`: Fetches all orders for multiple customers using `?customer-ids=1,2,3`
+  - Leverages database batch queries (e.g., SQL `WHERE customer_fk IN (...)`) to avoid unnecessary network roundtrips
+- **N+1 Problem demonstration** with `getCustomerProfile(customerId)`:
+  - Intentionally fetches profiles one-by-one to simulate worst-case ORM pattern (see *Reactive Spring* Chapter 12, Section 12.7)
+  - Makes N separate HTTP calls for N customers (e.g., 100 requests for 100 customers)
+  - Uses non-RESTful endpoint `GET /profiles?customer-id=<id>` (should be `GET /customers/:customerId/profile` per REST conventions)
+  - **Mitigated by reactive programming**: Launches all requests in parallel using `flatMap()` instead of serial execution
+  - Still wasteful of network resources but significantly faster than blocking/serial approach
+  - **Production recommendation**: Use batch endpoint (e.g., `GET /profiles?customer-ids=1,2,3`) instead
+- Orchestrates data aggregation in `ScatterGather` component using `Flux.zip()` and reactive pipelines ([`ScatterGather.kt`](src/main/kotlin/com/fResult/orchestration/scatterGather/ScatterGather.kt)):
+  - Enriches each `Customer` with their `orders` (filtered from batch result) and `profile` (fetched individually)
+  - Combines into `CustomerWithDetails` model containing customer, orders list, and profile ([`CustomerWithDetails.kt`](src/main/kotlin/com/fResult/orchestration/CustomerWithDetails.kt))
+- Uses `TimerUtils.cache()` and `TimerUtils.monitor()` for performance measurement and logging
+- Uses service discovery (`http://customer-service`, `http://order-service`, `http://profile-service`) for dynamic routing via Eureka
 
 ### Reactor Basic Patterns
 
@@ -164,6 +178,83 @@ Then, run the [`HedgingApplication`](src/main/kotlin/com/fResult/orchestration/h
 ```bash
 cd $(git rev-parse --show-toplevel) && \
   SPRING_PROFILES_ACTIVE=hedging ./gradlew :kotlin:09-service-orchestration:client:bootHedgingClient
+```
+
+#### Gateway Script
+
+First, make sure that the [Eureka server](../eureka-service/README.md#running-application) and required backend services are up and running.
+
+Then, run the [`GatewayApplication`](src/main/kotlin/com/fResult/orchestration/gateway/ApiGatewayApplication.kt):
+
+```bash
+cd $(git rev-parse --show-toplevel) && \
+  ./gradlew :kotlin:09-service-orchestration:client:bootGatewayClient
+```
+
+To run with `routes-simple` profile enabled, use the following command:
+
+```bash
+cd $(git rev-parse --show-toplevel) && \
+  SPRING_PROFILES_ACTIVE=routes-simple ./gradlew :kotlin:09-service-orchestration:client:bootGatewayClient
+```
+
+To run with `routes-predicate` profile enabled, use the following command:
+
+```bash
+cd $(git rev-parse --show-toplevel) && \
+  SPRING_PROFILES_ACTIVE=routes-predicate ./gradlew :kotlin:09-service-orchestration:client:bootGatewayClient
+```
+
+To run with `routes-filter-simple` profile enabled, use the following command:
+
+```bash
+cd $(git rev-parse --show-toplevel) && \
+  SPRING_PROFILES_ACTIVE=routes-filter-simple ./gradlew :kotlin:09-service-orchestration:client:bootGatewayClient
+```
+
+To run with `routes-filter` profile enabled, use the following command:
+
+```bash
+cd $(git rev-parse --show-toplevel) && \
+  SPRING_PROFILES_ACTIVE=routes-filter ./gradlew :kotlin:09-service-orchestration:client:bootGatewayClient
+```
+
+To run with `routes-limiter` profile enabled, use the following command:
+
+```bash
+# Make sure that redis-server is running locally
+brew services start redis
+
+# Check redis ping (must get `PONG` response)
+redis-cli ping
+
+# Then run the gateway client with rate limiter profile
+cd $(git rev-parse --show-toplevel) && \
+  SPRING_PROFILES_ACTIVE=routes-limiter ./gradlew :kotlin:09-service-orchestration:client:bootGatewayClient
+  
+# To stop redis-server after testing
+brew services stop redis
+```
+
+To run with `routes-loadbalanced` profile enabled (for load balancing manually), use the following command:
+
+```bash
+cd $(git rev-parse --show-toplevel) && \
+  SPRING_PROFILES_ACTIVE=routes-loadbalanced ./gradlew :kotlin:09-service-orchestration:client:bootGatewayClient
+```
+
+To run with `routes-events` profile enabled (for monitoring events), use the following command:
+
+```bash
+cd $(git rev-parse --show-toplevel) && \
+  SPRING_PROFILES_ACTIVE=routes-events ./gradlew :kotlin:09-service-orchestration:client:bootGatewayClient
+```
+
+To run with `routes-custom` profile enabled (for monitoring events), use the following command:
+
+```bash
+cd $(git rev-parse --show-toplevel) && \
+  SPRING_PROFILES_ACTIVE=routes-custom ./gradlew :kotlin:09-service-orchestration:client:bootGatewayClient
 ```
 
 [← Back to \[09 Service Orchestration\]'s README](../README.md)

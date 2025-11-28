@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: guides
+              uri: https://spring.io
+              predicates:
+                - After=2025-11-05T00:23:59.000-00:00[Asia/Bangkok]

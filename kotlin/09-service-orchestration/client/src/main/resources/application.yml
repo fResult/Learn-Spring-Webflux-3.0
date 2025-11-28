@@ -1,6 +1,18 @@
 spring:
   application:
     name: client
+  cloud:
+    loadbalancer:
+      enabled: true
+    gateway:
+      server:
+        webflux:
+          httpclient:
+            response-timeout: 10s
+          discovery:
+            locator:
+              enabled: true
+              lower-case-service-id: true
 
 server:
   port: 0
@@ -8,6 +20,7 @@ server:
 logging:
   level:
     com.fResult: DEBUG
+    org.springframework.cloud.gateway.filter.ratelimit: DEBUG
 
 # Spring Cloud Gateway
 #management:

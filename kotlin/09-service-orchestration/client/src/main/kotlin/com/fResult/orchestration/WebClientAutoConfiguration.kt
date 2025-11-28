@@ -20,7 +20,7 @@ class WebClientAutoConfiguration {
     builder: WebClient.Builder,
     lbFunction: ReactorLoadBalancerExchangeFilterFunction,
   ): WebClient {
-    log.info("Registering a default load-balanced {} bean.", WebClient::class.java)
+    log.info("Registering a default load-balanced [{}] bean.", WebClient::class.java)
 
     return builder.filter(lbFunction).build()
   }

@@ -6,12 +6,14 @@ dependencies {
   implementation(enforcedPlatform(libs.spring.cloud.dependencies.bom))
   implementation(libs.spring.cloud.starter.netflix.eureka.client)
   implementation(libs.spring.cloud.starter.loadbalancer)
-
-  implementation("io.github.resilience4j:resilience4j-ratelimiter:$resilience4jVersion")
-  implementation("io.github.resilience4j:resilience4j-circuitbreaker:$resilience4jVersion")
-  implementation("io.github.resilience4j:resilience4j-retry:$resilience4jVersion")
-  implementation("io.github.resilience4j:resilience4j-bulkhead:$resilience4jVersion")
-  implementation("io.github.resilience4j:resilience4j-reactor:$resilience4jVersion")
+  implementation(libs.spring.boot.starter.data.redis.reactive)
+  implementation(libs.spring.boot.starter.security)
+  implementation(libs.spring.cloud.starter.gateway.server.webflux)
+  implementation(libs.resilience4j.ratelimiter)
+  implementation(libs.resilience4j.circuitbreaker)
+  implementation(libs.resilience4j.retry)
+  implementation(libs.resilience4j.bulkhead)
+  implementation(libs.resilience4j.reactor)
 }
 
 springBoot {
@@ -55,5 +57,15 @@ tasks.register<BootRun>("bootHedgingClient") {
   group = "application"
   description = "Run the Hedging Client"
   mainClass.set("com.fResult.orchestration.hedging.HedgingApplicationKt")
+  classpath = sourceSets["main"].runtimeClasspath
+}
+
+/* ============================= *
+ * ========= API Gateway ======= *
+ * ============================= */
+tasks.register<BootRun>("bootApiGatewayClient") {
+  group = "application"
+  description = "Run the API Gateway"
+  mainClass.set("com.fResult.orchestration.gateway.ApiGatewayApplicationKt")
   classpath = sourceSets["main"].runtimeClasspath
 }
